@@ -176,7 +176,7 @@ function startCallSession() {
 }
 
 function endCall() {
-  window.location.replace("./incomingCall.html");
+  window.location.replace("./index.html");
   const mediaStream = clientVideo.srcObject;
   const mediaTracks = mediaStream.getTracks();
   //stop all tracks

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueJeans</title>
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/joinMeeting.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<body>
+  <div class="container">
+    <h3>Meeting</h3>
+    <h3>Meeting ID: 25819456</h3>
+    <div class="whiteLine"></div>
+    <h5>Select to join:</h5>
+    <div class="joiningCard" onclick="goToCallScreen()">
+      <i class="fa fa-mobile icon"></i>
+      <h4>App Audio & Video</h4>
+      <h6>Uses data for high quality audio & video</h6>
+    </div>
+    <p>or</p>
+    <div class="joiningCard" onclick="goToCallScreen()">
+      <i class="fa fa-phone icon"></i>
+      <h4>Phone Audio</h4>
+      <h6>Audio only phone call</h6>
+    </div>
+    <div class="dottedLine"></div>
+    <div class="linedText" onclick="goToCallScreen()">Join with screen share only</div>
+  </div>
+
+  <script>
+      function goToCallScreen(){
+        window.location.replace("./waitingScreen.html")
+      }
+  </script>
+</body>
+
+</html>

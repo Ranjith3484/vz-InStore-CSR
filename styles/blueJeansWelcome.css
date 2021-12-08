@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'verizonFont';
+    src: URL('./VERIZONNHGEDS-REGULAR.TTF') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'verizonBoldFont';
+    src: URL('./VERIZONNHGEDS-BOLD.TTF') format('truetype');
+  }
+
+html,
+body {
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    background-image: linear-gradient(to top, rgba(51, 153, 255,0.3) 20%, rgba(51, 153, 255) 80%);
+    font-family: verizonFont;
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1{
+    margin:2px !important;
+    font-size: 72px !important;
+    color: #fff;
+}
+
+h4{
+    margin:2px !important;
+    font-size: 32px !important;
+    color: #fff;
+}
+
+@media only screen and (max-width: 850px) {
+    .container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1{
+        margin:2px !important;
+        font-size: 42px !important;
+        color: #fff;
+    }
+    
+    h4{
+        margin:2px !important;
+        font-size: 18px !important;
+        color: #fff;
+    }
+}
+

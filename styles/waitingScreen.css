@@ -1,0 +1,193 @@
+html,
+body {
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    background-image: linear-gradient(to top, rgba(51, 153, 255,0.3) 20%, rgba(51, 153, 255) 80%);
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h3{
+    margin:2px !important;
+    font-size: 32px !important;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 60px !important;
+}
+
+h5{
+    margin:20px 2px !important;
+    font-size: 25px !important;
+    color: #fff;
+    font-weight: 300;
+}
+
+#videoSectionElement {
+    height: 330px;
+    width: 600px; 
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover !important;
+}
+
+.linkArea{
+    height: fit-content;
+    width: 740px; 
+    height: 40px;
+    background-color: #fff !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.iconArea{
+    background-color: #238df7;
+    width:70px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon{
+    font-size: 25px !important;
+    color: #fff !important;
+}
+
+a{
+    text-align: center;
+    color:#3399ff;
+    width: 630px;
+    cursor: auto;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 200px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:rgb(160,160,160); /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+    border-radius: 50px;
+  }
+  
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  /* Animations to fade the snackbar in and out */
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+
+@media only screen and (max-width: 850px) {
+    .container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    h3{
+        margin:2px !important;
+        font-size: 22px !important;
+        color: #fff;
+        font-weight: 300;
+        margin-bottom: 60px !important;
+    }
+    
+    h5{
+        margin:10px 2px !important;
+        font-size: 15px !important;
+        color: #fff;
+        font-weight: 300;
+    }
+    
+    #videoSectionElement {
+        height: 250px;
+        width: 80%; 
+        margin: 0px;
+        padding: 0px;
+        border: 0;
+        transform: rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+        -moz-transform:rotateY(180deg); 
+        object-fit: cover !important;
+    }
+    
+    .linkArea{
+        height: fit-content;
+        width: 90%; 
+        height: 40px;
+        background-color: #fff !important;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .iconArea{
+        background-color: #238df7;
+        width:20%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .icon{
+        font-size: 25px !important;
+        color: #fff !important;
+    }
+    
+    a{
+        text-align: center;
+        color:#3399ff;
+        width: 80%;
+    }
+}

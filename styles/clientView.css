@@ -1,0 +1,975 @@
+@font-face {
+    font-family: 'verizonFont';
+    src: URL('./VERIZONNHGEDS-REGULAR.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'verizonBoldFont';
+    src: URL('./VERIZONNHGEDS-BOLD.TTF') format('truetype');
+}
+
+html,
+body {
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  margin: 0%;
+  background-color: black;
+  /* background-image: linear-gradient(to top, rgba(51, 153, 255,0.3) 20%, rgba(51, 153, 255) 80%); */
+  font-family: verizonFont;
+}
+
+
+h1{
+    margin:2px !important;
+    font-size: 32px !important;
+}
+
+h2{
+    margin:2px !important;
+    font-size: 28px !important;
+}
+
+h3{
+    margin:2px !important;
+    font-size: 24px !important;
+}
+
+h4{
+    margin:2px !important;
+    font-size: 22px !important;
+    font-weight: 700;
+    font-family: verizonBoldFont;
+}
+
+h5{
+    margin: 2px !important;
+    color: grey;
+    font-size: 18px;
+}
+
+h6{
+    margin:2px !important;
+    font-size: 15px !important;
+    color: grey;
+}
+
+p{
+    margin: 2px !important; 
+    color: grey;
+    font-weight: 300;
+}
+
+th{
+    text-align: left;
+}
+
+.border{
+    border-bottom: 1px solid #666;
+    height: 1px !important;
+    width:100%;
+}
+
+.container{
+    /* width: 80%;
+    height: 95%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+     margin-top: -2%;  */
+     margin: auto;
+     width: 80%;
+     height: 95% !important;
+     position: absolute;
+     padding-left: 10%;
+     transform: translate(0%,0%);
+}
+
+.overlayLogo{
+    width:60px;
+    height: 20px;
+    margin-top: 150px;
+    margin-right: -140px;
+    z-index: 2;
+}
+  
+.clientCover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+
+.clientContainer{
+    height: 100%;
+    width: 100%;
+    background-color: #666;
+    z-index: -1;
+}
+
+.customerContainer{
+    height: 230px;
+    width: 100%;
+    float: left;
+    display: flex;
+    margin-top: -200px;
+    margin-left: -140px;
+}
+
+.clientControls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    margin-left: -100px;
+    z-index: 2;
+}
+
+.customerImage{
+    height: 230px;
+    width: 350px;
+}
+
+.overlayName{
+    color:white;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-top: -50px;
+    font-family: verizonBoldFont;
+}
+
+.icon{
+    color:#666;
+    font-size: 25px !important;
+}
+
+.notification {
+    color: white;
+    position: relative;
+    display: inline-block;
+  }
+  
+   .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    color: black;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.iconCircle{
+   height: 110px;
+   width: 110px;
+   border-radius: 100%;
+   display: flex;
+   justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.iconLarge{
+    font-size: 70px !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.iconLarge:hover{
+    transform: scale(1.07);
+}
+
+
+.active{
+    background-color: #666;
+}
+
+.inactive{
+    background-color: red;
+}
+
+.black{
+    color: black;
+}
+
+.grey{
+    color: #666;
+}
+
+.white{
+    color: #fff;
+}
+
+.inactiveElement{
+    color: #666;
+}
+
+.iconText{
+    font-size: 12px !important;
+}
+
+.iconText:hover{
+    font-size: 12px !important;
+    color: #3399ff;
+}
+
+.center{
+    text-align: center;
+}
+
+#customerVideoElement {
+    height: 230px;
+    width: 350px; 
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover !important;
+}
+
+#customerImageElement {
+    height: 230px;
+    width: 350px; 
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover !important;
+}
+
+
+#clientVideoElement {
+    height: 100%;
+    width: 100%; 
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover
+}
+
+.hideElement{
+    display: none;
+}
+
+
+/* side nav */
+
+.sideNavContainer{
+    display: flex;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+}
+
+.sideNavOpener{
+    color:white;
+    font-size: 25px !important;
+    cursor: pointer;
+}
+.sideNavOpener:hover{
+    transform: scale(1.05);
+}
+
+.sidenav {
+    height: 100%;
+    width: 20% !important;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 10.3s;
+    padding: 40px 50px;
+  }
+
+  .sideNavHeader{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .borderLine{
+     border-bottom: 1px solid #666;
+      height: 1px !important;
+      width:100%;
+      margin-top: -7px; 
+  }
+
+  .tabOuter{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.tabOuter:hover{
+    transform: scale(1.04);
+}
+
+.tabLinks{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.tabLinks:hover{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+    border-bottom:5px solid #3399ff;
+    transform: scale(1.04);
+}
+
+.activeTabLinks{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+    border-bottom:5px solid #3399ff;
+}
+
+.tabContent {
+    display: none;
+    padding: 20px 0px;
+}
+
+.sideNavCloseIcon{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+     align-content: center;
+     cursor: pointer;
+     background-color: white;
+     border: 1px solid #666;
+     margin-bottom: -40px;
+     margin-left: -80px;
+     z-index: 1;
+     position: fixed;
+}
+.sideNavCloseIcon:hover{
+    transform: scale(1.04);
+}
+
+.deviceRow{
+    display: flex;
+    flex-direction: row;
+    margin:10px 0px 20px 0px;
+    overflow: scroll;
+}
+
+.deviceColumn{
+    display:flex;
+    flex-direction: column;
+    height: fit-content;
+    min-width: 100px;
+}
+
+.deviceImage{
+    width: 50px;
+    height:100px;
+    margin-top: 10px;
+}
+
+.textTabLinks{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.textTab{
+    font-size: 22px;
+    color: #666;
+}
+
+.textTab:hover{
+    font-weight: bold;
+    font-family: verizonBoldFont;
+}
+
+.textTabContent {
+    padding: 0px;
+    display: none;
+}
+
+.activeBold{
+    font-weight: bold;
+    font-family: verizonBoldFont;
+}
+
+.activeBorder{
+    border-bottom:3px solid red;
+}
+
+.deviceNames{
+    font-size: 18px !important;
+    color: rgba(102, 102, 102,0.7);;
+    font-weight: 400;
+}
+
+
+.alignLeft{
+    float: left;
+    color: red;
+}
+
+table{
+    margin-left: -10px;
+}
+
+
+.ratingRow {
+    display:flex;
+ }
+ 
+ .ratingText{
+    padding-right: 15px;
+ }
+ 
+ .starColor {
+     color: grey;
+     padding-left: 3px;
+ }
+
+ ul{
+    display: flex;
+    padding-inline-start: 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #666;
+    width: 38%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px !important;
+    color: rgba(102, 102, 102,0.7);;
+    font-weight: 400;
+ }
+
+ .alignTogether{
+    display: flex;
+    padding-inline-start: 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #666;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+ }
+
+ ul:hover{
+    transform: scale(1.04);
+ }
+
+ .brandList{
+   display: block;
+   width:90% !important;
+ }
+
+ .deviceList{
+    display: none;
+    width: 100% !important;
+  }
+
+  .deviceShowCase{
+    display:none;
+  }
+
+ .smallIcon{
+    color:#666 !important;
+    font-size: 10px !important;
+    text-align: center;
+}
+
+.deviceAvailableRow{
+    display: flex;
+    margin:10px 0px 20px 0px;
+    overflow: scroll;
+    height: fit-content;
+}
+
+.largeColumn{
+    width:60% !important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.smallColumn{
+    width:40% !important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.smallColumn4{
+    width:5% !important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.deviceShowCase{
+    display: none;
+}
+
+.deviceShowArea{
+    display: none;
+}
+
+.viewDeviceImage{
+   width: 100%;
+   height: 200px;
+   object-fit: contain;
+}
+
+.phoneColorSelector{
+    display: flex;
+    justify-content: space-evenly;
+    height: 25px;
+    margin-top: 10px;
+}
+
+.outlinedButton{
+    width: 70%;
+    padding: 5px 0px;
+    border: 1px solid #666;
+    background-color: white;
+    border-radius: 50px;
+    color:#666;
+    margin-left: 15%;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.outlinedButton:hover{
+    width: 70%;
+    padding: 5px 0px;
+    background-color: #666;
+    border-radius: 50px;
+    color:white;
+    margin-left: 15%;
+    margin-top: 10px;
+    transform: scale(1.03);
+}
+
+.sideFeaturesContainer{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3%;
+    display: none;
+    z-index: 1;
+}
+
+.featureButton{
+    height: 110px;
+    width: 110px;
+    background-color:rgba(102, 102, 102,0.4);
+    border-top-left-radius: 25px;
+    border:1px solid #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.featureIcon{
+    font-size: 70px !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.featureIcon:hover{
+    transform: scale(1.07);
+}
+
+.featuresHolder {
+    height: 40%;
+    width: 25% !important;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 2.9%;
+    border-top-left-radius: 50px;
+    background-color:rgba(102, 102, 102,0.4);
+}
+
+.featureTabIcon{
+    font-size: 70px !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.featureTabIcon:hover{
+    transform: scale(1.07);
+}
+
+.activeFeature{
+    text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+}
+
+.featuresRow{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    height:100%;
+}
+
+.featuresLargeColumn{
+    display:flex;
+    flex-direction: column;
+    width: 73% !important;
+    height:100% !important;
+    justify-content: space-between;
+}
+
+.featuresTabHolder{
+    display:flex;
+    justify-content: space-evenly;
+    padding-bottom: 20px;
+}
+
+.featuresContent{
+    display:none;
+    flex-direction: column;
+    float: right;
+    align-items: flex-end;
+    padding-right:15px;
+}
+
+.featuresSmallColumn{
+    display:flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 27% !important;
+    background-color: #666;
+    height:100% !important;
+    justify-content:flex-end;
+    align-items: center;
+}
+
+.featuresText{
+    color: white;
+    width: 65%;
+    font-size: 28px !important;
+    font-weight: normal;
+    border-bottom: 2px solid #bfbfbf;
+    text-align: right;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    cursor: pointer;
+}
+
+.featuresText:hover{
+    font-size: 29px !important;
+    font-weight: bolder;
+    border-bottom: 2px solid white;
+    font-family: verizonBoldFont;
+}
+
+.annotateColors{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+    width: 65%;
+    height: 42px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 65%;
+    height: 7px;
+    border-radius: 5px;
+    background: white;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-top: 30px;
+  }
+
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+  }
+.borderFeature{
+    border-bottom: 2px solid #bfbfbf;
+     height: 1px !important;
+     width: 65%;
+     margin: 20px 0px;
+ }
+
+.annotateCircle{
+   height: 35px;
+   width: 35px;
+   border-radius: 50%;
+   cursor: pointer;
+}
+
+.annotateCircle:hover{
+    border:1px solid white;
+}
+
+.iconL{
+    font-size: 15px !important;
+    color: rgba(102, 102, 102,0.5);
+    font-weight: 400;
+}
+
+#render3DModel{
+    touch-action: none;
+    position:absolute;
+    outline: none;
+    width: 89%;
+    height:80%;
+}
+
+#drawLine{
+    position:absolute;
+    pointer-events: none;
+}
+
+.qrCodeArea{
+    display: none;
+    position:absolute;
+    top:10%;
+    left:20%
+}
+
+@media only screen and (max-width: 850px) {
+    .container{
+        width: 100% !important;
+        height: 100% !important;
+        overflow: scroll;
+        padding-left: 0%;
+    }
+    
+    .customerContainer{
+        width: 100%;
+        float: left;
+        display: flex;
+        margin-top: -100px;
+        margin-left: 0px;
+        height: fit-content;
+    }
+
+    .clientControls {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+        align-items: center;
+        margin-left: 0px;
+    }
+    
+    .iconLarge{
+        color:white;
+        font-size: 50px !important;
+    }
+
+    .iconCircle{
+       height: 80px;
+       width: 80px;
+       border-radius: 100%;
+       display: flex;
+       justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .featureButton{
+        height: 80px;
+        width: 80px;
+        background-color:rgba(102, 102, 102,0.4);
+        border-top-left-radius: 25px;
+        border:1px solid #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    
+    .featureIcon{
+        font-size: 50px !important;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .featureTabIcon{
+        font-size: 50px !important;
+        color: #fff;
+        cursor: pointer;
+    }
+
+
+.icon{
+    color:#666;
+    font-size: 25px !important;
+}
+
+.icon:hover{
+    color:#3399ff;
+    font-size: 25px !important;
+}
+
+.activeBlue{
+    color:#3399ff;
+}
+
+.white{
+    color: #fff;
+}
+
+
+
+     .hideInMobile{
+        display: none;
+     }
+
+     .sideNavOpener{
+        color:white;
+        font-size: 25px !important;
+        cursor: pointer;
+        z-index: 1;
+        position: fixed
+    }
+
+    .sidenav {
+        height: 100%;
+        width:fit-content !important;
+        min-width: 70% !important;
+        max-width: 70% !important;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: white;
+        overflow-x: hidden;
+        transition: 1.5s;
+        /* padding: 40px 60px; */
+      }
+
+      .sideNavContainer{
+        display: flex;
+        float: right;
+        margin-top: 30px;
+        margin-right: 0px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 90% !important;
+        justify-content: space-between;
+        padding: 0px 20px;
+    }
+
+    .tabOuter{
+        height: 30px;
+        width: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        cursor: pointer;
+    }
+
+    .sideFeaturesContainer{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 2%;
+        z-index: 1;
+    }
+
+    .featuresHolder {
+        height: 60%;
+        width: 75% !important;
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        right: 0;
+        margin-bottom:2%;
+        border-top-left-radius: 50px;
+        background-color:rgba(102, 102, 102,0.4);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .featuresHolder {
+        height: 80%;
+        width: 95% !important;
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        right: 0;
+        margin-bottom:2%;
+        border-top-left-radius: 50px;
+        background-color:rgba(102, 102, 102,0.4);
+    }
+}
+
+

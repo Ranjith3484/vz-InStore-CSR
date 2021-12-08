@@ -29,7 +29,7 @@ function startCallSession() {
           console.log("canv source: ", userMediaStream.getAudioTracks()); // prints  []
         });
 
-      signaling = new WebSocket("wss://bitter-eagle-97.loca.lt");
+      signaling = new WebSocket("wss://soft-sloth-83.loca.lt");
       setTimeout(function () {
         peerConnection = createPeerConnection();
         addMessageHandler();

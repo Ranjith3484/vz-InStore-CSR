@@ -6,259 +6,221 @@
   <title>BlueJeans</title>
   <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
   <link rel="stylesheet" href="./styles/index.css">
-  <link rel="stylesheet" href="./styles/customerView.css">
-  <link rel="stylesheet" href="./styles/incomingCall.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <script type="text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+<body onload="init()">
 
-<body>
-  <!-- top images -->
-  <div class="row">
-    <div class="column">
-      <img class="introImage" src="./assets/banner-1.png" />
-    </div>
-    <div class="column">
-      <img class="introImage" src="./assets/banner-2.png" />
-    </div>
-  </div>
-  <!-- 3 column section -->
-  <div class="row">
-    <!-- address column -->
-    <div class="outerColumn grey">
-      <div class="addSpace"></div>
-      <div class="container">
-        <h5>Verizon Company Store</h5>
-        <div class="spaceBetween">
-          <h1>Wauwatosa</h1>
-          <i class="fa fa-heart-o" id="iconSize"></i>
-        </div>
-        <div class="addSpace"></div>
-        <h5>11415W Burleigh St,</h5>
-        <h5>Suite 101,</h5>
-        <h5>Wauwatosa, WI,</h5>
-        <h5>53222</h5>
-        <div class="addSpace"></div>
-        <u>Change location</u>
-        <div class="addSpace"></div>
-        <i class="fa fa-video-camera actionLink" id="iconSize" onclick="openCloseVideoCallForm()">
-          <u style="font-weight: bold;padding-left: 5px;
-          font-family: verizonBoldFont;">Start a video call with in-store rep</u>
-        </i>
-        <div class="addSpace"></div>
-        <div class="spaceBetween">
-          <h5>Today:</h5>
-          <h5>Open until 7PM</h5>
-        </div>
-        <div class="addSpace"></div>
-        <div class="spaceBetween">
-          <h5>Tomorrow:</h5>
-          <h5>11AM - 7PM</h5>
-        </div>
-        <div class="addSpace"></div>
-        <u>See More</u>
-        <div class="addSpace"></div>
-        <hr>
-        </hr>
-        <div class="block">
-          <i class="fa fa-truck" id="iconSize"></i>
-          Curbside Pickup
-          <i class="fa fa-check" id="coloredIcon"></i>
-        </div>
-        <div class="block">
-          <i class="fa fa-shopping-bag" id="iconSize"></i>
-          In-Store Pickup
-          <i class="fa fa-check" id="coloredIcon"></i>
-        </div>
-        <p style="padding-top: 5px;color:black">Normally available for pickup within an hour</p>
-        <div class="addSpace"></div>
-        <div class="ratingRow">
-          <i class="ratingText">Rating: </i>
-          <i class="fa fa-star checked"></i>
-          <i class="fa fa-star checked"></i>
-          <i class="fa fa-star checked"></i>
-          <i class="fa fa-star unchecked"></i>
-          <i class="fa fa-star unchecked"></i>
-        </div>
-        <u style="float: right;">Reviews (53)</u>
-        <br />
-        <u style="margin-left: 20px;">Leave a Review</u>
-      </div>
-    </div>
-    <!-- googel map column -->
-    <div class="innerColumn">
-      <div class="mapContainer">
-        <div id="googleMap" class="googleMap"></div>
-      </div>
-    </div>
-    <!-- other links column -->
-    <div class="outerColumn">
-      <div class="container">
-        <i class="fa fa-truck actionLink" id="textAlignedIcon">
-          <u class="iconAlignedText">Get Directions</u>
-        </i>
-        </br>
-        <i class="fa fa-calendar actionLink" id="textAlignedIcon">
-          <u class="iconAlignedText">Schedule an appointment</u>
-        </i>
-        </br>
-        <i class="fa fa-calendar actionLink" id="textAlignedIcon">
-          <u class="iconAlignedText">Request a business sales appointment</u>
-        </i>
-        <div class="addSpace"></div>
-        <h5>By clicking on the link above, you represent that neither you nor anyone in your household have COVID19 or
-          its symptoms (e.g. fever, cough, shortness of breath)
-          or are being quarantined for suspected exposure to the virus.
-        </h5>
-        <br />
-        <h5>Occupancy limits may apply. You may need to wait outside or in your vehicle before going in. Non-vaccinated
-          customers and employees are required to use a
-          mask when visiting our stores. Please note: Verizon follows state and local requirements regarding mask use.
-          You may be required to wear a
-          mask even if you are fully vaccinated.
-        </h5>
-      </div>
-    </div>
-  </div>
-
-  <!-- open video call request form -->
-  <div class="openVideoCallForm hideElement" id="openVideoCallForm">
-    <img src="./assets/verizon-logo.png" class="logoImage hideInMobile" />
-    <div class="alignCenter">
-      <h1 class="white">Please add a few details. You may be connected to another store for
-        faster service. Don't worry, you can see us but we can't see you.
-      </h1>
-      </br>
-      <div class="addSpace"></div>
-      <form onsubmit="submitForm(event)">
-        <input value="" placeholder="Your name" required id="callRequesterName" />
-        <input type="text" value="" pattern="[0-9]+" placeholder="Callback number" required id="callRequesterNumber"
-          maxlength="10" minlength="10" onkeypress="return onlyNumberKey(event)" />
-        <select placeholder="Reason for video call" required id="callRequestReason">
-          <option value="" disabled selected hidden>Reason for video call</option>
-          <option value="Inquire about new phone">Inquire about new phone</option>
-        </select>
-        <button class="submitButton">Connect</button>
-      </form>
-      <div class="addSpace"></div>
-      <p>*Video calls will use data allotment if connected to cellular data. Standard data rates
-        accoring to your cellular plan apply.
-      </p>
-    </div>
-  </div>
-
-  <!-- loading screen -->
-  <div class="loadingContainer hideElement" id="openLoadingScreen">
+  <div>
     <div>
-      <h2 class="loadingHeader">Creating secure connection</h2>
-      <div class="loadingContain">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="sideNavContainer">
+      <div class="tabOuter" onclick="openSideBarAndTab(event,'apps')">
+        <a class="notification">
+          <i class="fa fa-bars icon white"></i>
+        </a>
       </div>
+    </div>
+    <div id="mySidenav" class="sidenav hideElement">
+      <div class="sideNavCloseIcon" onclick="openCloseNav()">
+        <i class="fa fa-close icon grey"></i>
+      </div>
+      <div class="sideNavHeader">
+        <div class="tabLinks activeBorderBlue" onclick="openTab(event, 'people')" id="peopleTabLink">
+          <a class="notification">
+            <i class="fa fa-user-o icon" id="peopleTabIcon"></i>
+            <span class="badge">3</span>
+          </a>
+          <p class="iconText" id="peopleTabText">PEOPLE</p>
+        </div>
+        <div class="tabLinks" onclick="openTab(event, 'chat')" id="chatTabLink">
+          <a class="notification">
+            <i class="fa fa-comment-o icon" id="chatTabIcon"></i>
+            <span class="badge">1</span>
+          </a>
+          <p class="iconText" id="chatTabText">CHAT</p>
+        </div>
+        <div class="tabLinks" onclick="openTab(event, 'apps')" id="appsTabLink">
+          <i class="fa fa-th icon" id="appsTabIcon"></i>
+          <p class="iconText" id="appsTabText">APPS</p>
+        </div>
+        <div class="tabLinks" onclick="openTab(event, 'settings')" id="settingsTabLink">
+          <i class="fa fa-cog icon" id="settingsTabIcon"></i>
+          <p class="iconText" id="settingsTabText">SETTINGS</p>
+        </div>
+      </div>
+      <div class="borderLine"></div>
+      <div id="people" class="tabContent">
+        <p>people</p>
+      </div>
+      <div id="chat" class="tabContent">
+        <p>chat</p>
+      </div>
+      <div id="apps" class="tabContent">
+        <h4>Caller Devices</h4>
+        <div class="deviceRow">
+          <div class="deviceColumn">
+            <h6>iPhone6</h6>
+            <img src="./assets/iPhone6.jpeg" class="deviceImage" />
+          </div>
+          <div class="deviceColumn">
+            <h6>Apple Watch</h6>
+            <img src="./assets/appleWatch.png" class="deviceImage" />
+          </div>
+        </div>
+        <div class="border"></div>
+        <div class="sideNavHeader">
+          <div class="textTabLinks">
+            <p class="textTab activeBold" onclick="openAnotherTab(event, 'caller')" id="defaultOpenAnotherTab">Caller
+            </p>
+          </div>
+          <div class="textTabLinks">
+            <p class="textTab" onclick="openAnotherTab(event, 'devices')">Devices</p>
+          </div>
+          <div class="textTabLinks">
+            <p class="textTab" onclick="openAnotherTab(event, 'accessories')">Accessories</p>
+          </div>
+        </div>
+        <div id="caller" class="textTabContent">
+          <table>
+            <tbody>
+              <tr>
+                <th>
+                  <h5>Verizon customer since :</h5>
+                </th>
+                <th>
+                  <p>December 2005</p>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h5>Cusotmer rating :</h5>
+                </th>
+                <th>
+                  <div class="ratingRow">
+                    <span class="fa fa-star starColor"></span>
+                    <span class="fa fa-star starColor"></span>
+                    <span class="fa fa-star starColor"></span>
+                    <span class="fa fa-star-o starColor"></span>
+                    <span class="fa fa-star-o starColor"></span>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h5>Devices :</h5>
+                </th>
+                <th>
+                  <p>December 2005</p>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h5>Last call :</h5>
+                </th>
+                <th>
+                  <p>14 January 2021</p>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <h5>Reason :</h5>
+                </th>
+                <th>
+                  <p>Internet not working.</p>
+                </th>
+              </tr>
+              <tr>
+                <th></th>
+                <th>
+                  <p>Fixed by CSR James</p>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="devices" class="textTabContent">
+          <div id="brandList" class="brandList">
+          </div>
+          <div class="deviceAvailableRow">
+          <div class="smallColumn">
+            <div id="deviceList" class="deviceList">
+            </div>
+          </div>
+          <div class="largeColumn">
+          <div id="deviceShowCase" class="deviceShowCase">
+          </div>
+        </div>
+        </div>
+        </div>
+        <div id="accessories" class="textTabContent">
+          <p>accessories</p>
+        </div>
+      </div>
+      <div id="settings" class="tabContent">
+        <p>settings</p>
+      </div>
+    </div>
+    <div class="sideFeaturesContainer" onclick="openCloseFeatures()" id="sideFeaturesOpener">
+      <div class="featureButton">
+        <i class="fa fa-chevron-left featureIcon"></i>
+      </div>
+    </div>
+    <div id="myFeaturesHolder" class="featuresHolder hideElement">
+      <div class="featuresRow">
+        <div class="featuresLargeColumn">
+         <div class="featuresContent" id="camera">
+          <div class="featuresText" id="showFrontCamera" onclick="showDeviceFeature('FrontCamera')">Front Camera</div>
+          <div class="featuresText" id="showBackCamera" onclick="showDeviceFeature('BackCamera')">Back Camera</div>
+          <div class="featuresText" id="showSimInsert" onclick="showDeviceFeature('SimInsert')">Sim Insert</div>
+          <div class="featuresText" id="showChargingPort" onclick="showDeviceFeature('ChargingPort')">Charging Port</div>
+         </div>
+         <div class="featuresContent" id="annotate">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" onchange="changeWidth()">
+          <div class="borderFeature"></div>
+          <div class="annotateColors">
+          <div class="annotateCircle" style="background-color: white;" onclick="changeAnnotateColor('white')" id="annotatewhite"></div>
+          <div class="annotateCircle" style="background-color: red;" onclick="changeAnnotateColor('red')" id="annotatered"></div>
+          <div class="annotateCircle" style="background-color: black;" onclick="changeAnnotateColor('black')" id="annotateblack"></div>
+        </div>
+          <div class="borderFeature"></div>
+         </div>
+          <div class="featuresTabHolder">
+             <i class="fa fa-camera featureTabIcon activeFeature" onclick="openFeatureTab(event, 'camera')" id="cameraFeatures"></i>
+             <i class="fa fa-pencil featureTabIcon" onclick="openFeatureTab(event, 'annotate')"></i>
+          </div>
+        </div>
+        <div class="featuresSmallColumn">
+          <i class="fa fa-chevron-right featureIcon" style="margin-bottom: 20px;" onclick="openCloseFeatures()"></i>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="container">
+      <!-- self-view -->
+      <div class="clientCover">
+        <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
+      </div>  
+      <div class="customerContainer">
+        <!-- remote view -->
+        <div class="hideInMobile">
+          <video autoplay="true" id="customerVideoElement"></video>
+        </div>
+        <div class="clientControls" >
+          <div class="iconCircle active" id="myMic" onclick="audioChange()">
+            <i class="fa fa-microphone iconLarge"></i>
+          </div>
+          <div class="iconCircle inactive" id="endCall" onclick="endCall()">
+            <i class="fa fa-phone iconLarge"></i>
+          </div>
+        </div>
+        <img src="./assets/verizon-logo.png" class="overlayLogo hideInMobile" />
+      </div> 
     </div>
   </div>
-
-  <!-- customer view video call -->
-  <div class="customerViewContainer hideElement" id="customerViewContainer">
-    <img src="./assets/verizon-logo.png" class="customerViewLogoImage hideInMobile" />
-    <div class="customerViewRow">
-      <div class="customerViewColumnLarge">
-        <div class="customerViewClientContainer">
-          <video autoplay="true" id="customerViewClientVideoElement"></video>
-        </div>
-      </div>
-      <div class="customerViewColumnSmall">
-        <div class="customerViewIconCircle customerViewActive" id="myMic" onclick="audioChange()">
-          <i class="fa fa-microphone customerViewIcon"></i>
-        </div>
-        <div class="customerViewIconCircle customerViewActive" id="myVideo" onclick="videoChange()">
-          <i class="fa fa-video-camera customerViewIcon"></i>
-        </div>
-        <div class="customerViewIconCircle customerViewInactive" id="endVideoCall" onclick="endVideoCall()">
-          <i class="fa fa-times customerViewIcon"></i>
-        </div>
-      </div>
-    </div>
-    <div class="customerViewCustomerContainer">
-      <video autoplay="true" id="customerViewCustomerVideoElement"></video>
-      <div id="imageElement" class="hideElement">
-        <img src="./assets/unknown-person.jpeg" class="customerViewCustomerImage" />
-        <div class="overlayName">Jacob</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- incoming call -->
-  <div class="incomingCallContainer" id="incomingCallModal">
-    <div class="innerContainer">
-      <img src="./assets/slack-logo.jpeg" class="logoImage hideInMobile" />
-      <div class="textRow">
-        <h2 class="nameText">VIKI</h2> &emsp;&ensp;
-        <h6 id="currentTime"></h6>
-      </div>
-      <h3 class="alertText">Video Assist Alert</h3>
-      <div class="addSpace"></div>
-      <h5>A customer is waiting to video chat. Are you ready to accept the call?</h5>
-      <div class="textRow hideInMobile">
-        <h3 class="reasonText">Reason for Call: </h3>
-        <h5>Inquire about new phones</h5>
-      </div>
-      <div class="addLargeSpace"></div>
-      <button class="outlinedGreenLargeButton" onclick="acceptCall()">Accept Call
-        <svg height="50" width="50" id="mybutton" class="alignRight">
-          <defs>
-            <clipPath id="cFrame">
-              <circle cx="25" cy="25" r="20" />
-            </clipPath>
-          </defs>
-          <circle id="progress" cx="25" cy="25" r="20" fill="white" />
-          <circle id="pbar" cx="25" cy="25" r="20" />
-        </svg>
-      </button>
-      <button class="outlinedRedLargeButton" onclick="declineCall()">Decline Call</button>
-    </div>
-  </div>
-
   <script src="./scripts/index.js"></script>
-  <!-- google map api -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap" async defer></script>
-
-  <!-- incoming call -->
-  <script>
-
-    //show call popup ,after 5 seconds
-    setTimeout(function () {
-      document.getElementById("incomingCallModal").style.display = "initial";
-      startCallAcceptingTimer();
-    }, 3000);
-
-    //timer for closing call popup
-    function startCallAcceptingTimer() {
-      var element = document.getElementById("pbar");
-      element.classList.toggle("showAnim");
-      //hide call popup after some seconds
-      setTimeout(function () {
-          document.getElementById("incomingCallModal").style.display = "none"
-      }, 7500);
-    }
-
-    //accept call
-    function acceptCall() {
-      window.location.replace("./blueJeansWelcome.html")
-    }
-
-    //decline call
-    function declineCall() {
-      document.getElementById("incomingCallModal").style.display = "none"
-    }
-
-    var timeNow = moment().format('hh:mm A');
-    document.getElementById("currentTime").innerHTML = timeNow;
-
-  </script>
 </body>
 
-</html>
+</html> 

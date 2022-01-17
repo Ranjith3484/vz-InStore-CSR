@@ -121,9 +121,6 @@ function startCallSession() {
     pc.onconnectionstatechange = function (event) {
       switch (pc.connectionState) {
         case "connected":
-          document.getElementsByClassName(
-            "remoteAudioUnMutedIcon"
-          )[0].style.display = "block";
           break;
         case "disconnected":
         case "failed":

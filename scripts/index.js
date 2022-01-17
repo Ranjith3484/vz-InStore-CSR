@@ -203,11 +203,7 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("inactive");
     document.getElementById("myMic").classList.add("crossLine");
     document.getElementById("myMic").classList.remove("active");
-    //send message via drone for audio muted
-    drone.publish({
-      room: "observable-room",
-      message: "audioMuted",
-    });
+  
     //remove audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -220,11 +216,7 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("active");
     document.getElementById("myMic").classList.remove("inactive");
     document.getElementById("myMic").classList.remove("crossLine");
-    //send message via drone for audio un muted
-    drone.publish({
-      room: "observable-room",
-      message: "audioUnMuted",
-    });
+   
     //add audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {

@@ -1,19 +1,16 @@
 function startCallSession() {
   //webrtc starts here
   "use strict";
-
   const MESSAGE_TYPE = {
     SDP: "SDP",
     CANDIDATE: "CANDIDATE",
   };
-
   const MAXIMUM_MESSAGE_SIZE = 65535;
   const END_OF_FILE_MESSAGE = "EOF";
   let code = 987654321;
   let peerConnection;
   let signaling;
   const senders = [];
-
   const startChat = async () => {
     try {
       var canvas = document.getElementById("render3DModel");
@@ -233,6 +230,7 @@ showModel();
 function showModel() {
 
   //show 3d model
+
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
   modelCanvas.setAttribute("width", window.innerWidth);
 
@@ -260,12 +258,14 @@ function showModel() {
 
     //keyboard events for moving the model
     scene.onKeyboardObservable.add((kbInfo) => {
+      document.getElementById("render3DModel").focus();
       let walk = scene.getMeshByName("__root__");
       switch (kbInfo.type) {
         case BABYLON.KeyboardEventTypes.KEYDOWN:
           switch (kbInfo.event.key) {
             case "a":
             case "ArrowLeft":
+
               walk.position.x -= 0.1;
               break;
             case "d":
@@ -292,6 +292,38 @@ function showModel() {
               walk.scaling.y -= 0.1;
               walk.scaling.z += 0.1;
               break;
+          case "f":
+          case "F":
+            walk.rotation.x = 0;
+            walk.rotation.y = 0;
+      
+            walkRotation.x = 0;
+            walkRotation.y = 0;
+            break;
+         case "b":
+         case "B":
+          walk.rotation.x = 0.006;
+          walk.rotation.y = -3.09;
+    
+          walkRotation.x = parseFloat(0.006);
+          walkRotation.y = parseFloat(-3.09);
+          break;
+        case "i":
+        case "I":
+          walk.rotation.x = 0.083;
+          walk.rotation.y = 4.5;
+    
+          walkRotation.x = parseFloat(0.083);
+          walkRotation.y = parseFloat(4.5);
+          break;
+        case "p":
+        case "P":
+          walk.rotation.x = -1.45;
+          walk.rotation.y = 2.66;
+    
+          walkRotation.x = parseFloat(-1.45);
+          walkRotation.y = parseFloat(2.66);
+          break;
           }
       }
     });
@@ -303,6 +335,7 @@ function showModel() {
     let clicked = false;
 
     scene.onPointerObservable.add((pointerInfo) => {
+      document.getElementById("render3DModel").focus();
       var walk = scene.getMeshByName("__root__");
       switch (pointerInfo.type) {
         case BABYLON.PointerEventTypes.POINTERDOWN:
@@ -370,12 +403,15 @@ function showModel() {
           walk.scaling.y,
           walk.scaling.z
         );
+       
     });
     //add white background
     scene.clearColor = new BABYLON.Color4( 1,1,1);
-    document.getElementById("render3DModel").focus();
+  
     return scene;
   };
+
+  
 
   const scene = createScene();
 

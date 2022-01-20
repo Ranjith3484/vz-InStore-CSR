@@ -425,4 +425,65 @@ function showModel() {
   window.addEventListener("resize", function () {
     engine.resize();
   });
+
+  let showingFeature = "FrontCamera"
+
+  //go forward
+  document.getElementById("goForward").addEventListener("click",function(){
+    var walk = scene.getMeshByName("__root__");
+
+    // order
+    // front camera ==> Back camera ==> sim insert ==> charging port
+ 
+    switch (showingFeature) {
+      case "FrontCamera": // go for back camera
+        showingFeature = "BackCamera"
+        walk.rotation.x = 0.006;
+        walk.rotation.y = -3.09;
+        break;
+      case "BackCamera": //go for sim insert
+        showingFeature = "SimInsert"
+        walk.rotation.x = 0.083;
+        walk.rotation.y = 4.5;
+        break;
+      case "SimInsert": //go for charging port
+        showingFeature = "ChargingPort"
+        walk.rotation.x = -1.45;
+        walk.rotation.y = 2.66;
+        break;
+      case "ChargingPort": // go for front camera
+        showingFeature = "FrontCamera"
+        walk.rotation.x = 0;
+        walk.rotation.y = 0;
+        break;
+    }
+  })
+
+  //go backward
+  document.getElementById("goBackward").addEventListener("click",function(){
+    var walk = scene.getMeshByName("__root__");
+
+    switch (showingFeature) {
+      case "FrontCamera": // go for charging port
+      showingFeature = "ChargingPort"
+      walk.rotation.x = -1.45;
+      walk.rotation.y = 2.66;
+        break;
+      case "BackCamera": //go for front camera
+      showingFeature = "FrontCamera"
+      walk.rotation.x = 0;
+      walk.rotation.y = 0;
+        break;
+      case "SimInsert": //go for back camera
+      showingFeature = "BackCamera"
+      walk.rotation.x = 0.006;
+      walk.rotation.y = -3.09;
+        break;
+      case "ChargingPort": //go for sim insert
+      showingFeature = "SimInsert"
+      walk.rotation.x = 0.083;
+      walk.rotation.y = 4.5;
+        break;
+    }
+  })
 }

@@ -20,258 +20,92 @@ body {
   font-family: verizonFont;
 }
 
-
 h1{
-    margin:2px !important;
-    font-size: 32px !important;
-}
-
-h2{
-    margin:2px !important;
-    font-size: 28px !important;
-}
-
-h3{
-    margin:2px !important;
-    font-size: 24px !important;
-}
-
-h4{
-    margin:2px !important;
-    font-size: 22px !important;
-    font-weight: 700;
+    margin:10px !important;
+    font-size: 42px !important;
+    color: black;
+    font-weight: bold;
     font-family: verizonBoldFont;
 }
 
-h5{
-    margin: 2px !important;
-    color: grey;
-    font-size: 18px;
-}
-
-h6{
-    margin:2px !important;
-    font-size: 15px !important;
-    color: grey;
-}
-
-p{
-    margin: 2px !important; 
-    color: grey;
-    font-weight: 300;
-}
-
-th{
-    text-align: left;
-}
-
-.border{
-    border-bottom: 1px solid #666;
-    height: 1px !important;
-    width:100%;
-}
-
-.container{
-     margin: auto;
-     width: 80%;
-     height: 95% !important;
-     position: absolute;
-     padding-left: 10%;
-     transform: translate(0%,0%);
-}
-
-  
-.clientCover {
-  width: 100%;
-  height: 100%;
-  display: flex;
-    flex-direction: column;
-    justify-content:space-evenly;
-    align-items: center;
-}
-
-
-.clientContainer{
-    height: 100%;
-    width: 100%;
-    background-color: #666;
-    z-index: -1;
-}
-
-.customerContainer{
-    height: 230px;
-    width: 100%;
-    float: left;
-    display: flex;
-    margin-top: -200px;
-    margin-left: -140px;
-}
-
-.clientControls {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-evenly;
-    align-items: center;
-    margin-left: -100px;
-    z-index: 2;
-}
-
-.customerImage{
-    height: 230px;
-    width: 350px;
-}
-
-
-.icon{
-    color:#666;
-    font-size: 25px !important;
-}
-
-.iconCircle{
-   height: 110px;
-   width: 110px;
-   border-radius: 100%;
-   display: flex;
-   justify-content: center;
-    align-items: center;
-    align-content: center;
-    cursor: pointer;
-}
-
-.iconLarge{
-    font-size: 70px !important;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-.iconLarge:hover{
-    transform: scale(1.07);
-}
-
-
-.active{
-    background-color: #666;
-}
-
-.inactive{
-    background-color: red;
-}
-
-.black{
+h4{
+    margin:10px !important;
+    font-size: 22px !important;
+    font-weight: 700;
     color: black;
-}
-
-.grey{
-    color: #666;
-}
-
-.white{
-    color: #fff;
+    font-family: verizonBoldFont;
 }
 
 
-.center{
-    text-align: center;
+.callContainer{
+    width: 80% !important;
+    height: 80vh !important;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin-left: 10%;
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-#customerVideoElement {
-    height: 230px;
-    width: 350px; 
-    margin: 0px;
-    padding: 0px;
-    border: 0;
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg);
-    -moz-transform:rotateY(180deg); 
-    object-fit: cover !important;
-}
-
-#customerImageElement {
-    height: 230px;
-    width: 350px; 
-    margin: 0px;
-    padding: 0px;
-    border: 0;
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg);
-    -moz-transform:rotateY(180deg); 
-    object-fit: cover !important;
-}
-
-
-#clientVideoElement {
-    height: 100%;
-    width: 100%; 
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg);
-    -moz-transform:rotateY(180deg); 
-    object-fit: cover
-}
-
-.hideElement{
+.callContent{
     display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-#render3DModel{
-    touch-action: none;
-    position:absolute;
-    outline: none;
-    width: 89%;
-    height:80%;
+.shakeIcon{
+    font-size: 200px !important;
+    color: black;
+    animation: shake 0.8s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+.acceptCall{
+    width: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    border-radius: 20px;
+    height: 40px;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.declineCall{
+    width: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    height: 40px;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 850px) {
-    .container{
-        width: 100% !important;
-        height: 100% !important;
-        overflow: scroll;
-        padding-left: 0%;
-    }
-    
-    .customerContainer{
-        width: 100%;
-        float: left;
-        display: flex;
-        margin-top: -100px;
-        margin-left: 0px;
-        height: fit-content;
-    }
-
-    .clientControls {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content:space-evenly;
-        align-items: center;
-        margin-left: 0px;
-    }
-    
-    .iconLarge{
-        color:white;
+    .shakeIcon{
         font-size: 50px !important;
     }
-
-    .iconCircle{
-       height: 80px;
-       width: 80px;
-       border-radius: 100%;
-       display: flex;
-       justify-content: center;
-        align-items: center;
-        align-content: center;
-    }
-
-.activeBlue{
-    color:#3399ff;
-}
-
-
-.hideInMobile{
-        display: none;
-}
-  
+    
 }
 
 

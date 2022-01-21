@@ -1,0 +1,277 @@
+@font-face {
+    font-family: 'verizonFont';
+    src: URL('./VERIZONNHGEDS-REGULAR.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'verizonBoldFont';
+    src: URL('./VERIZONNHGEDS-BOLD.TTF') format('truetype');
+}
+
+html,
+
+body {
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  margin: 0%;
+  background-color: white;
+  font-family: verizonFont;
+}
+
+
+h1{
+    margin:2px !important;
+    font-size: 32px !important;
+}
+
+h2{
+    margin:2px !important;
+    font-size: 28px !important;
+}
+
+h3{
+    margin:2px !important;
+    font-size: 24px !important;
+}
+
+h4{
+    margin:2px !important;
+    font-size: 22px !important;
+    font-weight: 700;
+    font-family: verizonBoldFont;
+}
+
+h5{
+    margin: 2px !important;
+    color: grey;
+    font-size: 18px;
+}
+
+h6{
+    margin:2px !important;
+    font-size: 15px !important;
+    color: grey;
+}
+
+p{
+    margin: 2px !important; 
+    color: grey;
+    font-weight: 300;
+}
+
+th{
+    text-align: left;
+}
+
+.border{
+    border-bottom: 1px solid #666;
+    height: 1px !important;
+    width:100%;
+}
+
+.container{
+     margin: auto;
+     width: 80%;
+     height: 95% !important;
+     position: absolute;
+     padding-left: 10%;
+     transform: translate(0%,0%);
+}
+
+  
+.clientCover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+
+.clientContainer{
+    height: 100%;
+    width: 100%;
+    background-color: #666;
+    z-index: -1;
+}
+
+.customerContainer{
+    height: 230px;
+    width: 100%;
+    float: left;
+    display: flex;
+    margin-top: -200px;
+    margin-left: -140px;
+}
+
+.clientControls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    margin-left: -100px;
+    z-index: 2;
+}
+
+.customerImage{
+    height: 230px;
+    width: 350px;
+}
+
+
+.icon{
+    color:#666;
+    font-size: 25px !important;
+}
+
+.iconCircle{
+   height: 110px;
+   width: 110px;
+   border-radius: 100%;
+   display: flex;
+   justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.iconLarge{
+    font-size: 70px !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.iconLarge:hover{
+    transform: scale(1.07);
+}
+
+
+.active{
+    background-color: #666;
+}
+
+.inactive{
+    background-color: red;
+}
+
+.black{
+    color: black;
+}
+
+.grey{
+    color: #666;
+}
+
+.white{
+    color: #fff;
+}
+
+
+.center{
+    text-align: center;
+}
+
+#customerVideoElement {
+    height: 230px;
+    width: 350px; 
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover !important;
+}
+
+#customerImageElement {
+    height: 230px;
+    width: 350px; 
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover !important;
+}
+
+
+#clientVideoElement {
+    height: 100%;
+    width: 100%; 
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg); 
+    object-fit: cover
+}
+
+.hideElement{
+    display: none;
+}
+
+#render3DModel{
+    touch-action: none;
+    position:absolute;
+    outline: none;
+    width: 89%;
+    height:80%;
+}
+
+@media only screen and (max-width: 850px) {
+    .container{
+        width: 100% !important;
+        height: 100% !important;
+        overflow: scroll;
+        padding-left: 0%;
+    }
+    
+    .customerContainer{
+        width: 100%;
+        float: left;
+        display: flex;
+        margin-top: -100px;
+        margin-left: 0px;
+        height: fit-content;
+    }
+
+    .clientControls {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+        align-items: center;
+        margin-left: 0px;
+    }
+    
+    .iconLarge{
+        color:white;
+        font-size: 50px !important;
+    }
+
+    .iconCircle{
+       height: 80px;
+       width: 80px;
+       border-radius: 100%;
+       display: flex;
+       justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+.activeBlue{
+    color:#3399ff;
+}
+
+
+.hideInMobile{
+        display: none;
+}
+  
+}
+
+

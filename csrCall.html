@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueJeans</title>
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./styles/csrCall.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+<body onload="startCallSession()">
+  <div>
+    <!-- video chat container -->
+    <div class="container">
+      <!-- self-view -->
+      <div class="clientCover">
+        <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
+      </div>  
+      <div class="customerContainer">
+        <!-- remote view -->
+        <div class="hideInMobile">
+          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg"></video>
+        </div>
+        <div class="clientControls" >
+          <div class="iconCircle active" id="myMic" onclick="audioChange()">
+            <i class="fa fa-microphone iconLarge"></i>
+          </div>
+          <div class="iconCircle active" id="goBackward">
+            <i class="fa fa-arrow-left iconLarge"></i>
+          </div>
+          <div class="iconCircle active" id="goForward">
+            <i class="fa fa-arrow-right iconLarge"></i>
+          </div>
+          <div class="iconCircle inactive" id="endCall" onclick="endCall()">
+            <i class="fa fa-phone iconLarge"></i>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <script src="./scripts/csrCall.js"></script>
+</body>
+
+</html> 

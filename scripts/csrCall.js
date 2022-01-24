@@ -186,7 +186,7 @@ function startCallSession() {
 }
 
 function endCall() {
-  window.location.replace("./index.html")
+  window.location.replace("./index.html");
 }
 
 function audioChange(userMediaStream) {
@@ -196,7 +196,7 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("inactive");
     document.getElementById("myMic").classList.add("crossLine");
     document.getElementById("myMic").classList.remove("active");
-  
+
     //remove audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -209,7 +209,7 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("active");
     document.getElementById("myMic").classList.remove("inactive");
     document.getElementById("myMic").classList.remove("crossLine");
-   
+
     //add audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -220,11 +220,135 @@ function audioChange(userMediaStream) {
   }
 }
 
+var devices = [
+  {
+    color: "#9aafca",
+     modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
+    active: true,
+  },
+  {
+    color: "#f5e1c8",
+    modelPath: "./assets/iPhone13Pro/iPhone13Pro_gold.glb",
+  },
+  {
+    color: "#4c4a46",
+    modelPath: "./assets/iPhone13Pro/iPhone13Pro_graphite.glb",
+  },
+];
+
+//chnage variant by  ui
+var variant = devices;
+var variantList = '<div style="height:100%;justify-content:space-evenly;">';
+
+for (let i of variant) {
+  if (i.color == "white") {
+    variantList +=
+      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:white;border:1px solid grey' onclick='changeVariant(`" +
+      JSON.stringify(i) +
+      "`)' id=" +
+      i.color +
+      " class='colorVariant inactive'></div>";
+  } else if (i.active) {
+    // mark first variant as selected active
+    variantList +=
+      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
+      i.color +
+      " ;box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 3px " +
+      i.color +
+      ";' onclick='changeVariant(`" +
+      JSON.stringify(i) +
+      "`)' id=" +
+      i.color +
+      " class='colorVariant active'></div>";
+  } else {
+    variantList +=
+      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
+      i.color +
+      "' onclick='changeVariant(`" +
+      JSON.stringify(i) +
+      "`)' id=" +
+      i.color +
+      " class='colorVariant inactive'></div>";
+  }
+}
+variantList += "</div>";
+
+document.getElementById("colorVaraintList").innerHTML = variantList;
+
+//change variant by numbers 1 - 10;
+document.addEventListener("keypress", function (event) {
+ var switchVaraint = document.getElementsByClassName("colorVariant");
+
+  switch (event.key) {
+    case "1":
+      switchVaraint[0].click();
+      break;
+    case "2":
+      switchVaraint[1].click();
+      break;
+    case "3":
+      switchVaraint[2].click();
+      break;
+    case "4":
+      switchVaraint[3].click();
+      break;
+    case "5":
+      switchVaraint[4].click();
+      break;
+    case "6":
+      switchVaraint[5].click();
+      break;
+    case "7":
+      switchVaraint[6].click();
+      break;
+    case "8":
+      switchVaraint[7].click();
+      break;
+    case "9":
+      switchVaraint[8].click();
+      break;
+    case "10":
+      switchVaraint[9].click();
+      break;
+  }
+});
+
+function changeVariant(item) {
+  var details = JSON.parse(item);
+  var i, tablinks;
+  tablinks = document.getElementsByClassName("colorVariant");
+  for (i of tablinks) {
+    if (i.id === details.color) {
+      //add active style
+      if (i.id === "white") {
+        i.style.boxShadow = "0px 0px 0px 2px white, 0px 0px 0px 3px grey";
+        i.style.backgroundColor = "#E8E8E8";
+        i.style.border = "0px";
+      } else {
+        i.style.boxShadow = " 0px 0px 0px 2px white, 0px 0px 0px 3px " + i.id;
+      }
+    } else {
+      //add inactive style
+      if (i.id === "white") {
+        i.style.boxShadow = "0px 0px 0px 0px white";
+        i.style.backgroundColor = "white";
+        i.style.border = "1px solid grey";
+      } else {
+        i.style.boxShadow = "0px 0px 0px 0px white";
+      }
+    }
+  }
+  showModel({
+    modelPath: details.modelPath,
+  });
+}
+
 //initial call to show webcam
-showModel();
+showModel({
+  modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
+});
 
-function showModel() {
-
+function showModel(item) {
   //show 3d model
 
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
@@ -261,7 +385,6 @@ function showModel() {
           switch (kbInfo.event.key) {
             case "a":
             case "ArrowLeft":
-
               walk.position.x -= 0.1;
               break;
             case "d":
@@ -288,38 +411,38 @@ function showModel() {
               walk.scaling.y -= 0.1;
               walk.scaling.z += 0.1;
               break;
-          case "f":
-          case "F":
-            walk.rotation.x = 0;
-            walk.rotation.y = 0;
-      
-            walkRotation.x = 0;
-            walkRotation.y = 0;
-            break;
-         case "b":
-         case "B":
-          walk.rotation.x = 0.006;
-          walk.rotation.y = -3.09;
-    
-          walkRotation.x = parseFloat(0.006);
-          walkRotation.y = parseFloat(-3.09);
-          break;
-        case "i":
-        case "I":
-          walk.rotation.x = 0.083;
-          walk.rotation.y = 4.5;
-    
-          walkRotation.x = parseFloat(0.083);
-          walkRotation.y = parseFloat(4.5);
-          break;
-        case "p":
-        case "P":
-          walk.rotation.x = -1.45;
-          walk.rotation.y = 2.66;
-    
-          walkRotation.x = parseFloat(-1.45);
-          walkRotation.y = parseFloat(2.66);
-          break;
+            case "f":
+            case "F":
+              walk.rotation.x = 0;
+              walk.rotation.y = 0;
+
+              walkRotation.x = 0;
+              walkRotation.y = 0;
+              break;
+            case "b":
+            case "B":
+              walk.rotation.x = 0.006;
+              walk.rotation.y = -3.09;
+
+              walkRotation.x = parseFloat(0.006);
+              walkRotation.y = parseFloat(-3.09);
+              break;
+            case "i":
+            case "I":
+              walk.rotation.x = 0.083;
+              walk.rotation.y = 4.5;
+
+              walkRotation.x = parseFloat(0.083);
+              walkRotation.y = parseFloat(4.5);
+              break;
+            case "p":
+            case "P":
+              walk.rotation.x = -1.45;
+              walk.rotation.y = 2.66;
+
+              walkRotation.x = parseFloat(-1.45);
+              walkRotation.y = parseFloat(2.66);
+              break;
           }
       }
     });
@@ -372,42 +495,39 @@ function showModel() {
 
     // This attaches the camera to the canvas
     camera.attachControl(modelCanvas, true);
-  
-      // show 3d model as top layer
-    BABYLON.SceneLoader.Append("./", "./assets/iPhone13Pro_blue.glb", scene, function (scene) {
-        scene.createDefaultCameraOrLight(false, true, false);
 
-        var walk = scene.getMeshByName("__root__");
+    // show 3d model as top layer
+    BABYLON.SceneLoader.Append("./", item.modelPath, scene, function (scene) {
+      scene.createDefaultCameraOrLight(false, true, false);
 
-        //initialize the model position
-        walk.position.x = 0;
-        walk.position.y = 0;
+      var walk = scene.getMeshByName("__root__");
 
-        walk.scaling.z = -1;
-        walk.scaling.x = 0.9;
-        walk.scaling.y = 0.9;
+      //initialize the model position
+      walk.position.x = 0;
+      walk.position.y = 0;
 
-        //pushing rotation object to enable camera features
-        walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
+      walk.scaling.z = -1;
+      walk.scaling.x = 0.9;
+      walk.scaling.y = 0.9;
 
-        //pushing position object to enable camera features
-        walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
+      //pushing rotation object to enable camera features
+      walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
 
-        //pushing scaling object to enable camera features
-        walk.scaling = new BABYLON.Vector3(
-          walk.scaling.x,
-          walk.scaling.y,
-          walk.scaling.z
-        );
-       
+      //pushing position object to enable camera features
+      walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
+
+      //pushing scaling object to enable camera features
+      walk.scaling = new BABYLON.Vector3(
+        walk.scaling.x,
+        walk.scaling.y,
+        walk.scaling.z
+      );
     });
     //add white background
-    scene.clearColor = new BABYLON.Color4( 1,1,1);
-  
+    scene.clearColor = new BABYLON.Color4(1, 1, 1);
+
     return scene;
   };
-
-  
 
   const scene = createScene();
 
@@ -422,64 +542,64 @@ function showModel() {
     engine.resize();
   });
 
-  let showingFeature = "FrontCamera"
+  let showingFeature = "FrontCamera";
 
   //go forward
-  document.getElementById("goForward").addEventListener("click",function(){
+  document.getElementById("goForward").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
 
     // order
     // front camera ==> Back camera ==> sim insert ==> charging port
- 
+
     switch (showingFeature) {
       case "FrontCamera": // go for back camera
-        showingFeature = "BackCamera"
+        showingFeature = "BackCamera";
         walk.rotation.x = 0.006;
         walk.rotation.y = -3.09;
         break;
       case "BackCamera": //go for sim insert
-        showingFeature = "SimInsert"
+        showingFeature = "SimInsert";
         walk.rotation.x = 0.083;
         walk.rotation.y = 4.5;
         break;
       case "SimInsert": //go for charging port
-        showingFeature = "ChargingPort"
+        showingFeature = "ChargingPort";
         walk.rotation.x = -1.45;
         walk.rotation.y = 2.66;
         break;
       case "ChargingPort": // go for front camera
-        showingFeature = "FrontCamera"
+        showingFeature = "FrontCamera";
         walk.rotation.x = 0;
         walk.rotation.y = 0;
         break;
     }
-  })
+  });
 
   //go backward
-  document.getElementById("goBackward").addEventListener("click",function(){
+  document.getElementById("goBackward").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
 
     switch (showingFeature) {
       case "FrontCamera": // go for charging port
-      showingFeature = "ChargingPort"
-      walk.rotation.x = -1.45;
-      walk.rotation.y = 2.66;
+        showingFeature = "ChargingPort";
+        walk.rotation.x = -1.45;
+        walk.rotation.y = 2.66;
         break;
       case "BackCamera": //go for front camera
-      showingFeature = "FrontCamera"
-      walk.rotation.x = 0;
-      walk.rotation.y = 0;
+        showingFeature = "FrontCamera";
+        walk.rotation.x = 0;
+        walk.rotation.y = 0;
         break;
       case "SimInsert": //go for back camera
-      showingFeature = "BackCamera"
-      walk.rotation.x = 0.006;
-      walk.rotation.y = -3.09;
+        showingFeature = "BackCamera";
+        walk.rotation.x = 0.006;
+        walk.rotation.y = -3.09;
         break;
       case "ChargingPort": //go for sim insert
-      showingFeature = "SimInsert"
-      walk.rotation.x = 0.083;
-      walk.rotation.y = 4.5;
+        showingFeature = "SimInsert";
+        walk.rotation.x = 0.083;
+        walk.rotation.y = 4.5;
         break;
     }
-  })
+  });
 }

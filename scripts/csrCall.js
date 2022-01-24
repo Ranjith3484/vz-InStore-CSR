@@ -223,15 +223,18 @@ function audioChange(userMediaStream) {
 var devices = [
   {
     color: "#9aafca",
-     modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
+    modelFirebase:"iPhone13Pro%2FiPhone13Pro_blue.glb",
+    modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
     active: true,
   },
   {
     color: "#f5e1c8",
+    modelFirebase:"iPhone13Pro%2FiPhone13Pro_gold.glb",
     modelPath: "./assets/iPhone13Pro/iPhone13Pro_gold.glb",
   },
   {
     color: "#4c4a46",
+    modelFirebase:"iPhone13Pro%2FiPhone13Pro_graphite.glb",
     modelPath: "./assets/iPhone13Pro/iPhone13Pro_graphite.glb",
   },
 ];
@@ -339,13 +342,13 @@ function changeVariant(item) {
     }
   }
   showModel({
-    modelPath: details.modelPath,
+    modelPath: details.modelFirebase,
   });
 }
 
 //initial call to show webcam
 showModel({
-  modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
+  modelPath: "iPhone13Pro%2FiPhone13Pro_blue.glb",
 });
 
 function showModel(item) {
@@ -497,7 +500,7 @@ function showModel(item) {
     camera.attachControl(modelCanvas, true);
 
     // show 3d model as top layer
-    BABYLON.SceneLoader.Append("./", item.modelPath, scene, function (scene) {
+    BABYLON.SceneLoader.Append("https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/", item.modelPath +"?alt=media&token=", scene, function (scene) {
       scene.createDefaultCameraOrLight(false, true, false);
 
       var walk = scene.getMeshByName("__root__");

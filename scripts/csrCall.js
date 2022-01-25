@@ -220,67 +220,111 @@ function audioChange(userMediaStream) {
   }
 }
 
-var devices = [
+var iPhone13Pro = [
   {
     color: "#9aafca",
-    modelFirebase:"iPhone13Pro%2FiPhone13Pro_blue.glb",
-    modelPath: "./assets/iPhone13Pro/iPhone13Pro_blue.glb",
+    modelFirebase: "iPhone13Pro%2FiPhone13Pro_blue.glb",
     active: true,
   },
   {
     color: "#f5e1c8",
-    modelFirebase:"iPhone13Pro%2FiPhone13Pro_gold.glb",
-    modelPath: "./assets/iPhone13Pro/iPhone13Pro_gold.glb",
+    modelFirebase: "iPhone13Pro%2FiPhone13Pro_gold.glb",
   },
   {
     color: "#4c4a46",
-    modelFirebase:"iPhone13Pro%2FiPhone13Pro_graphite.glb",
-    modelPath: "./assets/iPhone13Pro/iPhone13Pro_graphite.glb",
+    modelFirebase: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
   },
 ];
 
-//chnage variant by  ui
-var variant = devices;
-var variantList = '<div style="height:100%;justify-content:space-evenly;">';
+var pixel6Pro = [
+  {
+    color: "#343538",
+    modelFirebase: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
+    active: true,
+  },
+  {
+    color: "#e9e4e0",
+    modelFirebase: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
+  },
+  {
+    color: "#fbf2d1",
+    modelFirebase: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
+  },
+];
 
-for (let i of variant) {
-  if (i.color == "white") {
-    variantList +=
-      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:white;border:1px solid grey' onclick='changeVariant(`" +
-      JSON.stringify(i) +
-      "`)' id=" +
-      i.color +
-      " class='colorVariant inactive'></div>";
-  } else if (i.active) {
-    // mark first variant as selected active
-    variantList +=
-      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
-      i.color +
-      " ;box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 3px " +
-      i.color +
-      ";' onclick='changeVariant(`" +
-      JSON.stringify(i) +
-      "`)' id=" +
-      i.color +
-      " class='colorVariant active'></div>";
-  } else {
-    variantList +=
-      "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
-      i.color +
-      "' onclick='changeVariant(`" +
-      JSON.stringify(i) +
-      "`)' id=" +
-      i.color +
-      " class='colorVariant inactive'></div>";
+var zFlip3 = [
+  {
+    color: "black",
+    modelFirebase: "zFlip3%2FZflip3_Black_Animated.glb",
+    active: true,
+  },
+  {
+    color: "#f7f4d3",
+    modelFirebase: "zFlip3%2FZflip3_Cream_Animated.glb",
+  },
+  {
+    color: "#57666a",
+    modelFirebase: "zFlip3%2FZflip3_Green_Animated.glb",
+  },
+  {
+    color: "#c2b1d7",
+    modelFirebase: "zFlip3%2FZflip3_Lavender_Animated.glb",
+  },
+];
+
+function showDeviceUI(item) {
+  //to dispose previous scene if any
+  document.getElementById("refreshModel").click();
+  //initial call to show first variant
+  showModel({
+    modelPath: item[0].modelFirebase,
+  });
+  //chnage variant by  ui
+  var showingDevice = item;
+  var variantList = '<div style="height:100%;justify-content:space-evenly;">';
+
+  for (let i of showingDevice) {
+    if (i.color == "white") {
+      variantList +=
+        "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:white;border:1px solid grey' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant inactive'></div>";
+    } else if (i.active) {
+      // mark first variant as selected active
+      variantList +=
+        "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
+        i.color +
+        " ;box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 3px " +
+        i.color +
+        ";' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant active'></div>";
+    } else {
+      variantList +=
+        "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:" +
+        i.color +
+        "' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant inactive'></div>";
+    }
   }
-}
-variantList += "</div>";
+  variantList += "</div>";
 
-document.getElementById("colorVaraintList").innerHTML = variantList;
+  document.getElementById("colorVaraintList").innerHTML = variantList;
+}
+
+//by default show iphone 13
+showDeviceUI(iPhone13Pro);
 
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {
- var switchVaraint = document.getElementsByClassName("colorVariant");
+  var switchVaraint = document.getElementsByClassName("colorVariant");
 
   switch (event.key) {
     case "1":
@@ -312,6 +356,15 @@ document.addEventListener("keypress", function (event) {
       break;
     case "10":
       switchVaraint[9].click();
+      break;
+    case "a":
+      showDeviceUI(iPhone13Pro);
+      break;
+    case "g":
+      showDeviceUI(pixel6Pro);
+      break;
+    case "s":
+      showDeviceUI(zFlip3);
       break;
   }
 });
@@ -346,18 +399,31 @@ function changeVariant(item) {
   });
 }
 
-//initial call to show webcam
-showModel({
-  modelPath: "iPhone13Pro%2FiPhone13Pro_blue.glb",
-});
-
 function showModel(item) {
   //show 3d model
-
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
   modelCanvas.setAttribute("width", window.innerWidth);
 
   const engine = new BABYLON.Engine(modelCanvas, true); // Generate the BABYLON 3D engine
+
+  // //loader
+  // var loadingScreenDiv = window.document.getElementById("loadingScreen");
+  // function customLoadingScreen() {
+  //   console.log("customLoadingScreen creation");
+  // }
+  // customLoadingScreen.prototype.displayLoadingUI = function () {
+  //   console.log("customLoadingScreen loading");
+  //   var loadImg = "<img src='./assets/v-logo.png' class='loaderLogo'/>"
+  //   loadingScreenDiv.innerHTML = loadImg;
+  // };
+  // customLoadingScreen.prototype.hideLoadingUI = function () {
+  //   console.log("customLoadingScreen loaded");
+  //   loadingScreenDiv.style.display = "none";
+  // };
+  // var loadingScreen = new customLoadingScreen();
+  // engine.loadingScreen = loadingScreen;
+
+  // engine.displayLoadingUI();
 
   // Add your code here matching the playground format
 
@@ -386,19 +452,15 @@ function showModel(item) {
       switch (kbInfo.type) {
         case BABYLON.KeyboardEventTypes.KEYDOWN:
           switch (kbInfo.event.key) {
-            case "a":
             case "ArrowLeft":
               walk.position.x -= 0.1;
               break;
-            case "d":
             case "ArrowRight":
               walk.position.x += 0.1;
               break;
-            case "w":
             case "ArrowUp":
               walk.position.y += 0.1;
               break;
-            case "s":
             case "ArrowDown":
               walk.position.y -= 0.1;
               break;
@@ -500,32 +562,37 @@ function showModel(item) {
     camera.attachControl(modelCanvas, true);
 
     // show 3d model as top layer
-    BABYLON.SceneLoader.Append("https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/", item.modelPath +"?alt=media&token=", scene, function (scene) {
-      scene.createDefaultCameraOrLight(false, true, false);
+    BABYLON.SceneLoader.Append(
+      "https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/",
+      item.modelPath + "?alt=media&token=",
+      scene,
+      function (scene) {
+        scene.createDefaultCameraOrLight(false, true, false);
+        // engine.hideLoadingUI();
+        var walk = scene.getMeshByName("__root__");
 
-      var walk = scene.getMeshByName("__root__");
+        //initialize the model position
+        walk.position.x = 0;
+        walk.position.y = 0;
 
-      //initialize the model position
-      walk.position.x = 0;
-      walk.position.y = 0;
+        walk.scaling.z = -1;
+        walk.scaling.x = 0.9;
+        walk.scaling.y = 0.9;
 
-      walk.scaling.z = -1;
-      walk.scaling.x = 0.9;
-      walk.scaling.y = 0.9;
+        //pushing rotation object to enable camera features
+        walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
 
-      //pushing rotation object to enable camera features
-      walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
+        //pushing position object to enable camera features
+        walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
 
-      //pushing position object to enable camera features
-      walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
-
-      //pushing scaling object to enable camera features
-      walk.scaling = new BABYLON.Vector3(
-        walk.scaling.x,
-        walk.scaling.y,
-        walk.scaling.z
-      );
-    });
+        //pushing scaling object to enable camera features
+        walk.scaling = new BABYLON.Vector3(
+          walk.scaling.x,
+          walk.scaling.y,
+          walk.scaling.z
+        );
+      }
+    );
     //add white background
     scene.clearColor = new BABYLON.Color4(1, 1, 1);
 
@@ -605,4 +672,21 @@ function showModel(item) {
         break;
     }
   });
+
+  // Watch for model change and dispose the model
+  document
+    .getElementById("refreshModel")
+    .addEventListener("click", function () {
+      //dispose sceneloader
+      var walk = scene.getMeshByName("__root__");
+      if (walk !== null) {
+        walk.dispose();
+      }
+
+      //dispose plane
+      var plane = scene.getMeshByName("plane");
+      if (plane !== null) {
+        plane.dispose();
+      }
+    });
 }

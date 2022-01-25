@@ -20,6 +20,9 @@
     <div class="container">
       <!-- self-view -->
       <div class="clientCover">
+        <!-- <div id="loadingScreen">
+          <img src="./assets/v-logo.png" class="loaderLogo"/>
+        </div> -->
         <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
       </div>  
       <div class="customerContainer">
@@ -44,6 +47,8 @@
         <!-- color controls -->
         <div class="colorVariantControls" id='colorVaraintList'>
         </div>
+         <!-- purposely hide to manually triggger an event to dispose the model -->
+         <button id="refreshModel" style="display: none;">Refresh Model</button>
       </div> 
     </div>
   </div>

@@ -20,15 +20,16 @@
     <div class="container">
       <!-- self-view -->
       <div class="clientCover">
-        <!-- <div id="loadingScreen">
+        <!-- model loader -->
+        <div id="loadingScreen">
           <img src="./assets/v-logo.png" class="loaderLogo"/>
-        </div> -->
+        </div>
         <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
       </div>  
       <div class="customerContainer">
         <!-- remote view -->
         <div class="hideInMobile">
-          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg"></video>
+          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg" style="visibility: hidden;"></video>
         </div>
         <div class="clientControls" >
           <div class="iconCircle active" id="myMic" onclick="audioChange()">

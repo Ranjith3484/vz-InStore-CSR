@@ -233,14 +233,31 @@ th{
     height: 100%;
     color: black;
     font-size: 50px;
-    text-align: center;
-    background-color: red;
+    background-color: white;
     z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: none;
 }
 
 .loaderLogo{
-    width: 50px !important;
-    height: 50px !important;
+    width: 100px !important;
+    height: 100px !important;
+    animation: ver-rotate 5s infinite linear;
+}
+
+@keyframes ver-rotate
+{
+from
+{
+transform: rotateY(0deg);
+}
+to
+{
+transform: rotateY(360deg);
+}
 }
 
 @media only screen and (max-width: 850px) {

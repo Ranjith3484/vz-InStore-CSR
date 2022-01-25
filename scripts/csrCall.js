@@ -400,30 +400,13 @@ function changeVariant(item) {
 }
 
 function showModel(item) {
+  //show loader
+  document.getElementById("loadingScreen").style.display = "flex";
   //show 3d model
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
   modelCanvas.setAttribute("width", window.innerWidth);
 
   const engine = new BABYLON.Engine(modelCanvas, true); // Generate the BABYLON 3D engine
-
-  // //loader
-  // var loadingScreenDiv = window.document.getElementById("loadingScreen");
-  // function customLoadingScreen() {
-  //   console.log("customLoadingScreen creation");
-  // }
-  // customLoadingScreen.prototype.displayLoadingUI = function () {
-  //   console.log("customLoadingScreen loading");
-  //   var loadImg = "<img src='./assets/v-logo.png' class='loaderLogo'/>"
-  //   loadingScreenDiv.innerHTML = loadImg;
-  // };
-  // customLoadingScreen.prototype.hideLoadingUI = function () {
-  //   console.log("customLoadingScreen loaded");
-  //   loadingScreenDiv.style.display = "none";
-  // };
-  // var loadingScreen = new customLoadingScreen();
-  // engine.loadingScreen = loadingScreen;
-
-  // engine.displayLoadingUI();
 
   // Add your code here matching the playground format
 
@@ -561,6 +544,9 @@ function showModel(item) {
     // This attaches the camera to the canvas
     camera.attachControl(modelCanvas, true);
 
+    //hide default babylonjs loader
+    BABYLON.SceneLoaderFlags.ShowLoadingScreen = false;
+
     // show 3d model as top layer
     BABYLON.SceneLoader.Append(
       "https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/",
@@ -568,7 +554,6 @@ function showModel(item) {
       scene,
       function (scene) {
         scene.createDefaultCameraOrLight(false, true, false);
-        // engine.hideLoadingUI();
         var walk = scene.getMeshByName("__root__");
 
         //initialize the model position
@@ -591,6 +576,17 @@ function showModel(item) {
           walk.scaling.y,
           walk.scaling.z
         );
+        //hide loader
+        setTimeout(function () {
+          document.getElementById("loadingScreen").style.display = "none";
+        }, 1000);
+      },
+      function (error) {
+        //hide loader
+        setTimeout(function () {
+          document.getElementById("loadingScreen").style.display = "none";
+        }, 1000);
+        console.error(error);
       }
     );
     //add white background

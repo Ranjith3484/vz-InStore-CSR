@@ -184,7 +184,7 @@ function startCallSession() {
 
   //webrtc ends here
 }
-
+startCallSession();
 function endCall() {
   window.location.replace("./index.html");
 }

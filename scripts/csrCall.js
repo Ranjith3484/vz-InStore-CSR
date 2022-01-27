@@ -221,6 +221,11 @@ function audioChange(userMediaStream) {
 }
 
 let showingFeature = "FrontCamera";
+let rotatedModel = false;
+let showingModelPath = {
+  staticModel:"",
+  rotatedModel:""
+}
 
 var iPhone13Pro = [
   {
@@ -293,6 +298,9 @@ function showDeviceUI(item) {
   showModel({
     modelPath: item[0].staticModel,
   });
+
+  showingModelPath.staticModel = item[0].staticModel;
+  showingModelPath.rotatedModel = item[0].rotatedModel;
   //chnage variant by  ui
   var showingDevice = item;
   var variantList = '<div style="height:100%;justify-content:space-evenly;">';
@@ -411,11 +419,16 @@ function changeVariant(item) {
   showModel({
     modelPath: details.staticModel,
   });
+  showingModelPath.staticModel = details.staticModel;
+  showingModelPath.rotatedModel = details.rotatedModel;
 }
 
 function showModel(item) {
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
+  //change animate icon color
+  rotatedModel = false;
+  document.getElementById("switchModel").style.backgroundColor = "#666";
   //show 3d model
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
   modelCanvas.setAttribute("width", window.innerWidth);
@@ -698,4 +711,21 @@ function showModel(item) {
         plane.dispose();
       }
     });
+}
+
+function switchModel(){
+  document.getElementById("refreshModel").click();
+   if(rotatedModel){ //show static model
+      showModel({
+        modelPath: showingModelPath.staticModel
+      })
+      rotatedModel = false;
+      document.getElementById("switchModel").style.backgroundColor = "#666";
+   }else{ // show rotated model
+    showModel({
+      modelPath: showingModelPath.rotatedModel
+    })
+    rotatedModel = true;
+    document.getElementById("switchModel").style.backgroundColor = "green";
+   }
 }

@@ -428,6 +428,11 @@ function showModel(item) {
   document.getElementById("loadingScreen").style.display = "flex";
   //change animate icon color
   rotatedModel = false;
+  //enable arrow icon
+  document.getElementById("goForward").style.pointerEvents = "";
+  document.getElementById("goForward").style.opacity="1";
+  document.getElementById("goBackward").style.pointerEvents = "";
+  document.getElementById("goBackward").style.opacity="1";
   document.getElementById("switchModel").style.backgroundColor = "#666";
   //show 3d model
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
@@ -639,7 +644,7 @@ function showModel(item) {
   //go forward
   document.getElementById("goForward").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
-
+console.log("go frr")
     // order
     // front camera ==> Back camera ==> sim insert ==> charging port
 
@@ -670,7 +675,7 @@ function showModel(item) {
   //go backward
   document.getElementById("goBackward").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
-
+    console.log("go backr")
     switch (showingFeature) {
       case "FrontCamera": // go for charging port
         showingFeature = "ChargingPort";
@@ -721,11 +726,19 @@ function switchModel(){
       })
       rotatedModel = false;
       document.getElementById("switchModel").style.backgroundColor = "#666";
+      document.getElementById("goForward").style.pointerEvents = "";
+      document.getElementById("goForward").style.opacity="1";
+      document.getElementById("goBackward").style.pointerEvents = "";
+      document.getElementById("goBackward").style.opacity="1";
    }else{ // show rotated model
     showModel({
       modelPath: showingModelPath.rotatedModel
     })
     rotatedModel = true;
     document.getElementById("switchModel").style.backgroundColor = "green";
+    document.getElementById("goForward").style.pointerEvents = "none";
+    document.getElementById("goForward").style.opacity="0.5";
+    document.getElementById("goBackward").style.pointerEvents = "none";
+    document.getElementById("goBackward").style.opacity="0.5";
    }
 }

@@ -220,64 +220,78 @@ function audioChange(userMediaStream) {
   }
 }
 
+let showingFeature = "FrontCamera";
+
 var iPhone13Pro = [
   {
     color: "#9aafca",
-    modelFirebase: "iPhone13Pro%2FiPhone13Pro_blue.glb",
+    staticModel: "iPhone13Pro%2FiPhone13Pro_blue.glb",
+    rotatedModel: "iPhone13Pro%2FiPhone13Pro_blue_rotated.glb",
     active: true,
   },
   {
     color: "#f5e1c8",
-    modelFirebase: "iPhone13Pro%2FiPhone13Pro_gold.glb",
+    staticModel: "iPhone13Pro%2FiPhone13Pro_gold.glb",
+    rotatedModel: "iPhone13Pro%2FiPhone13Pro_gold_rotated.glb",
   },
   {
     color: "#4c4a46",
-    modelFirebase: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
+    staticModel: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
+    rotatedModel: "iPhone13Pro%2FiPhone13Pro_graphite_rotated.glb",
   },
 ];
 
 var pixel6Pro = [
   {
     color: "#343538",
-    modelFirebase: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
+    staticModel: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
+    rotatedModel: "pixel6Pro%2Fpixel6Pro_StormyBlack_rotated.glb",
     active: true,
   },
   {
     color: "#e9e4e0",
-    modelFirebase: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
+    staticModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
+    rotatedModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite_rotated.glb",
   },
   {
     color: "#fbf2d1",
-    modelFirebase: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
+    staticModel: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
+    rotatedModel: "pixel6Pro%2Fpixel6Pro_SortaSunny_rotated.glb",
   },
 ];
 
 var zFlip3 = [
   {
     color: "black",
-    modelFirebase: "zFlip3%2FZflip3_Black_Animated.glb",
+    staticModel: "zFlip3%2FZflip3_Black_Animated.glb",
+    rotatedModel: "zFlip3%2FZflip3_Black_Rotated.glb",
     active: true,
   },
   {
     color: "#f7f4d3",
-    modelFirebase: "zFlip3%2FZflip3_Cream_Animated.glb",
+    staticModel: "zFlip3%2FZflip3_Cream_Animated.glb",
+    rotatedModel: "zFlip3%2FZflip3_Cream_Rotated.glb",
   },
   {
     color: "#57666a",
-    modelFirebase: "zFlip3%2FZflip3_Green_Animated.glb",
+    staticModel: "zFlip3%2FZflip3_Green_Animated.glb",
+    rotatedModel: "zFlip3%2FZflip3_Green_Rotated.glb",
   },
   {
     color: "#c2b1d7",
-    modelFirebase: "zFlip3%2FZflip3_Lavender_Animated.glb",
+    staticModel: "zFlip3%2FZflip3_Lavender_Animated.glb",
+    rotatedModel: "zFlip3%2FZflip3_Lavender_Rotated.glb",
   },
 ];
+
+
 
 function showDeviceUI(item) {
   //to dispose previous scene if any
   document.getElementById("refreshModel").click();
   //initial call to show first variant
   showModel({
-    modelPath: item[0].modelFirebase,
+    modelPath: item[0].staticModel,
   });
   //chnage variant by  ui
   var showingDevice = item;
@@ -395,7 +409,7 @@ function changeVariant(item) {
     }
   }
   showModel({
-    modelPath: details.modelFirebase,
+    modelPath: details.staticModel,
   });
 }
 
@@ -608,7 +622,6 @@ function showModel(item) {
     engine.resize();
   });
 
-  let showingFeature = "FrontCamera";
 
   //go forward
   document.getElementById("goForward").addEventListener("click", function () {

@@ -227,6 +227,105 @@ let showingModelPath = {
   rotatedModel:""
 }
 
+var devicesBrands = [
+  {
+    brand: "Apple",
+    devices: [
+      {
+        name: "iPhone 13 Pro",
+        displayName: "Apple iPhone 13 Pro",
+        variant: [
+          {
+            color: "#9aafca",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Blue.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_blue.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_blue_rotated.glb",
+            active: true,
+          },
+          {
+            color: "#f5e1c8",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Gold.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_gold.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_gold_rotated.glb",
+          },
+          {
+            color: "#4c4a46",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Graphite.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_graphite_rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    brand: "Samsung",
+    devices: [
+      {
+        name: "Galaxy Z Flip3",
+        displayName: "Samsung Galaxy Z Flip3",
+        variant: [
+          {
+            color: "black",
+            image: "./assets/ZFlip3/Zflip3_Black.png",
+            staticModel: "zFlip3%2FZflip3_Black_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Black_Rotated.glb",
+            active: true,
+          },
+          {
+            color: "#f7f4d3",
+            image: "./assets/ZFlip3/Zflip3_Cream.png",
+            staticModel: "zFlip3%2FZflip3_Cream_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Cream_Rotated.glb",
+          },
+          {
+            color: "#57666a",
+            image: "./assets/ZFlip3/Zflip3_Green.png",
+            staticModel: "zFlip3%2FZflip3_Green_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Green_Rotated.glb",
+          },
+          {
+            color: "#c2b1d7",
+            image: "./assets/ZFlip3/Zflip3_Lavender.png",
+            staticModel: "zFlip3%2FZflip3_Lavender_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Lavender_Rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    brand: "Google",
+    devices: [
+      {
+        name: "Pixel 6 Pro",
+        displayName: "Google Pixel 6 Pro",
+        variant: [
+          {
+            color: "#343538",
+            image: "./assets/pixel6Pro/pixel6Pro_StormyBlack.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_StormyBlack_rotated.glb",
+            active: true,
+          },
+          {
+            color: "#e9e4e0",
+            image: "./assets/pixel6Pro/pixel6Pro_CloudyWhite.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite_rotated.glb",
+          },
+          {
+            color: "#fbf2d1",
+            image: "./assets/pixel6Pro/pixel6Pro_SortaSunny.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_SortaSunny_rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+];
+
 var iPhone13Pro = [
   {
     color: "#9aafca",
@@ -289,9 +388,185 @@ var zFlip3 = [
   },
 ];
 
+function openCloseNav() {
+  if (document.getElementById("mySidenav").classList.contains("hideElement")) { //show navbar
+    document.getElementById("mySidenav").classList.remove("hideElement");
+    document.getElementsByClassName("container")[0].style.display = "none";
+    document.getElementsByClassName("sideNavMenu")[0].style.display = "none";
+    // show caller tab by default
+    document.getElementById("defaultOpenTab").click();
+  } else { //hide nav bar 
+    document.getElementById("mySidenav").classList.add("hideElement");
+    document.getElementsByClassName("container")[0].style.display = "";
+    document.getElementsByClassName("sideNavMenu")[0].style.display = "";
+  }
+}
+
+//caller devices accessories tab
+function openTab(evt, tabName) {
+  var i, tabContent, tablinks;
+  tabContent = document.getElementsByClassName("textTabContent");
+  for (i = 0; i < tabContent.length; i++) {
+    tabContent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("textTab");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" activeBold", "");
+  }
+
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " activeBold";
+}
 
 
-function showDeviceUI(item) {
+//hide devices and show brands
+function showBrands() {
+  document.getElementById("deviceList").style.display = "none";
+  document.getElementById("brandList").style.display = "block";
+  document.getElementById("deviceShowCase").style.display = "none";
+  localStorage.removeItem("showingDevice");
+}
+
+//listing brands
+var brandList = "<div>";
+for (let i of devicesBrands) {
+  brandList += `<ul onclick="showDevices('${i.brand}')" id="${i.brand}">${i.brand} <i class="fa fa-chevron-right iconL"></i></ul>`;
+}
+brandList += "</div>";
+document.getElementById("brandList").innerHTML = brandList;
+
+//hide brand and show devices
+function showDevices(item) {
+  var arr = devicesBrands;
+
+  arr = arr.filter(function (elem) {
+    return elem.brand == item;
+  });
+
+  //listing devices;
+  var devices = arr[0].devices;
+  var deviceList = '<div style="display:flex;width:100%;">';
+  deviceList +=
+    '<i class="fa fa-chevron-left iconL white" onclick="showBrands()" style="margin-top:30px;margin-right:10px;cursor:pointer"></i><span style="display:flex;flex-direction:column;width:100%">';
+  for (let i of devices) {
+    deviceList += `<ul onclick="showDeviceImage('${
+      i.name
+    }')" style="margin-bottom:0px;width:100%;"><h6 class="deviceNames" id="${
+      i.name
+    }"  style="border-bottom:${
+      i.name == localStorage.getItem("showingDevice")
+        ? "4px solid red"
+        : "4px solid white"
+    }">${i.name}</h6></ul>`;
+  }
+  deviceList += "</span></div>";
+
+  document.getElementById("deviceList").innerHTML = deviceList;
+
+  localStorage.setItem("showingBrand", arr[0].brand);
+  localStorage.setItem("showingDeviceList", JSON.stringify(arr[0].devices));
+
+  document.getElementById("deviceList").style.display = "block";
+  document.getElementById("brandList").style.display = "none";
+}
+
+//show device show case area
+function showDeviceImage(item) {
+  var arr = JSON.parse(localStorage.getItem("showingDeviceList"));
+  arr = arr.filter(function (elem) {
+    return elem.name == item;
+  });
+  localStorage.setItem("showingDevice", arr[0].name);
+  localStorage.setItem("showingDeviceDisplayName", arr[0].displayName);
+  localStorage.setItem("showingDeviceImage", arr[0].variant[0].image);
+  localStorage.setItem("showingDeviceVariant", arr[0].variant[0].color);
+  localStorage.setItem("showingDeviceModel", arr[0].variant[0].StaticModel);
+  localStorage.setItem("showingDeviceQRLink", arr[0].variant[0].qrLink);
+  document.getElementById("deviceShowCase").style.display = "block";
+
+  //add border to active device
+  var elements = document.getElementsByClassName("deviceNames");
+  for (let i of elements) {
+    if (i.innerHTML === arr[0].name) {
+      document.getElementById(i.innerHTML).style.borderBottom = "4px solid red";
+    } else {
+      document.getElementById(i.innerHTML).style.borderBottom = "0px solid red";
+    }
+  }
+
+  var j, tab;
+  //removing active style for features section
+  tab = document.getElementsByClassName("featuresText");
+  for (j = 0; j < tab.length; j++) {
+    tab[j].style.fontSize = "28px";
+    tab[j].style.fontWejght = "normal";
+    tab[j].style.borderBottom = "2px solid #bfbfbf";
+  }
+
+  //adding html content for showing device image and by default show first variant
+  var showCase = "<div>";
+  showCase +=
+    "<img src='" +
+    localStorage.getItem("showingDeviceImage") +
+    " ' class='viewDeviceImage' id='showingDeviceImage' />";
+  showCase += "<h6 class='center'>" + arr[0].displayName + "</h6>";
+  showCase += " <div class='phoneColorSelector'>";
+  //list color variant
+  var variant = arr[0].variant;
+  var variantList =
+    '<div style="display:flex;width:100%;justify-content:space-evenly">';
+
+  for (let i of variant) {
+    if (i.color == "white") {
+      variantList +=
+        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:white;border:1px solid white' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant inactive'></div>";
+    } else if (i.active) {
+      // mark first variant as selected active
+      variantList +=
+        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:" +
+        i.color +
+        " ;box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 3px " +
+        i.color +
+        ";' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant active'></div>";
+    } else {
+      variantList +=
+        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:" +
+        i.color +
+        "' onclick='changeVariant(`" +
+        JSON.stringify(i) +
+        "`)' id=" +
+        i.color +
+        " class='colorVariant inactive'></div>";
+    }
+  }
+  variantList += "</div>";
+  //end of variant listing
+  showCase += variantList;
+  showCase += "</div>";
+  showCase +=
+    "<button class='outlinedButton' onclick='shareDevice()' id='shareQR' disabled='true'>Share</button>";
+  showCase += "</div>";
+  document.getElementById("deviceShowCase").innerHTML = showCase;
+  document.getElementById("refreshModel").click();
+  //show 3d model of first variant by default
+  showModel({
+    modelPath: arr[0].variant[0].staticModel
+  });
+  showingModelPath.staticModel = arr[0].varainat[0].staticModel;
+  showingModelPath.rotatedModel = arr[0].varainat[0].rotatedModel;
+}
+
+//device variant ui on video chat container
+function showDeviceVariantUI(item) {
   //to dispose previous scene if any
   document.getElementById("refreshModel").click();
   //initial call to show first variant
@@ -308,7 +583,7 @@ function showDeviceUI(item) {
   for (let i of showingDevice) {
     if (i.color == "white") {
       variantList +=
-        "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:white;border:1px solid grey' onclick='changeVariant(`" +
+        "<div style='height:30px;width:30px;border-radius:30px;margin-top:20px;cursor:pointer;background-color:white;border:1px solid white' onclick='changeVariant(`" +
         JSON.stringify(i) +
         "`)' id=" +
         i.color +
@@ -342,7 +617,7 @@ function showDeviceUI(item) {
 }
 
 //by default show iphone 13
-showDeviceUI(iPhone13Pro);
+showDeviceVariantUI(iPhone13Pro);
 
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {

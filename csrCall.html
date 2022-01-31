@@ -16,22 +16,137 @@
 
 <body>
   <div>
+    <!-- side nave menu bar -->
+    <div class="sideNavMenu" onclick="openCloseNav()">
+      <i class="fa fa-bars navOpenerIcon"></i>
+    </div>
+    <!-- side nav bar -->
+    <div class="sideNavContainer hideElement" id="mySidenav">
+      <i class="fa fa-arrow-left navCloserIcon" onclick="openCloseNav()"></i>
+      <!--tabs  -->
+      <div class="sideNavTabHeader">
+        <div class="textTabLinks">
+          <p class="textTab activeBold" onclick="openTab(event, 'caller')" id="defaultOpenTab">Caller
+          </p>
+        </div>
+        <div class="textTabLinks">
+          <p class="textTab" onclick="openTab(event, 'devices')">Devices</p>
+        </div>
+        <div class="textTabLinks">
+          <p class="textTab" onclick="openTab(event, 'accessories')">Accessories</p>
+        </div>
+      </div>
+      <!-- tab content -->
+      <div id="caller" class="textTabContent">
+        <div class="callerRow">
+          <div class="callerColumnOne">
+            <h4>Caller Devices</h4>
+            <div class="deviceRow">
+              <div class="deviceColumn">
+                <h6>iPhone6</h6>
+                <img src="./assets/iPhone6.png" class="deviceImage" />
+              </div>
+              <div class="deviceColumn">
+                <h6>Apple Watch</h6>
+                <img src="./assets/appleWatch.png" class="deviceImage" />
+              </div>
+            </div>
+          </div>
+          <div class="callerColumnTwo">
+            <table>
+              <tbody>
+                <tr>
+                  <th>
+                    <h5>Customer since :</h5>
+                  </th>
+                  <th>
+                    <p>December 2005</p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Cusotmer rating :</h5>
+                  </th>
+                  <th>
+                    <div class="ratingRow">
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star-o starColor"></span>
+                      <span class="fa fa-star-o starColor"></span>
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Devices :</h5>
+                  </th>
+                  <th>
+                    <p>iPhone6, Apple Watch</p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Last call :</h5>
+                  </th>
+                  <th>
+                    <p>14 January 2021</p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Reason :</h5>
+                  </th>
+                  <th>
+                    <p>Internet not working.</p>
+                  </th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <p>Fixed by CSR James</p>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="devices" class="textTabContent">
+        <div id="brandList" class="brandList">
+        </div>
+        <div class="deviceAvailableRow">
+          <div class="smallColumn">
+            <div id="deviceList" class="deviceList">
+            </div>
+          </div>
+          <div class="largeColumn">
+            <div id="deviceShowCase" class="deviceShowCase">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accessories" class="textTabContent">
+        <p>accessories</p>
+      </div>
+    </div>
     <!-- video chat container -->
     <div class="container">
       <!-- self-view -->
       <div class="clientCover">
         <!-- model loader -->
         <div id="loadingScreen">
-          <img src="./assets/v-logo.png" class="loaderLogo"/>
+          <img src="./assets/v-logo.png" class="loaderLogo" />
         </div>
-        <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
-      </div>  
+        <canvas id="render3DModel" style="width: 95%;height: 100%;"></canvas>
+      </div>
       <div class="customerContainer">
         <!-- remote view -->
         <div class="hideInMobile">
-          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg" style="visibility: hidden;"></video>
+          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg"
+            style="visibility: hidden;"></video>
         </div>
-        <div class="clientControls" >
+        <div class="clientControls">
           <div class="iconCircle active" id="myMic" onclick="audioChange()">
             <i class="fa fa-microphone iconLarge"></i>
           </div>
@@ -51,12 +166,12 @@
         <!-- color controls -->
         <div class="colorVariantControls" id='colorVaraintList'>
         </div>
-         <!-- purposely hide to manually triggger an event to dispose the model -->
-         <button id="refreshModel" style="display: none;">Refresh Model</button>
-      </div> 
+        <!-- purposely hide to manually triggger an event to dispose the model -->
+        <button id="refreshModel" style="display: none;">Refresh Model</button>
+      </div>
     </div>
   </div>
   <script src="./scripts/csrCall.js"></script>
 </body>
 
-</html> 
+</html>

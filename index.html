@@ -9,20 +9,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    <script type="text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
 
 <body>
     <div>
-        <div class="callContainer" id="callContainer">
-            <div class="callContent" id='incomingCall'>
-                <i class="fa fa-phone shakeIcon"></i>
-                <h1>Incoming Call</h1>
-                <h4>(908)-555-1234</h4>
-                <div style="margin-top: 20px;">
-                    <button class="acceptCall" onclick="acceptCall()">Answer</button>
-                    <button class="declineCall" onclick="declineCall()">Decline</button>
-                </div>
+        <div class="incomingCallContainer" id="incomingCallModal">
+            <div class="innerContainer">
+              <div class="textRow">
+                <h2 class="nameText">VIKI</h2> &emsp;&ensp;
+                <h6 id="currentTime"></h6>
+              </div>
+              <h3 class="alertText">Video Assist Alert</h3>
+              <div class="addSpace"></div>
+              <h5>A customer is waiting to video chat. Are you ready to accept the call?</h5>
+              <div class="addLargeSpace"></div>
+              <button class="outlinedGreenLargeButton" onclick="acceptCall()">Accept Call
+                <svg height="50" width="50" id="mybutton" class="alignRight">
+                  <defs>
+                    <clipPath id="cFrame">
+                      <circle cx="25" cy="25" r="20" />
+                    </clipPath>
+                  </defs>
+                  <circle id="progress" cx="25" cy="25" r="20" fill="white" />
+                  <circle id="pbar" cx="25" cy="25" r="20" />
+                </svg>
+              </button>
+              <button class="outlinedRedLargeButton" onclick="declineCall()">Decline Call</button>
+              <div class="addSpace"></div>
+              <h5>* Can use underlined words as a voice command</h5>
             </div>
-        </div>
+          </div>
     </div>
     <script src="./scripts/index.js"></script>
 </body>

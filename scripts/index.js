@@ -3,8 +3,8 @@ document.getElementById("currentTime").innerHTML = timeNow;
 
 //show call popup ,after 5 seconds
 setTimeout(function () {
-  // document.getElementById("incomingCallModal").style.display = "initial";
-  // startCallAcceptingTimer();
+  document.getElementById("incomingCallModal").style.display = "initial";
+  startCallAcceptingTimer();
 }, 2000);
 
 //timer for closing call popup
@@ -26,8 +26,3 @@ function acceptCall() {
 function declineCall() {
   document.getElementById("incomingCallModal").style.display = "none";
 }
-
-document.getElementById('innerWidth').innerHTML = window.innerWidth;
-document.getElementById('innerHeight').innerHTML = window.innerHeight;
-
-console.log( window.innerWidth ,  window.innerHeight)

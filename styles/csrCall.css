@@ -268,7 +268,7 @@ transform: rotateY(360deg);
     display: flex;
     float: right;
     margin-top: 30px;
-    margin-right: 110px;
+    margin-right: 35px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -298,10 +298,11 @@ transform: rotateY(360deg);
 
 /* tabs */
 .sideNavTabHeader{
-    width: 95% !important;
+    width: 80% !important;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-left: 5%;
 }
 
 .textTabLinks{
@@ -326,8 +327,8 @@ transform: rotateY(360deg);
 .textTabContent {
     padding: 0px;
     display: none;
+    padding: 0px 30px !important;
     padding-top: 20px !important;
-    /* padding-bottom: 20px !important; */
     overflow: auto;
 }
 
@@ -420,8 +421,8 @@ table{
     display: flex;
     padding-inline-start: 0px;
     padding-bottom: 5px;
-    border-bottom: 1px solid white;
-    width: 38%;
+    border-bottom: 2px solid white;
+    width: 25%;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;

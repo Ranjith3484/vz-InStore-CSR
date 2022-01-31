@@ -390,13 +390,13 @@ function showDevices(item) {
   for (let i of devices) {
     deviceList += `<ul onclick="showDeviceImage('${
       i.name
-    }')" style="margin-bottom:0px;width:100%;"><h6 class="deviceNames" id="${
-      i.name
-    }"  style="border-bottom:${
+    }')" style="margin-bottom:0px;width: 70%; border-bottom:${
       i.name == localStorage.getItem("showingDevice")
-        ? "4px solid red"
-        : "4px solid white"
-    }">${i.name}</h6></ul>`;
+        ? "2px solid red"
+        : "2px solid white"
+    }" id="${
+      i.name
+    }" ><h6 class="deviceNames">${i.name}</h6></ul>`;
   }
   deviceList += "</span></div>";
 
@@ -427,9 +427,9 @@ function showDeviceImage(item) {
   var elements = document.getElementsByClassName("deviceNames");
   for (let i of elements) {
     if (i.innerHTML === arr[0].name) {
-      document.getElementById(i.innerHTML).style.borderBottom = "4px solid red";
+      document.getElementById(i.innerHTML).style.borderBottom = "2px solid red";
     } else {
-      document.getElementById(i.innerHTML).style.borderBottom = "0px solid red";
+      document.getElementById(i.innerHTML).style.borderBottom = "2px solid white";
     }
   }
 

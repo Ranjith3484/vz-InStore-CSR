@@ -326,68 +326,6 @@ var devicesBrands = [
   },
 ];
 
-var iPhone13Pro = [
-  {
-    color: "#9aafca",
-    staticModel: "iPhone13Pro%2FiPhone13Pro_blue.glb",
-    rotatedModel: "iPhone13Pro%2FiPhone13Pro_blue_rotated.glb",
-    active: true,
-  },
-  {
-    color: "#f5e1c8",
-    staticModel: "iPhone13Pro%2FiPhone13Pro_gold.glb",
-    rotatedModel: "iPhone13Pro%2FiPhone13Pro_gold_rotated.glb",
-  },
-  {
-    color: "#4c4a46",
-    staticModel: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
-    rotatedModel: "iPhone13Pro%2FiPhone13Pro_graphite_rotated.glb",
-  },
-];
-
-var pixel6Pro = [
-  {
-    color: "#343538",
-    staticModel: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
-    rotatedModel: "pixel6Pro%2Fpixel6Pro_StormyBlack_rotated.glb",
-    active: true,
-  },
-  {
-    color: "#e9e4e0",
-    staticModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
-    rotatedModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite_rotated.glb",
-  },
-  {
-    color: "#fbf2d1",
-    staticModel: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
-    rotatedModel: "pixel6Pro%2Fpixel6Pro_SortaSunny_rotated.glb",
-  },
-];
-
-var zFlip3 = [
-  {
-    color: "black",
-    staticModel: "zFlip3%2FZflip3_Black_Animated.glb",
-    rotatedModel: "zFlip3%2FZflip3_Black_Rotated.glb",
-    active: true,
-  },
-  {
-    color: "#f7f4d3",
-    staticModel: "zFlip3%2FZflip3_Cream_Animated.glb",
-    rotatedModel: "zFlip3%2FZflip3_Cream_Rotated.glb",
-  },
-  {
-    color: "#57666a",
-    staticModel: "zFlip3%2FZflip3_Green_Animated.glb",
-    rotatedModel: "zFlip3%2FZflip3_Green_Rotated.glb",
-  },
-  {
-    color: "#c2b1d7",
-    staticModel: "zFlip3%2FZflip3_Lavender_Animated.glb",
-    rotatedModel: "zFlip3%2FZflip3_Lavender_Rotated.glb",
-  },
-];
-
 function openCloseNav() {
   if (document.getElementById("mySidenav").classList.contains("hideElement")) { //show navbar
     document.getElementById("mySidenav").classList.remove("hideElement");
@@ -617,7 +555,7 @@ function showDeviceVariantUI(item) {
 }
 
 //by default show iphone 13
-showDeviceVariantUI(iPhone13Pro);
+showDeviceVariantUI(devicesBrands[0].devices[0].variant);
 
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {
@@ -655,16 +593,17 @@ document.addEventListener("keypress", function (event) {
       switchVaraint[9].click();
       break;
     case "a":
-      showDeviceUI(iPhone13Pro);
+      showDeviceVariantUI(devicesBrands[0].devices[0].variant);
       break;
     case "g":
-      showDeviceUI(pixel6Pro);
+      showDeviceVariantUI(devicesBrands[2].devices[0].variant);
       break;
     case "s":
-      showDeviceUI(zFlip3);
+      showDeviceVariantUI(devicesBrands[1].devices[0].variant);
       break;
   }
 });
+
 
 function changeVariant(item) {
   var details = JSON.parse(item);
@@ -698,6 +637,7 @@ function changeVariant(item) {
   showingModelPath.rotatedModel = details.rotatedModel;
 }
 
+//babylon js
 function showModel(item) {
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
@@ -993,6 +933,7 @@ console.log("go frr")
     });
 }
 
+//switch between static and rotated model
 function switchModel(){
   document.getElementById("refreshModel").click();
    if(rotatedModel){ //show static model

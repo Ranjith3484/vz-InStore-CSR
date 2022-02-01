@@ -119,6 +119,64 @@ var devicesBrands = [
   },
 ];
 
+//scale drone api for passing information
+const CLIENT_ID = "lo7BTdylZk5eQqX7";
+
+const drone = new ScaleDrone(CLIENT_ID, {
+  data: {
+    name: "CSR",
+  },
+});
+
+let members = [];
+
+drone.on("open", (error) => {
+  if (error) {
+    return console.error(error);
+  }
+  console.log("Successfully connected to Scaledrone");
+
+  const room = drone.subscribe("observable-room");
+  room.on("open", (error) => {
+    if (error) {
+      return console.error(error);
+    }
+    console.log("Successfully joined room");
+  });
+
+  room.on("data", (text, member) => {
+    console.log(text)
+
+    if (member.clientData.name === "customer") {
+     if (text === "audioMuted") {
+        console.log("muted");
+      //   document.getElementsByClassName(
+      //     "remoteAudioMutedIcon"
+      //   )[0].style.display = "block";
+      //   document.getElementsByClassName(
+      //     "remoteAudioUnMutedIcon"
+      //   )[0].style.display = "none";
+      // } else if (text === "audioUnMuted") {
+      //   console.log("un muted");
+      //   document.getElementsByClassName(
+      //     "remoteAudioMutedIcon"
+      //   )[0].style.display = "none";
+      //   document.getElementsByClassName(
+      //     "remoteAudioUnMutedIcon"
+      //   )[0].style.display = "block";
+      } 
+    }
+  });
+});
+
+drone.on("close", (event) => {
+  console.log("Connection was closed", event);
+});
+
+drone.on("error", (error) => {
+  console.error(error);
+});
+
 function startCallSession() {
   //webrtc starts here
   "use strict";
@@ -371,12 +429,6 @@ function videoChange() {
     //clear the scene
     document.getElementById("refreshModel").click();
     //to manuallu shoe iphoen model if no model selected before switching video
-    // showModel({
-    //   modelPath:
-    //     showingModelPath.staticModel === ""
-    //       ? devicesBrands[0].devices[0].variant[0].staticModel
-    //       : showingModelPath.staticModel,
-    // });
     if(showingModelPath.staticModel === ""){
       showDeviceVariantUI(devicesBrands[0].devices[0].variant)
     }else{
@@ -646,6 +698,11 @@ function changeVariant(item) {
 
 //babylon js
 function showModel(item) {
+    //send message via drone for audio un muted
+    drone.publish({
+      room: "observable-room",
+      message: "showingModel",
+    });
   var changeVariant = item.changeVariant;
   var webCamFeed = item.webCamFeed;
   //show loader

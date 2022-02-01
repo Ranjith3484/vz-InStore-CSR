@@ -371,12 +371,19 @@ function videoChange() {
     //clear the scene
     document.getElementById("refreshModel").click();
     //to manuallu shoe iphoen model if no model selected before switching video
-    showModel({
-      modelPath:
-        showingModelPath.staticModel === ""
-          ? devicesBrands[0].devices[0].variant[0].staticModel
-          : showingModelPath.staticModel,
-    });
+    // showModel({
+    //   modelPath:
+    //     showingModelPath.staticModel === ""
+    //       ? devicesBrands[0].devices[0].variant[0].staticModel
+    //       : showingModelPath.staticModel,
+    // });
+    if(showingModelPath.staticModel === ""){
+      showDeviceVariantUI(devicesBrands[0].devices[0].variant)
+    }else{
+      showModel({
+        modelPath:showingModelPath.staticModel,
+      });
+    }
   } else {
     //unmute video ui
     document.getElementById("myVideo").classList.add("active");

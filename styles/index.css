@@ -119,12 +119,12 @@ p{
       border-radius: 7px;
       font-size: 20px;
       font-weight: bold;
-      height: 60px;
-      margin: 10px 0px;
+      height: 50px;
+      margin: 0px;
       display: inline-block;
        align-items: center;
        align-content: center;
-       padding-top: 14px;
+       padding-top: 10px;
        cursor: pointer;
        transition: transform 0.2s;
       font-family: verizonBoldFont;
@@ -140,12 +140,12 @@ p{
       font-size: 20px;
       font-weight: bold;
       font-family: verizonBoldFont;
-      height: 60px;
-      margin: 10px 0px;
+      height: 50px;
+      margin: 0px;
       display: inline-block;
        align-items: center;
        align-content: center;
-       padding-top: 14px;
+       padding-top: 10px;
        cursor: pointer;
   }
   
@@ -154,7 +154,7 @@ p{
       margin: 0px;
       padding: 0px;
       margin-right: 20px;
-      margin-top: -15px;
+      margin-top: -6px;
   }
   
   .hideItem{
@@ -170,11 +170,11 @@ p{
       font-size: 20px;
       font-weight: bold;
       font-family: verizonBoldFont;
-      height: 60px;
-      margin: 10px 0px;
+      height: 50px;
+      margin: 0px;
       padding-right: 75px;
       cursor: pointer;
-      margin-top: 30px;
+      margin-top: 15px;
       transition: transform .2s;
   }
   
@@ -188,11 +188,11 @@ p{
       font-size: 20px;
       font-weight: bold;
       font-family: verizonBoldFont;
-      height: 60px;
-      margin: 10px 0px;
+      height: 50px;
+      margin: 0px;
       padding-right: 75px;
       cursor: pointer;
-      margin-top: 30px;
+      margin-top: 15px;
   }
   
   /* button timer progress bar */
@@ -242,13 +242,10 @@ p{
             left: 50%;
         }
         .innerContainer{
-            padding: 20px 40px;
+            padding: 10px 40px;
         }
         .addSpace{
             height: 10px !important;
         }
         
-        .addLargeSpace{
-            height: 20px !important;
-        }
     }

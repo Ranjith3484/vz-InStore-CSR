@@ -228,6 +228,7 @@ th{
     outline: none;
     width: 89%;
     height:80%;
+    background-color: #fff;
 }
 
 #loadingScreen {
@@ -562,8 +563,8 @@ table{
     }
 
     .iconCircle{
-       height: 50px;
-       width: 50px;
+       height: 40px;
+       width: 40px;
        border-radius: 100%;
        display: flex;
        justify-content: center;
@@ -579,7 +580,17 @@ table{
 .hideInMobile{
         display: none;
 }
-  
+.navOpenerIcon{
+    font-size: 30px !important;
+    color: grey;
+    cursor: pointer;
+ }
+ .navCloserIcon{
+     font-size: 30px !important;
+     color: white;
+     cursor: pointer;
+  }
+ 
 }
 
 

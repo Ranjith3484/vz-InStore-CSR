@@ -322,6 +322,12 @@ transform: rotateY(360deg);
 }
 }
 
+.initialCanvasLogo{
+    width: 200px;
+    height: 60px;
+    z-index: 2;
+}
+
 /* side nave opener */
 .sideNavMenu{
     display: flex;

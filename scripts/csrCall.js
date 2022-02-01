@@ -119,7 +119,6 @@ var devicesBrands = [
   },
 ];
 
-
 function startCallSession() {
   //webrtc starts here
   "use strict";
@@ -371,8 +370,12 @@ function videoChange() {
     document.getElementsByClassName("switchModel")[0].style.display = "flex";
     //clear the scene
     document.getElementById("refreshModel").click();
+    //to manuallu shoe iphoen model if no model selected before switching video
     showModel({
-      modelPath: localStorage.getItem("showingDeviceModel"),
+      modelPath:
+        showingModelPath.staticModel === ""
+          ? devicesBrands[0].devices[0].variant[0].staticModel
+          : showingModelPath.staticModel,
     });
   } else {
     //unmute video ui
@@ -540,8 +543,8 @@ function showDeviceImage(item) {
     changeVariant: false,
   });
 
-  showingModelPath.staticModel = arr[0].varainat[0].staticModel;
-  showingModelPath.rotatedModel = arr[0].varainat[0].rotatedModel;
+  showingModelPath.staticModel = arr[0].variant[0].staticModel;
+  showingModelPath.rotatedModel = arr[0].variant[0].rotatedModel;
 }
 
 //device variant ui on video chat container
@@ -622,9 +625,9 @@ function changeVariant(item) {
     }
   }
   //change showcase image
-  var deviceImg = document.getElementById('showingDeviceImage');
-  if(deviceImg !== null){
-    deviceImg.src = details.image
+  var deviceImg = document.getElementById("showingDeviceImage");
+  if (deviceImg !== null) {
+    deviceImg.src = details.image;
   }
   showModel({
     modelPath: details.staticModel,
@@ -634,14 +637,15 @@ function changeVariant(item) {
   showingModelPath.rotatedModel = details.rotatedModel;
 }
 
-
-
 //babylon js
 function showModel(item) {
   var changeVariant = item.changeVariant;
   var webCamFeed = item.webCamFeed;
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
+  //hide logo
+  document.getElementsByClassName("initialCanvasLogo")[0].style.display =
+    "none";
 
   //change animate icon color
   rotatedModel = false;
@@ -997,51 +1001,49 @@ function switchModel() {
   }
 }
 
-
-
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {
-var switchVaraint = document.getElementsByClassName("colorVariant");
+  var switchVaraint = document.getElementsByClassName("colorVariant");
 
-switch (event.key) {
-  case "1":
-    switchVaraint[0].click();
-    break;
-  case "2":
-    switchVaraint[1].click();
-    break;
-  case "3":
-    switchVaraint[2].click();
-    break;
-  case "4":
-    switchVaraint[3].click();
-    break;
-  case "5":
-    switchVaraint[4].click();
-    break;
-  case "6":
-    switchVaraint[5].click();
-    break;
-  case "7":
-    switchVaraint[6].click();
-    break;
-  case "8":
-    switchVaraint[7].click();
-    break;
-  case "9":
-    switchVaraint[8].click();
-    break;
-  case "10":
-    switchVaraint[9].click();
-    break;
-  case "a":
-    showDeviceVariantUI(devicesBrands[0].devices[0].variant);
-    break;
-  case "g":
-    showDeviceVariantUI(devicesBrands[2].devices[0].variant);
-    break;
-  case "s":
-    showDeviceVariantUI(devicesBrands[1].devices[0].variant);
-    break;
-}
+  switch (event.key) {
+    case "1":
+      switchVaraint[0].click();
+      break;
+    case "2":
+      switchVaraint[1].click();
+      break;
+    case "3":
+      switchVaraint[2].click();
+      break;
+    case "4":
+      switchVaraint[3].click();
+      break;
+    case "5":
+      switchVaraint[4].click();
+      break;
+    case "6":
+      switchVaraint[5].click();
+      break;
+    case "7":
+      switchVaraint[6].click();
+      break;
+    case "8":
+      switchVaraint[7].click();
+      break;
+    case "9":
+      switchVaraint[8].click();
+      break;
+    case "10":
+      switchVaraint[9].click();
+      break;
+    case "a":
+      showDeviceVariantUI(devicesBrands[0].devices[0].variant);
+      break;
+    case "g":
+      showDeviceVariantUI(devicesBrands[2].devices[0].variant);
+      break;
+    case "s":
+      showDeviceVariantUI(devicesBrands[1].devices[0].variant);
+      break;
+  }
 });

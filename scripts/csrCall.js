@@ -630,7 +630,7 @@ function changeVariant(item) {
     deviceImg.src = details.image;
   }
   showModel({
-    modelPath: details.staticModel,
+    modelPath: rotatedModel ? details.rotatedModel : details.staticModel,
     changeVariant: true,
   });
   showingModelPath.staticModel = details.staticModel;
@@ -646,9 +646,6 @@ function showModel(item) {
   //hide logo
   document.getElementsByClassName("initialCanvasLogo")[0].style.display =
     "none";
-
-  //change animate icon color
-  rotatedModel = false;
 
   //show 3d model
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
@@ -699,7 +696,7 @@ function showModel(item) {
       }, 1000);
     } else {
       //enable animated icon and features tab
-      document.getElementById("switchModel").style.backgroundColor = "#666";
+      document.getElementById("switchModel").style.backgroundColor = rotatedModel ? "rgba(51, 153, 255)" : "#666";
       document.getElementsByClassName(
         "modelControlContainer"
       )[0].style.display = "flex";

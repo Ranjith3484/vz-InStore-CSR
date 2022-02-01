@@ -185,6 +185,7 @@ function startCallSession() {
   //webrtc ends here
 }
 startCallSession();
+
 function endCall() {
   window.location.replace("./index.html");
 }
@@ -220,12 +221,73 @@ function audioChange(userMediaStream) {
   }
 }
 
+function removeFeaturesActiveUI() {
+  var i, tab;
+  //removing active style
+  tab = document.getElementsByClassName("featuresText");
+  for (i = 0; i < tab.length; i++) {
+    tab[i].style.fontSize = "18px";
+    tab[i].style.fontWeight = "normal";
+    tab[i].style.borderBottom = "1px solid black";
+  }
+  document.getElementById("FrontCamera").style.fontWeight = "300";
+  document.getElementById("BackCamera").style.fontWeight = "300";
+  document.getElementById("SimInsert").style.fontWeight = "300";
+  document.getElementById("ChargingPort").style.fontWeight = "300";
+}
+
+function videoChange() {
+  if (document.getElementById("myVideo").classList.contains("active")) {
+    //mute video ui
+    document.getElementById("myVideo").classList.add("inactive");
+    document.getElementById("myVideo").classList.add("crossLine");
+    document.getElementById("myVideo").classList.remove("active");
+    //hide model controls
+    document.getElementsByClassName("modelControlContainer")[0].style.display =
+      "flex";
+    document.getElementsByClassName("switchModel")[0].style.display = "flex";
+    //clear the scene
+    document.getElementById("refreshModel").click();
+    showModel({
+      modelPath: localStorage.getItem("showingDeviceModel"),
+    });
+  } else {
+    //unmute video ui
+    document.getElementById("myVideo").classList.add("active");
+    document.getElementById("myVideo").classList.remove("inactive");
+    document.getElementById("myVideo").classList.remove("crossLine");
+    //show model controls
+    document.getElementsByClassName("modelControlContainer")[0].style.display =
+      "none";
+    document.getElementsByClassName("switchModel")[0].style.display = "none";
+    removeFeaturesActiveUI();
+    //clear the scene
+    document.getElementById("refreshModel").click();
+    showModel({
+      webCamFeed: true,
+    });
+  }
+}
+
 let showingFeature = "FrontCamera";
 let rotatedModel = false;
 let showingModelPath = {
-  staticModel:"",
-  rotatedModel:""
-}
+  staticModel: "",
+  rotatedModel: "",
+};
+var walkRotation = {
+  x: 0,
+  y: 0,
+};
+var walkPosition = {
+  x: 0,
+  y: 0,
+};
+var walkScaling = {
+  x: 0.9,
+  y: 0.9,
+  z: -1,
+};
 
 var devicesBrands = [
   {
@@ -327,13 +389,15 @@ var devicesBrands = [
 ];
 
 function openCloseNav() {
-  if (document.getElementById("mySidenav").classList.contains("hideElement")) { //show navbar
+  if (document.getElementById("mySidenav").classList.contains("hideElement")) {
+    //show navbar
     document.getElementById("mySidenav").classList.remove("hideElement");
     document.getElementsByClassName("container")[0].style.display = "none";
     document.getElementsByClassName("sideNavMenu")[0].style.display = "none";
     // show caller tab by default
     document.getElementById("defaultOpenTab").click();
-  } else { //hide nav bar 
+  } else {
+    //hide nav bar
     document.getElementById("mySidenav").classList.add("hideElement");
     document.getElementsByClassName("container")[0].style.display = "";
     document.getElementsByClassName("sideNavMenu")[0].style.display = "";
@@ -357,7 +421,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " activeBold";
 }
 
-
 //hide devices and show brands
 function showBrands() {
   document.getElementById("deviceList").style.display = "none";
@@ -369,7 +432,13 @@ function showBrands() {
 //listing brands
 var brandList = "<div>";
 for (let i of devicesBrands) {
-  brandList += `<ul onclick="showDevices('${i.brand}')" id="${i.brand}">${i.brand} <i class="fa fa-chevron-right iconL"></i></ul>`;
+  brandList += `<ul onclick="showDevices('${i.brand}')" id="${i.brand}"
+ style='border-bottom:${
+   i.brand == localStorage.getItem("showingBrand")
+     ? "2px solid red"
+     : "2px solid white"
+ } !important"'
+  >${i.brand} <i class="fa fa-chevron-right iconL"></i></ul>`;
 }
 brandList += "</div>";
 document.getElementById("brandList").innerHTML = brandList;
@@ -394,9 +463,7 @@ function showDevices(item) {
       i.name == localStorage.getItem("showingDevice")
         ? "2px solid red"
         : "2px solid white"
-    }" id="${
-      i.name
-    }" ><h6 class="deviceNames">${i.name}</h6></ul>`;
+    }" id="${i.name}" ><h6 class="deviceNames">${i.name}</h6></ul>`;
   }
   deviceList += "</span></div>";
 
@@ -409,6 +476,17 @@ function showDevices(item) {
   document.getElementById("brandList").style.display = "none";
 }
 
+//show device feature ui
+function showDeviceFeature(feature) {
+  //removing active style
+  removeFeaturesActiveUI();
+  //add active style
+  document.getElementById(feature).style.fontWeight = "bold";
+  document.getElementById(feature).style.borderBottom = "2px solid red";
+  localStorage.setItem("showDeviceFeature", feature);
+  document.getElementById("render3DModel").focus();
+}
+
 //show device show case area
 function showDeviceImage(item) {
   var arr = JSON.parse(localStorage.getItem("showingDeviceList"));
@@ -419,8 +497,11 @@ function showDeviceImage(item) {
   localStorage.setItem("showingDeviceDisplayName", arr[0].displayName);
   localStorage.setItem("showingDeviceImage", arr[0].variant[0].image);
   localStorage.setItem("showingDeviceVariant", arr[0].variant[0].color);
-  localStorage.setItem("showingDeviceModel", arr[0].variant[0].StaticModel);
-  localStorage.setItem("showingDeviceQRLink", arr[0].variant[0].qrLink);
+  localStorage.setItem("showingDeviceModel", arr[0].variant[0].staticModel);
+  localStorage.setItem(
+    "showingDeviceModelRotated",
+    arr[0].variant[0].rotatedModel
+  );
   document.getElementById("deviceShowCase").style.display = "block";
 
   //add border to active device
@@ -429,19 +510,13 @@ function showDeviceImage(item) {
     if (i.innerHTML === arr[0].name) {
       document.getElementById(i.innerHTML).style.borderBottom = "2px solid red";
     } else {
-      document.getElementById(i.innerHTML).style.borderBottom = "2px solid white";
+      document.getElementById(i.innerHTML).style.borderBottom =
+        "2px solid white";
     }
   }
 
-  var j, tab;
   //removing active style for features section
-  tab = document.getElementsByClassName("featuresText");
-  for (j = 0; j < tab.length; j++) {
-    tab[j].style.fontSize = "28px";
-    tab[j].style.fontWejght = "normal";
-    tab[j].style.borderBottom = "2px solid #bfbfbf";
-  }
-
+  removeFeaturesActiveUI();
   //adding html content for showing device image and by default show first variant
   var showCase = "<div>";
   showCase +=
@@ -449,55 +524,16 @@ function showDeviceImage(item) {
     localStorage.getItem("showingDeviceImage") +
     " ' class='viewDeviceImage' id='showingDeviceImage' />";
   showCase += "<h6 class='center'>" + arr[0].displayName + "</h6>";
-  showCase += " <div class='phoneColorSelector'>";
-  //list color variant
-  var variant = arr[0].variant;
-  var variantList =
-    '<div style="display:flex;width:100%;justify-content:space-evenly">';
-
-  for (let i of variant) {
-    if (i.color == "white") {
-      variantList +=
-        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:white;border:1px solid white' onclick='changeVariant(`" +
-        JSON.stringify(i) +
-        "`)' id=" +
-        i.color +
-        " class='colorVariant inactive'></div>";
-    } else if (i.active) {
-      // mark first variant as selected active
-      variantList +=
-        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:" +
-        i.color +
-        " ;box-shadow: 0px 0px 0px 2px white, 0px 0px 0px 3px " +
-        i.color +
-        ";' onclick='changeVariant(`" +
-        JSON.stringify(i) +
-        "`)' id=" +
-        i.color +
-        " class='colorVariant active'></div>";
-    } else {
-      variantList +=
-        "<div style='height:15px;width:15px;border-radius:15px;cursor:pointer;background-color:" +
-        i.color +
-        "' onclick='changeVariant(`" +
-        JSON.stringify(i) +
-        "`)' id=" +
-        i.color +
-        " class='colorVariant inactive'></div>";
-    }
-  }
-  variantList += "</div>";
-  //end of variant listing
-  showCase += variantList;
-  showCase += "</div>";
-  showCase +=
-    "<button class='outlinedButton' onclick='shareDevice()' id='shareQR' disabled='true'>Share</button>";
   showCase += "</div>";
   document.getElementById("deviceShowCase").innerHTML = showCase;
   document.getElementById("refreshModel").click();
+
+  showDeviceVariantUI(arr[0].variant);
+
   //show 3d model of first variant by default
   showModel({
-    modelPath: arr[0].variant[0].staticModel
+    modelPath: arr[0].variant[0].staticModel,
+    changeVariant: false,
   });
   showingModelPath.staticModel = arr[0].varainat[0].staticModel;
   showingModelPath.rotatedModel = arr[0].varainat[0].rotatedModel;
@@ -510,6 +546,7 @@ function showDeviceVariantUI(item) {
   //initial call to show first variant
   showModel({
     modelPath: item[0].staticModel,
+    changeVariant: false,
   });
 
   showingModelPath.staticModel = item[0].staticModel;
@@ -553,9 +590,6 @@ function showDeviceVariantUI(item) {
 
   document.getElementById("colorVaraintList").innerHTML = variantList;
 }
-
-//by default show iphone 13
-showDeviceVariantUI(devicesBrands[0].devices[0].variant);
 
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {
@@ -604,7 +638,6 @@ document.addEventListener("keypress", function (event) {
   }
 });
 
-
 function changeVariant(item) {
   var details = JSON.parse(item);
   var i, tablinks;
@@ -632,6 +665,7 @@ function changeVariant(item) {
   }
   showModel({
     modelPath: details.staticModel,
+    changeVariant: true,
   });
   showingModelPath.staticModel = details.staticModel;
   showingModelPath.rotatedModel = details.rotatedModel;
@@ -639,16 +673,15 @@ function changeVariant(item) {
 
 //babylon js
 function showModel(item) {
+  var changeVariant = item.changeVariant;
+  var webCamFeed = item.webCamFeed;
+
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
+
   //change animate icon color
   rotatedModel = false;
-  //enable arrow icon
-  document.getElementById("goForward").style.pointerEvents = "";
-  document.getElementById("goForward").style.opacity="1";
-  document.getElementById("goBackward").style.pointerEvents = "";
-  document.getElementById("goBackward").style.opacity="1";
-  document.getElementById("switchModel").style.backgroundColor = "#666";
+
   //show 3d model
   const modelCanvas = document.getElementById("render3DModel"); // Get the canvas element
   modelCanvas.setAttribute("width", window.innerWidth);
@@ -675,170 +708,229 @@ function showModel(item) {
     );
     light1.intensity = 2;
 
-    //keyboard events for moving the model
-    scene.onKeyboardObservable.add((kbInfo) => {
-      document.getElementById("render3DModel").focus();
-      let walk = scene.getMeshByName("__root__");
-      switch (kbInfo.type) {
-        case BABYLON.KeyboardEventTypes.KEYDOWN:
-          switch (kbInfo.event.key) {
-            case "ArrowLeft":
-              walk.position.x -= 0.1;
-              break;
-            case "ArrowRight":
-              walk.position.x += 0.1;
-              break;
-            case "ArrowUp":
-              walk.position.y += 0.1;
-              break;
-            case "ArrowDown":
-              walk.position.y -= 0.1;
-              break;
-            case "z":
-            case "Z":
-              walk.scaling.x += 0.1;
-              walk.scaling.y += 0.1;
-              walk.scaling.z -= 0.1;
-              break;
-            case "u":
-            case "U":
-              walk.scaling.x -= 0.1;
-              walk.scaling.y -= 0.1;
-              walk.scaling.z += 0.1;
-              break;
-            case "f":
-            case "F":
-              walk.rotation.x = 0;
-              walk.rotation.y = 0;
+    if (webCamFeed) {
+      const videoLayer = new BABYLON.Layer("videoLayer", null, scene, true);
+      const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(
+        scene,
+        (videoTexture) => {
+          videoTexture._invertY = false;
+          videoTexture;
+          videoLayer.texture = videoTexture;
+        },
+        {
+          minWidth: 640,
+          minHeight: 480,
+          maxWidth: 1920,
+          maxHeight: 1080,
+          deviceId: "",
+        }
+      );
+      //hide loader
+      setTimeout(function () {
+        document.getElementById("loadingScreen").style.display = "none";
+      }, 1000);
+    } else {
+      //enable animated icon and features tab
+      document.getElementById("switchModel").style.backgroundColor = "#666";
+      document.getElementsByClassName(
+        "modelControlContainer"
+      )[0].style.display = "flex";
 
-              walkRotation.x = 0;
-              walkRotation.y = 0;
-              break;
-            case "b":
-            case "B":
-              walk.rotation.x = 0.006;
-              walk.rotation.y = -3.09;
+      //keyboard events for moving the model
+      scene.onKeyboardObservable.add((kbInfo) => {
+        document.getElementById("render3DModel").focus();
+        let walk = scene.getMeshByName("__root__");
+        switch (kbInfo.type) {
+          case BABYLON.KeyboardEventTypes.KEYDOWN:
+            switch (kbInfo.event.key) {
+              case "ArrowLeft":
+                walk.position.x -= 0.1;
+                break;
+              case "ArrowRight":
+                walk.position.x += 0.1;
+                break;
+              case "ArrowUp":
+                walk.position.y += 0.1;
+                break;
+              case "ArrowDown":
+                walk.position.y -= 0.1;
+                break;
+              case "z":
+              case "Z":
+                walk.scaling.x += 0.1;
+                walk.scaling.y += 0.1;
+                walk.scaling.z -= 0.1;
+                break;
+              case "u":
+              case "U":
+                walk.scaling.x -= 0.1;
+                walk.scaling.y -= 0.1;
+                walk.scaling.z += 0.1;
+                break;
+              case "f":
+              case "F":
+                walk.rotation.x = 0;
+                walk.rotation.y = 0;
 
-              walkRotation.x = parseFloat(0.006);
-              walkRotation.y = parseFloat(-3.09);
-              break;
-            case "i":
-            case "I":
-              walk.rotation.x = 0.083;
-              walk.rotation.y = 4.5;
+                walkRotation.x = 0;
+                walkRotation.y = 0;
+                break;
+              case "b":
+              case "B":
+                walk.rotation.x = 0.006;
+                walk.rotation.y = -3.09;
 
-              walkRotation.x = parseFloat(0.083);
-              walkRotation.y = parseFloat(4.5);
-              break;
-            case "p":
-            case "P":
-              walk.rotation.x = -1.45;
-              walk.rotation.y = 2.66;
+                walkRotation.x = parseFloat(0.006);
+                walkRotation.y = parseFloat(-3.09);
+                break;
+              case "i":
+              case "I":
+                walk.rotation.x = 0.083;
+                walk.rotation.y = 4.5;
 
-              walkRotation.x = parseFloat(-1.45);
-              walkRotation.y = parseFloat(2.66);
-              break;
-          }
-      }
-    });
+                walkRotation.x = parseFloat(0.083);
+                walkRotation.y = parseFloat(4.5);
+                break;
+              case "p":
+              case "P":
+                walk.rotation.x = -1.45;
+                walk.rotation.y = 2.66;
 
-    //rotate using mouse
-    let currentPosition = { x: 0, y: 0 };
-    var currentRotation = { x: 0, y: 0 };
+                walkRotation.x = parseFloat(-1.45);
+                walkRotation.y = parseFloat(2.66);
+                break;
+            }
+        }
+        walkPosition.x = parseFloat(walk.position.x);
+        walkPosition.y = parseFloat(walk.position.y);
 
-    let clicked = false;
+        walkScaling.x = parseFloat(walk.scaling.x);
+        walkScaling.y = parseFloat(walk.scaling.y);
+        walkScaling.z = parseFloat(walk.scaling.z);
+      });
 
-    scene.onPointerObservable.add((pointerInfo) => {
-      document.getElementById("render3DModel").focus();
-      var walk = scene.getMeshByName("__root__");
-      switch (pointerInfo.type) {
-        case BABYLON.PointerEventTypes.POINTERDOWN:
-          currentPosition.x = pointerInfo.event.clientX;
-          currentPosition.y = pointerInfo.event.clientY;
-          currentRotation.x = walk.rotation.x;
-          currentRotation.y = walk.rotation.y;
-          clicked = true;
-          break;
-        case BABYLON.PointerEventTypes.POINTERUP:
-          clicked = false;
-          break;
-        case BABYLON.PointerEventTypes.POINTERMOVE:
-          if (!clicked) {
-            return;
-          }
-          if (walk !== null) {
-            walk.rotation.y =
-              currentRotation.y -
-              (pointerInfo.event.clientX - currentPosition.x) / 100.0;
+      //rotate using mouse
+      let currentPosition = { x: 0, y: 0 };
+      var currentRotation = { x: 0, y: 0 };
 
-            walk.rotation.x =
-              currentRotation.x +
-              (pointerInfo.event.clientY - currentPosition.y) / 100.0;
-          }
-          break;
-        case BABYLON.PointerEventTypes.POINTERWHEEL:
-          break;
-        case BABYLON.PointerEventTypes.POINTERPICK:
-          console.log("POINTER PICK");
-          break;
-        case BABYLON.PointerEventTypes.POINTERTAP:
-          break;
-        case BABYLON.PointerEventTypes.POINTERDOUBLETAP:
-          break;
-      }
-    });
+      let clicked = false;
 
-    // This attaches the camera to the canvas
-    camera.attachControl(modelCanvas, true);
-
-    //hide default babylonjs loader
-    BABYLON.SceneLoaderFlags.ShowLoadingScreen = false;
-
-    // show 3d model as top layer
-    BABYLON.SceneLoader.Append(
-      "https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/",
-      item.modelPath + "?alt=media&token=",
-      scene,
-      function (scene) {
-        scene.createDefaultCameraOrLight(false, true, false);
+      scene.onPointerObservable.add((pointerInfo) => {
+        document.getElementById("render3DModel").focus();
         var walk = scene.getMeshByName("__root__");
+        switch (pointerInfo.type) {
+          case BABYLON.PointerEventTypes.POINTERDOWN:
+            currentPosition.x = pointerInfo.event.clientX;
+            currentPosition.y = pointerInfo.event.clientY;
+            currentRotation.x = walk.rotation.x;
+            currentRotation.y = walk.rotation.y;
+            clicked = true;
+            break;
+          case BABYLON.PointerEventTypes.POINTERUP:
+            clicked = false;
+            break;
+          case BABYLON.PointerEventTypes.POINTERMOVE:
+            if (!clicked) {
+              return;
+            }
+            if (walk !== null) {
+              walk.rotation.y =
+                currentRotation.y -
+                (pointerInfo.event.clientX - currentPosition.x) / 100.0;
 
-        //initialize the model position
-        walk.position.x = 0;
-        walk.position.y = 0;
+              walk.rotation.x =
+                currentRotation.x +
+                (pointerInfo.event.clientY - currentPosition.y) / 100.0;
+            }
+            break;
+          case BABYLON.PointerEventTypes.POINTERWHEEL:
+            break;
+          case BABYLON.PointerEventTypes.POINTERPICK:
+            console.log("POINTER PICK");
+            break;
+          case BABYLON.PointerEventTypes.POINTERTAP:
+            break;
+          case BABYLON.PointerEventTypes.POINTERDOUBLETAP:
+            break;
+        }
+        walkPosition.x = parseFloat(walk.position.x);
+        walkPosition.y = parseFloat(walk.position.y);
 
-        walk.scaling.z = -1;
-        walk.scaling.x = 0.9;
-        walk.scaling.y = 0.9;
+        walkRotation.x = parseFloat(walk.rotation.x);
+        walkRotation.y = parseFloat(walk.rotation.y);
+      });
 
-        //pushing rotation object to enable camera features
-        walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
+      // This attaches the camera to the canvas
+      camera.attachControl(modelCanvas, true);
 
-        //pushing position object to enable camera features
-        walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
+      //hide default babylonjs loader
+      BABYLON.SceneLoaderFlags.ShowLoadingScreen = false;
 
-        //pushing scaling object to enable camera features
-        walk.scaling = new BABYLON.Vector3(
-          walk.scaling.x,
-          walk.scaling.y,
-          walk.scaling.z
-        );
-        //hide loader
-        setTimeout(function () {
-          document.getElementById("loadingScreen").style.display = "none";
-        }, 1000);
-      },
-      function (error) {
-        //hide loader
-        setTimeout(function () {
-          document.getElementById("loadingScreen").style.display = "none";
-        }, 1000);
-        console.error(error);
-      }
-    );
+      // show 3d model as top layer
+      BABYLON.SceneLoader.Append(
+        "https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/",
+        item.modelPath + "?alt=media&token=",
+        scene,
+        function (scene) {
+          scene.createDefaultCameraOrLight(false, true, false);
+          var walk = scene.getMeshByName("__root__");
+
+          //initialize the model position
+          walk.position.x = 0;
+          walk.position.y = 0;
+
+          walk.scaling.z = -1;
+          walk.scaling.x = 0.9;
+          walk.scaling.y = 0.9;
+
+          if (changeVariant && walk !== null) {
+            //set to previous position, if variant changed
+            walk.rotation.x = parseFloat(walkRotation.x);
+            walk.rotation.y = parseFloat(walkRotation.y);
+            walk.position.x = parseFloat(walkPosition.x);
+            walk.position.y = parseFloat(walkPosition.y);
+            walk.scaling.x = parseFloat(walkScaling.x);
+            walk.scaling.y = parseFloat(walkScaling.y);
+            walk.scaling.z = parseFloat(walkScaling.z);
+          } else {
+            //set to default values  while changing model
+            walkPosition.x = -2.5;
+            walkPosition.y = 0.2;
+            walkRotation.x = 0;
+            walkRotation.y = 0;
+            walkScaling.x = 1;
+            walkScaling.y = 1;
+            walkScaling.z = -1;
+          }
+
+          //pushing rotation object to enable camera features
+          walk.rotation = new BABYLON.Vector3(walk.rotation.x, walk.rotation.y);
+
+          //pushing position object to enable camera features
+          walk.position = new BABYLON.Vector3(walk.position.x, walk.position.y);
+
+          //pushing scaling object to enable camera features
+          walk.scaling = new BABYLON.Vector3(
+            walk.scaling.x,
+            walk.scaling.y,
+            walk.scaling.z
+          );
+          //hide loader
+          setTimeout(function () {
+            document.getElementById("loadingScreen").style.display = "none";
+          }, 1000);
+        },
+        function (error) {
+          //hide loader
+          setTimeout(function () {
+            document.getElementById("loadingScreen").style.display = "none";
+          }, 1000);
+          console.error(error);
+        }
+      );
+    }
     //add white background
     scene.clearColor = new BABYLON.Color4(1, 1, 1);
-
     return scene;
   };
 
@@ -855,65 +947,35 @@ function showModel(item) {
     engine.resize();
   });
 
-
-  //go forward
-  document.getElementById("goForward").addEventListener("click", function () {
+  document.getElementById("FrontCamera").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
-console.log("go frr")
-    // order
-    // front camera ==> Back camera ==> sim insert ==> charging port
-
-    switch (showingFeature) {
-      case "FrontCamera": // go for back camera
-        showingFeature = "BackCamera";
-        walk.rotation.x = 0.006;
-        walk.rotation.y = -3.09;
-        break;
-      case "BackCamera": //go for sim insert
-        showingFeature = "SimInsert";
-        walk.rotation.x = 0.083;
-        walk.rotation.y = 4.5;
-        break;
-      case "SimInsert": //go for charging port
-        showingFeature = "ChargingPort";
-        walk.rotation.x = -1.45;
-        walk.rotation.y = 2.66;
-        break;
-      case "ChargingPort": // go for front camera
-        showingFeature = "FrontCamera";
-        walk.rotation.x = 0;
-        walk.rotation.y = 0;
-        break;
-    }
+    showingFeature = "FrontCamera";
+    walk.rotation.x = 0;
+    walk.rotation.y = 0;
   });
 
-  //go backward
-  document.getElementById("goBackward").addEventListener("click", function () {
+  document.getElementById("BackCamera").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
-    console.log("go backr")
-    switch (showingFeature) {
-      case "FrontCamera": // go for charging port
-        showingFeature = "ChargingPort";
-        walk.rotation.x = -1.45;
-        walk.rotation.y = 2.66;
-        break;
-      case "BackCamera": //go for front camera
-        showingFeature = "FrontCamera";
-        walk.rotation.x = 0;
-        walk.rotation.y = 0;
-        break;
-      case "SimInsert": //go for back camera
-        showingFeature = "BackCamera";
-        walk.rotation.x = 0.006;
-        walk.rotation.y = -3.09;
-        break;
-      case "ChargingPort": //go for sim insert
-        showingFeature = "SimInsert";
-        walk.rotation.x = 0.083;
-        walk.rotation.y = 4.5;
-        break;
-    }
+    showingFeature = "BackCamera";
+    walk.rotation.x = 0.006;
+    walk.rotation.y = -3.09;
   });
+
+  document.getElementById("SimInsert").addEventListener("click", function () {
+    var walk = scene.getMeshByName("__root__");
+    showingFeature = "SimInsert";
+    walk.rotation.x = 0.083;
+    walk.rotation.y = 4.5;
+  });
+
+  document
+    .getElementById("ChargingPort")
+    .addEventListener("click", function () {
+      var walk = scene.getMeshByName("__root__");
+      showingFeature = "ChargingPort";
+      walk.rotation.x = -1.45;
+      walk.rotation.y = 2.66;
+    });
 
   // Watch for model change and dispose the model
   document
@@ -934,27 +996,26 @@ console.log("go frr")
 }
 
 //switch between static and rotated model
-function switchModel(){
+function switchModel() {
   document.getElementById("refreshModel").click();
-   if(rotatedModel){ //show static model
-      showModel({
-        modelPath: showingModelPath.staticModel
-      })
-      rotatedModel = false;
-      document.getElementById("switchModel").style.backgroundColor = "#666";
-      document.getElementById("goForward").style.pointerEvents = "";
-      document.getElementById("goForward").style.opacity="1";
-      document.getElementById("goBackward").style.pointerEvents = "";
-      document.getElementById("goBackward").style.opacity="1";
-   }else{ // show rotated model
+  if (rotatedModel) {
+    //show static model
     showModel({
-      modelPath: showingModelPath.rotatedModel
-    })
+      modelPath: showingModelPath.staticModel,
+      changeVariant: false,
+    });
+    rotatedModel = false;
+    document.getElementById("switchModel").style.backgroundColor = "#666";
+    document.getElementById("featuresControl").style.display = "";
+  } else {
+    // show rotated model
+    showModel({
+      modelPath: showingModelPath.rotatedModel,
+      changeVariant: false,
+    });
     rotatedModel = true;
-    document.getElementById("switchModel").style.backgroundColor = "green";
-    document.getElementById("goForward").style.pointerEvents = "none";
-    document.getElementById("goForward").style.opacity="0.5";
-    document.getElementById("goBackward").style.pointerEvents = "none";
-    document.getElementById("goBackward").style.opacity="0.5";
-   }
+    document.getElementById("switchModel").style.backgroundColor =
+      "rgba(51, 153, 255)";
+    document.getElementById("featuresControl").style.display = "none";
+  }
 }

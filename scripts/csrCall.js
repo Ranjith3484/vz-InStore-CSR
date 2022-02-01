@@ -663,6 +663,9 @@ function changeVariant(item) {
       }
     }
   }
+  //change showcase image
+   document.getElementById('showingDeviceImage').src = details.image
+
   showModel({
     modelPath: details.staticModel,
     changeVariant: true,
@@ -894,12 +897,12 @@ function showModel(item) {
             walk.scaling.z = parseFloat(walkScaling.z);
           } else {
             //set to default values  while changing model
-            walkPosition.x = -2.5;
-            walkPosition.y = 0.2;
+            walkPosition.x = 0;
+            walkPosition.y = 0;
             walkRotation.x = 0;
             walkRotation.y = 0;
-            walkScaling.x = 1;
-            walkScaling.y = 1;
+            walkScaling.x = 0.9;
+            walkScaling.y = 0.9;
             walkScaling.z = -1;
           }
 

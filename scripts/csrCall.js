@@ -884,6 +884,9 @@ function showModel(item) {
             walk.scaling.y,
             walk.scaling.z
           );
+          // initializing to overcome glass effect in model
+          const videoLayer = new BABYLON.Layer("videoLayer", null, scene, true);
+          const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(scene,);
           //hide loader
           setTimeout(function () {
             document.getElementById("loadingScreen").style.display = "none";

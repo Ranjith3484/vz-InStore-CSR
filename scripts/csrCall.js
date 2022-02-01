@@ -1,3 +1,125 @@
+localStorage.clear();
+sessionStorage.clear();
+let showingFeature = "FrontCamera";
+let rotatedModel = false;
+let showingModelPath = {
+  staticModel: "",
+  rotatedModel: "",
+};
+var walkRotation = {
+  x: 0,
+  y: 0,
+};
+var walkPosition = {
+  x: 0,
+  y: 0,
+};
+var walkScaling = {
+  x: 0.9,
+  y: 0.9,
+  z: -1,
+};
+
+var devicesBrands = [
+  {
+    brand: "Apple",
+    devices: [
+      {
+        name: "iPhone 13 Pro",
+        displayName: "Apple iPhone 13 Pro",
+        variant: [
+          {
+            color: "#9aafca",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Blue.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_blue.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_blue_rotated.glb",
+            active: true,
+          },
+          {
+            color: "#f5e1c8",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Gold.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_gold.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_gold_rotated.glb",
+          },
+          {
+            color: "#4c4a46",
+            image: "./assets/iPhone13Pro/iPhone13Pro_Graphite.png",
+            staticModel: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
+            rotatedModel: "iPhone13Pro%2FiPhone13Pro_graphite_rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    brand: "Samsung",
+    devices: [
+      {
+        name: "Galaxy Z Flip3",
+        displayName: "Samsung Galaxy Z Flip3",
+        variant: [
+          {
+            color: "black",
+            image: "./assets/ZFlip3/Zflip3_Black.png",
+            staticModel: "zFlip3%2FZflip3_Black_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Black_Rotated.glb",
+            active: true,
+          },
+          {
+            color: "#f7f4d3",
+            image: "./assets/ZFlip3/Zflip3_Cream.png",
+            staticModel: "zFlip3%2FZflip3_Cream_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Cream_Rotated.glb",
+          },
+          {
+            color: "#57666a",
+            image: "./assets/ZFlip3/Zflip3_Green.png",
+            staticModel: "zFlip3%2FZflip3_Green_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Green_Rotated.glb",
+          },
+          {
+            color: "#c2b1d7",
+            image: "./assets/ZFlip3/Zflip3_Lavender.png",
+            staticModel: "zFlip3%2FZflip3_Lavender_Animated.glb",
+            rotatedModel: "zFlip3%2FZflip3_Lavender_Rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    brand: "Google",
+    devices: [
+      {
+        name: "Pixel 6 Pro",
+        displayName: "Google Pixel 6 Pro",
+        variant: [
+          {
+            color: "#343538",
+            image: "./assets/pixel6Pro/pixel6Pro_StormyBlack.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_StormyBlack_rotated.glb",
+            active: true,
+          },
+          {
+            color: "#e9e4e0",
+            image: "./assets/pixel6Pro/pixel6Pro_CloudyWhite.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite_rotated.glb",
+          },
+          {
+            color: "#fbf2d1",
+            image: "./assets/pixel6Pro/pixel6Pro_SortaSunny.png",
+            staticModel: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
+            rotatedModel: "pixel6Pro%2Fpixel6Pro_SortaSunny_rotated.glb",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+
 function startCallSession() {
   //webrtc starts here
   "use strict";
@@ -184,6 +306,7 @@ function startCallSession() {
 
   //webrtc ends here
 }
+
 startCallSession();
 
 function endCall() {
@@ -268,125 +391,6 @@ function videoChange() {
     });
   }
 }
-
-let showingFeature = "FrontCamera";
-let rotatedModel = false;
-let showingModelPath = {
-  staticModel: "",
-  rotatedModel: "",
-};
-var walkRotation = {
-  x: 0,
-  y: 0,
-};
-var walkPosition = {
-  x: 0,
-  y: 0,
-};
-var walkScaling = {
-  x: 0.9,
-  y: 0.9,
-  z: -1,
-};
-
-var devicesBrands = [
-  {
-    brand: "Apple",
-    devices: [
-      {
-        name: "iPhone 13 Pro",
-        displayName: "Apple iPhone 13 Pro",
-        variant: [
-          {
-            color: "#9aafca",
-            image: "./assets/iPhone13Pro/iPhone13Pro_Blue.png",
-            staticModel: "iPhone13Pro%2FiPhone13Pro_blue.glb",
-            rotatedModel: "iPhone13Pro%2FiPhone13Pro_blue_rotated.glb",
-            active: true,
-          },
-          {
-            color: "#f5e1c8",
-            image: "./assets/iPhone13Pro/iPhone13Pro_Gold.png",
-            staticModel: "iPhone13Pro%2FiPhone13Pro_gold.glb",
-            rotatedModel: "iPhone13Pro%2FiPhone13Pro_gold_rotated.glb",
-          },
-          {
-            color: "#4c4a46",
-            image: "./assets/iPhone13Pro/iPhone13Pro_Graphite.png",
-            staticModel: "iPhone13Pro%2FiPhone13Pro_graphite.glb",
-            rotatedModel: "iPhone13Pro%2FiPhone13Pro_graphite_rotated.glb",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    brand: "Samsung",
-    devices: [
-      {
-        name: "Galaxy Z Flip3",
-        displayName: "Samsung Galaxy Z Flip3",
-        variant: [
-          {
-            color: "black",
-            image: "./assets/ZFlip3/Zflip3_Black.png",
-            staticModel: "zFlip3%2FZflip3_Black_Animated.glb",
-            rotatedModel: "zFlip3%2FZflip3_Black_Rotated.glb",
-            active: true,
-          },
-          {
-            color: "#f7f4d3",
-            image: "./assets/ZFlip3/Zflip3_Cream.png",
-            staticModel: "zFlip3%2FZflip3_Cream_Animated.glb",
-            rotatedModel: "zFlip3%2FZflip3_Cream_Rotated.glb",
-          },
-          {
-            color: "#57666a",
-            image: "./assets/ZFlip3/Zflip3_Green.png",
-            staticModel: "zFlip3%2FZflip3_Green_Animated.glb",
-            rotatedModel: "zFlip3%2FZflip3_Green_Rotated.glb",
-          },
-          {
-            color: "#c2b1d7",
-            image: "./assets/ZFlip3/Zflip3_Lavender.png",
-            staticModel: "zFlip3%2FZflip3_Lavender_Animated.glb",
-            rotatedModel: "zFlip3%2FZflip3_Lavender_Rotated.glb",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    brand: "Google",
-    devices: [
-      {
-        name: "Pixel 6 Pro",
-        displayName: "Google Pixel 6 Pro",
-        variant: [
-          {
-            color: "#343538",
-            image: "./assets/pixel6Pro/pixel6Pro_StormyBlack.png",
-            staticModel: "pixel6Pro%2Fpixel6Pro_StormyBlack.glb",
-            rotatedModel: "pixel6Pro%2Fpixel6Pro_StormyBlack_rotated.glb",
-            active: true,
-          },
-          {
-            color: "#e9e4e0",
-            image: "./assets/pixel6Pro/pixel6Pro_CloudyWhite.png",
-            staticModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite.glb",
-            rotatedModel: "pixel6Pro%2Fpixel6Pro_CloudyWhite_rotated.glb",
-          },
-          {
-            color: "#fbf2d1",
-            image: "./assets/pixel6Pro/pixel6Pro_SortaSunny.png",
-            staticModel: "pixel6Pro%2Fpixel6Pro_SortaSunny.glb",
-            rotatedModel: "pixel6Pro%2Fpixel6Pro_SortaSunny_rotated.glb",
-          },
-        ],
-      },
-    ],
-  },
-];
 
 function openCloseNav() {
   if (document.getElementById("mySidenav").classList.contains("hideElement")) {
@@ -476,7 +480,7 @@ function showDevices(item) {
   document.getElementById("brandList").style.display = "none";
 }
 
-//show device feature ui
+//show device feature ui over canvas
 function showDeviceFeature(feature) {
   //removing active style
   removeFeaturesActiveUI();
@@ -535,6 +539,7 @@ function showDeviceImage(item) {
     modelPath: arr[0].variant[0].staticModel,
     changeVariant: false,
   });
+
   showingModelPath.staticModel = arr[0].varainat[0].staticModel;
   showingModelPath.rotatedModel = arr[0].varainat[0].rotatedModel;
 }
@@ -591,53 +596,6 @@ function showDeviceVariantUI(item) {
   document.getElementById("colorVaraintList").innerHTML = variantList;
 }
 
-//change variant by numbers 1 - 10;
-document.addEventListener("keypress", function (event) {
-  var switchVaraint = document.getElementsByClassName("colorVariant");
-
-  switch (event.key) {
-    case "1":
-      switchVaraint[0].click();
-      break;
-    case "2":
-      switchVaraint[1].click();
-      break;
-    case "3":
-      switchVaraint[2].click();
-      break;
-    case "4":
-      switchVaraint[3].click();
-      break;
-    case "5":
-      switchVaraint[4].click();
-      break;
-    case "6":
-      switchVaraint[5].click();
-      break;
-    case "7":
-      switchVaraint[6].click();
-      break;
-    case "8":
-      switchVaraint[7].click();
-      break;
-    case "9":
-      switchVaraint[8].click();
-      break;
-    case "10":
-      switchVaraint[9].click();
-      break;
-    case "a":
-      showDeviceVariantUI(devicesBrands[0].devices[0].variant);
-      break;
-    case "g":
-      showDeviceVariantUI(devicesBrands[2].devices[0].variant);
-      break;
-    case "s":
-      showDeviceVariantUI(devicesBrands[1].devices[0].variant);
-      break;
-  }
-});
-
 function changeVariant(item) {
   var details = JSON.parse(item);
   var i, tablinks;
@@ -664,8 +622,10 @@ function changeVariant(item) {
     }
   }
   //change showcase image
-   document.getElementById('showingDeviceImage').src = details.image
-
+  var deviceImg = document.getElementById('showingDeviceImage');
+  if(deviceImg !== null){
+    deviceImg.src = details.image
+  }
   showModel({
     modelPath: details.staticModel,
     changeVariant: true,
@@ -674,11 +634,12 @@ function changeVariant(item) {
   showingModelPath.rotatedModel = details.rotatedModel;
 }
 
+
+
 //babylon js
 function showModel(item) {
   var changeVariant = item.changeVariant;
   var webCamFeed = item.webCamFeed;
-
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
 
@@ -868,7 +829,6 @@ function showModel(item) {
 
       //hide default babylonjs loader
       BABYLON.SceneLoaderFlags.ShowLoadingScreen = false;
-
       // show 3d model as top layer
       BABYLON.SceneLoader.Append(
         "https://firebasestorage.googleapis.com/v0/b/vuzix-fa84b.appspot.com/o/",
@@ -904,6 +864,8 @@ function showModel(item) {
             walkScaling.x = 0.9;
             walkScaling.y = 0.9;
             walkScaling.z = -1;
+            //clear features active ui
+            removeFeaturesActiveUI();
           }
 
           //pushing rotation object to enable camera features
@@ -955,6 +917,9 @@ function showModel(item) {
     showingFeature = "FrontCamera";
     walk.rotation.x = 0;
     walk.rotation.y = 0;
+
+    walkRotation.x = 0;
+    walkRotation.y = 0;
   });
 
   document.getElementById("BackCamera").addEventListener("click", function () {
@@ -962,6 +927,9 @@ function showModel(item) {
     showingFeature = "BackCamera";
     walk.rotation.x = 0.006;
     walk.rotation.y = -3.09;
+
+    walkRotation.x = 0.006;
+    walkRotation.y = -3.09;
   });
 
   document.getElementById("SimInsert").addEventListener("click", function () {
@@ -969,6 +937,9 @@ function showModel(item) {
     showingFeature = "SimInsert";
     walk.rotation.x = 0.083;
     walk.rotation.y = 4.5;
+
+    walkRotation.x = 0.083;
+    walkRotation.y = 4.5;
   });
 
   document
@@ -978,6 +949,9 @@ function showModel(item) {
       showingFeature = "ChargingPort";
       walk.rotation.x = -1.45;
       walk.rotation.y = 2.66;
+
+      walkRotation.x = -1.45;
+      walkRotation.y = 2.66;
     });
 
   // Watch for model change and dispose the model
@@ -1022,3 +996,52 @@ function switchModel() {
     document.getElementById("featuresControl").style.display = "none";
   }
 }
+
+
+
+//change variant by numbers 1 - 10;
+document.addEventListener("keypress", function (event) {
+var switchVaraint = document.getElementsByClassName("colorVariant");
+
+switch (event.key) {
+  case "1":
+    switchVaraint[0].click();
+    break;
+  case "2":
+    switchVaraint[1].click();
+    break;
+  case "3":
+    switchVaraint[2].click();
+    break;
+  case "4":
+    switchVaraint[3].click();
+    break;
+  case "5":
+    switchVaraint[4].click();
+    break;
+  case "6":
+    switchVaraint[5].click();
+    break;
+  case "7":
+    switchVaraint[6].click();
+    break;
+  case "8":
+    switchVaraint[7].click();
+    break;
+  case "9":
+    switchVaraint[8].click();
+    break;
+  case "10":
+    switchVaraint[9].click();
+    break;
+  case "a":
+    showDeviceVariantUI(devicesBrands[0].devices[0].variant);
+    break;
+  case "g":
+    showDeviceVariantUI(devicesBrands[2].devices[0].variant);
+    break;
+  case "s":
+    showDeviceVariantUI(devicesBrands[1].devices[0].variant);
+    break;
+}
+});

@@ -145,7 +145,7 @@ drone.on("open", (error) => {
   });
 
   room.on("data", (text, member) => {
-    console.log(text)
+    console.log(text);
 
     if (member.clientData.name === "customer") {
       if (text === "audioMuted") {
@@ -380,11 +380,11 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("inactive");
     document.getElementById("myMic").classList.add("crossLine");
     document.getElementById("myMic").classList.remove("active");
- //send message via drone for audio muted
- drone.publish({
-  room: "observable-room",
-  message: "audioMuted",
-});
+    //send message via drone for audio muted
+    drone.publish({
+      room: "observable-room",
+      message: "audioMuted",
+    });
     //remove audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -392,17 +392,16 @@ function audioChange(userMediaStream) {
         device.muted = true;
       }
     });
-    
   } else {
     //unmutemic ui
     document.getElementById("myMic").classList.add("active");
     document.getElementById("myMic").classList.remove("inactive");
     document.getElementById("myMic").classList.remove("crossLine");
- //send message via drone for audio muted
- drone.publish({
-  room: "observable-room",
-  message: "audioUnMuted",
-});
+    //send message via drone for audio muted
+    drone.publish({
+      room: "observable-room",
+      message: "audioUnMuted",
+    });
     //add audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -441,11 +440,11 @@ function videoChange() {
     //clear the scene
     document.getElementById("refreshModel").click();
     //to manuallu shoe iphoen model if no model selected before switching video
-    if(showingModelPath.staticModel === ""){
-      showDeviceVariantUI(devicesBrands[0].devices[0].variant)
-    }else{
+    if (showingModelPath.staticModel === "") {
+      showDeviceVariantUI(devicesBrands[0].devices[0].variant);
+    } else {
       showModel({
-        modelPath:showingModelPath.staticModel,
+        modelPath: showingModelPath.staticModel,
       });
     }
   } else {
@@ -708,15 +707,24 @@ function changeVariant(item) {
   showingModelPath.rotatedModel = details.rotatedModel;
 }
 
+setTimeout(function () {
+  showModel({
+    initialLoad: true,
+  });
+}, 2000);
+
 //babylon js
 function showModel(item) {
+  var changeVariant = item.changeVariant || false;
+  var webCamFeed = item.webCamFeed || false;
+  var initialLoad = item.initialLoad || false;
+  if (!initialLoad) {
     //send message via drone for audio un muted
     drone.publish({
       room: "observable-room",
       message: "showingModel",
     });
-  var changeVariant = item.changeVariant;
-  var webCamFeed = item.webCamFeed;
+  }
   //show loader
   document.getElementById("loadingScreen").style.display = "flex";
   //hide logo
@@ -748,8 +756,15 @@ function showModel(item) {
       scene
     );
     light1.intensity = 2;
-
-    if (webCamFeed) {
+    if (initialLoad) {
+      console.log("initial load");
+      // initializing to overcome audio issue
+      const videoLayer = new BABYLON.Layer("videoLayer", null, scene, true);
+      const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(scene);
+      document.getElementById("loadingScreen").style.display = "none";
+      document.getElementsByClassName("initialCanvasLogo")[0].style.display =
+        "";
+    } else if (webCamFeed) {
       const videoLayer = new BABYLON.Layer("videoLayer", null, scene, true);
       const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(
         scene,
@@ -772,8 +787,10 @@ function showModel(item) {
       }, 1000);
     } else {
       //enable animated icon and features tab
-    document.getElementById("switchModel").style.display = "flex";
-      document.getElementById("switchModel").style.backgroundColor = rotatedModel ? "rgba(51, 153, 255)" : "#666";
+      document.getElementById("switchModel").style.display = "flex";
+      document.getElementById(
+        "switchModel"
+      ).style.backgroundColor = rotatedModel ? "rgba(51, 153, 255)" : "#666";
       document.getElementsByClassName(
         "modelControlContainer"
       )[0].style.display = "flex";
@@ -960,7 +977,7 @@ function showModel(item) {
           );
           // initializing to overcome glass effect in model
           const videoLayer = new BABYLON.Layer("videoLayer", null, scene, true);
-          const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(scene,);
+          const videoTexture = BABYLON.VideoTexture.CreateFromWebCam(scene);
           //hide loader
           setTimeout(function () {
             document.getElementById("loadingScreen").style.display = "none";

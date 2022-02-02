@@ -164,8 +164,13 @@ drone.on("open", (error) => {
         document.getElementsByClassName(
           "remoteAudioUnMutedIcon"
         )[0].style.display = "block";
+      }else {
+        //add the customer name
+        document.getElementById("customerName").innerHTML = text.name;
+        document.getElementById("customerContact").innerHTML = text.contact;
+        document.getElementById("callReason").innerHTML = text.reason;
       }
-    }
+    } 
   });
 });
 
@@ -370,6 +375,7 @@ function startCallSession() {
 startCallSession();
 
 function endCall() {
+  console.log("call ende")
   window.location.replace("./index.html");
 }
 
@@ -433,26 +439,27 @@ function videoChange() {
     document.getElementById("myVideo").classList.add("inactive");
     document.getElementById("myVideo").classList.add("crossLine");
     document.getElementById("myVideo").classList.remove("active");
-    //hide model controls
-    document.getElementsByClassName("modelControlContainer")[0].style.display =
-      "flex";
-    document.getElementsByClassName("switchModel")[0].style.display = "flex";
     //clear the scene
     document.getElementById("refreshModel").click();
-    //to manuallu shoe iphoen model if no model selected before switching video
     if (showingModelPath.staticModel === "") {
-      showDeviceVariantUI(devicesBrands[0].devices[0].variant);
+      showModel({
+        initialLoad: true
+      })
     } else {
       showModel({
         modelPath: rotatedModel ? showingModelPath.rotatedModel : showingModelPath.staticModel,
       });
+          //show model controls
+    document.getElementsByClassName("modelControlContainer")[0].style.display =
+    "flex";
+  document.getElementsByClassName("switchModel")[0].style.display = "flex";
     }
   } else {
     //unmute video ui
     document.getElementById("myVideo").classList.add("active");
     document.getElementById("myVideo").classList.remove("inactive");
     document.getElementById("myVideo").classList.remove("crossLine");
-    //show model controls
+    //hide model controls
     document.getElementsByClassName("modelControlContainer")[0].style.display =
       "none";
     document.getElementsByClassName("switchModel")[0].style.display = "none";

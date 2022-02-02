@@ -328,11 +328,42 @@ transform: rotateY(360deg);
     z-index: 2;
 }
 
+
+.top-left {
+     display: flex;
+    float: right;
+    margin-top: 10px;
+    margin-left: 35px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
+
+.remoteAudioMutedIcon{
+    color:black;
+    font-size: 30px !important;
+    display: none ;
+}
+
+.remoteAudioUnMutedIcon{
+    color: black;
+    font-size: 30px !important;
+    display: block;
+    animation: blink 2s ease-in infinite;
+}
+
+@keyframes blink {
+    from, to { opacity: 1 }
+    50% { opacity: 0 }
+  }
+
+
 /* side nave opener */
 .sideNavMenu{
     display: flex;
     float: right;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-right: 35px;
     position: fixed;
     z-index: 1;
@@ -602,6 +633,8 @@ table{
    border-bottom: 2px solid black;
    margin-top: 20px;
 }
+
+
 
 @media only screen and (max-width: 850px) {
 

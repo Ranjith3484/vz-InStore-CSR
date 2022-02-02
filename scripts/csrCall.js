@@ -148,23 +148,23 @@ drone.on("open", (error) => {
     console.log(text)
 
     if (member.clientData.name === "customer") {
-     if (text === "audioMuted") {
+      if (text === "audioMuted") {
         console.log("muted");
-      //   document.getElementsByClassName(
-      //     "remoteAudioMutedIcon"
-      //   )[0].style.display = "block";
-      //   document.getElementsByClassName(
-      //     "remoteAudioUnMutedIcon"
-      //   )[0].style.display = "none";
-      // } else if (text === "audioUnMuted") {
-      //   console.log("un muted");
-      //   document.getElementsByClassName(
-      //     "remoteAudioMutedIcon"
-      //   )[0].style.display = "none";
-      //   document.getElementsByClassName(
-      //     "remoteAudioUnMutedIcon"
-      //   )[0].style.display = "block";
-      } 
+        document.getElementsByClassName(
+          "remoteAudioMutedIcon"
+        )[0].style.display = "block";
+        document.getElementsByClassName(
+          "remoteAudioUnMutedIcon"
+        )[0].style.display = "none";
+      } else if (text === "audioUnMuted") {
+        console.log("un muted");
+        document.getElementsByClassName(
+          "remoteAudioMutedIcon"
+        )[0].style.display = "none";
+        document.getElementsByClassName(
+          "remoteAudioUnMutedIcon"
+        )[0].style.display = "block";
+      }
     }
   });
 });
@@ -297,6 +297,9 @@ function startCallSession() {
     pc.onconnectionstatechange = function (event) {
       switch (pc.connectionState) {
         case "connected":
+          document.getElementsByClassName(
+            "remoteAudioUnMutedIcon"
+          )[0].style.display = "block";
           break;
         case "disconnected":
         case "failed":
@@ -377,7 +380,11 @@ function audioChange(userMediaStream) {
     document.getElementById("myMic").classList.add("inactive");
     document.getElementById("myMic").classList.add("crossLine");
     document.getElementById("myMic").classList.remove("active");
-
+ //send message via drone for audio muted
+ drone.publish({
+  room: "observable-room",
+  message: "audioMuted",
+});
     //remove audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {
@@ -385,12 +392,17 @@ function audioChange(userMediaStream) {
         device.muted = true;
       }
     });
+    
   } else {
     //unmutemic ui
     document.getElementById("myMic").classList.add("active");
     document.getElementById("myMic").classList.remove("inactive");
     document.getElementById("myMic").classList.remove("crossLine");
-
+ //send message via drone for audio muted
+ drone.publish({
+  room: "observable-room",
+  message: "audioUnMuted",
+});
     //add audio track
     mediaTracks.forEach(function (device) {
       if (device.kind === "audio") {

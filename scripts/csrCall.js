@@ -444,7 +444,7 @@ function videoChange() {
       showDeviceVariantUI(devicesBrands[0].devices[0].variant);
     } else {
       showModel({
-        modelPath: showingModelPath.staticModel,
+        modelPath: rotatedModel ? showingModelPath.rotatedModel : showingModelPath.staticModel,
       });
     }
   } else {
@@ -609,7 +609,7 @@ function showDeviceImage(item) {
 
   //show 3d model of first variant by default
   showModel({
-    modelPath: arr[0].variant[0].staticModel,
+    modelPath: rotatedModel ? arr[0].variant[0].rotatedModel : arr[0].variant[0].staticModel,
     changeVariant: false,
   });
 
@@ -623,7 +623,7 @@ function showDeviceVariantUI(item) {
   document.getElementById("refreshModel").click();
   //initial call to show first variant
   showModel({
-    modelPath: item[0].staticModel,
+    modelPath: rotatedModel ? item[0].rotatedModel : item[0].staticModel,
     changeVariant: false,
   });
 
@@ -786,6 +786,12 @@ function showModel(item) {
         document.getElementById("loadingScreen").style.display = "none";
       }, 1000);
     } else {
+      if (document.getElementById("myVideo").classList.contains("active")) {
+        //mute video ui
+      document.getElementById("myVideo").classList.add("inactive");
+      document.getElementById("myVideo").classList.add("crossLine");
+      document.getElementById("myVideo").classList.remove("active");
+      }
       //enable animated icon and features tab
       document.getElementById("switchModel").style.display = "flex";
       document.getElementById(

@@ -391,7 +391,6 @@ transform: rotateY(360deg);
     z-index: 2;
     background-color: #666;
     overflow-x: hidden;
-    padding: 20px;
 }
 
 /* tabs */
@@ -425,7 +424,7 @@ transform: rotateY(360deg);
 .textTabContent {
     padding: 0px;
     display: none;
-    padding: 0px 30px !important;
+    padding: 0px 10px !important;
     padding-top: 10px !important;
     padding-bottom: 20px !important;
     overflow: auto;
@@ -441,12 +440,12 @@ transform: rotateY(360deg);
 }
 
 .callerColumnOne{
-    width:40% !important;
+    width:35% !important;
     border-right: 2px solid white;
 }
 
 .callerColumnTwo{
-    width:60% !important;
+    width:65% !important;
 }
 
 .deviceRow{
@@ -471,8 +470,10 @@ transform: rotateY(360deg);
 }
 
 table{
-    width: 90%;
-    padding-left: 20px;
+    width: 100%;
+    padding: 0% !important;
+    margin: 0% !important;
+    padding-left: 10px !important;
 }
 
 .activeBold{
@@ -496,10 +497,6 @@ table{
 .alignLeft{
     float: left;
     color: red;
-}
-
-table{
-    margin-left: -10px;
 }
 
 
@@ -637,7 +634,6 @@ table{
 }
 
 
-
 @media only screen and (max-width: 850px) {
 
     .container{
@@ -719,6 +715,8 @@ table{
      font-size: 30px !important;
      color: white;
      cursor: pointer;
+     padding-left: 10px !important;
+     padding-top: 10px;
   }
 
   .featuresText{

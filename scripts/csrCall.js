@@ -772,6 +772,7 @@ function showModel(item) {
       }, 1000);
     } else {
       //enable animated icon and features tab
+    document.getElementById("switchModel").style.display = "flex";
       document.getElementById("switchModel").style.backgroundColor = rotatedModel ? "rgba(51, 153, 255)" : "#666";
       document.getElementsByClassName(
         "modelControlContainer"
@@ -975,7 +976,7 @@ function showModel(item) {
       );
     }
     //add white background
-    scene.clearColor = new BABYLON.Color4(1, 1, 1);
+    scene.clearColor = new BABYLON.Color4(0.211, 0.211, 0.211, 0.3);
     return scene;
   };
 

@@ -6,6 +6,7 @@ let showingModelPath = {
   staticModel: "",
   rotatedModel: "",
 };
+let sideNav = false
 var walkRotation = {
   x: 0,
   y: 0,
@@ -480,11 +481,13 @@ function openCloseNav() {
     document.getElementsByClassName("sideNavMenu")[0].style.display = "none";
     // show caller tab by default
     document.getElementById("defaultOpenTab").click();
+    sideNav = true
   } else {
     //hide nav bar
     document.getElementById("mySidenav").classList.add("hideElement");
     document.getElementsByClassName("container")[0].style.display = "";
     document.getElementsByClassName("sideNavMenu")[0].style.display = "";
+    sideNav = false
   }
 }
 
@@ -1111,7 +1114,6 @@ function switchModel() {
 //change variant by numbers 1 - 10;
 document.addEventListener("keypress", function (event) {
   var switchVaraint = document.getElementsByClassName("colorVariant");
-
   switch (event.key) {
     case "1":
       switchVaraint[0].click();
@@ -1152,5 +1154,28 @@ document.addEventListener("keypress", function (event) {
     case "s":
       showDeviceVariantUI(devicesBrands[1].devices[0].variant);
       break;
+      case "o" :
+        document.getElementById('navOpenerCloser').click();
+        break;
+      case "c" :
+        document.getElementById('defaultOpenTab').click();
+        break;
+        case "d" :
+          document.getElementById('devicesTab').click();
+          break;
+          case "v" :
+          document.getElementById('myVideo').click();
+          break;
+          case "m" :
+          if(showingModelPath.rotatedModel !== ""){
+            document.getElementById('switchModel').click();
+          }
+          break;
+          case "e":
+            document.getElementById('endCall').click();
+          break;
+          case "n":
+            document.getElementById('myMic').click();
+          break;
   }
 });

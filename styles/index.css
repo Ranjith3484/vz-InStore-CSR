@@ -201,7 +201,7 @@ p{
       /* stroke width */
       --sw: 4;
       /* timer  */
-      --atime: 15s; 
+      --atime: 28s; 
       --pi2: 6.28318;
       --r: 30;
       --perim: calc(var(--pi2) * var(--r));

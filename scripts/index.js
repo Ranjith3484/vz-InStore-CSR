@@ -14,7 +14,7 @@ function startCallAcceptingTimer() {
   //hide call popup after some seconds
   setTimeout(function () {
     document.getElementById("incomingCallModal").style.display = "none";
-  }, 7500);
+  },10000);
 }
 
 //accept call
@@ -26,3 +26,20 @@ function acceptCall() {
 function declineCall() {
   document.getElementById("incomingCallModal").style.display = "none";
 }
+
+
+//change variant by numbers 1 - 10;
+document.addEventListener("keypress", function (event) {
+  var switchVaraint = document.getElementsByClassName("colorVariant");
+  switch (event.key) {
+          case "a" :
+              acceptCall();
+          break;
+          case "d":
+           declineCall();
+          break;
+          case "r":
+           window.location.reload();
+          break;
+  }
+});

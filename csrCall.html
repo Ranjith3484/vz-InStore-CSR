@@ -23,7 +23,7 @@
     <!-- side nav container -->
     <div>
     <!-- side nave menu bar -->
-    <div class="sideNavMenu" onclick="openCloseNav()">
+    <div class="sideNavMenu" onclick="openCloseNav()" id="navOpenerCloser">
       <i class="fa fa-bars navOpenerIcon"></i>
     </div>
     <!-- side nav bar -->
@@ -36,7 +36,7 @@
           </p>
         </div>
         <div class="textTabLinks">
-          <p class="textTab" onclick="openTab(event, 'devices')">Devices</p>
+          <p class="textTab" onclick="openTab(event, 'devices')" id="devicesTab">Devices</p>
         </div>
         <div class="textTabLinks">
           <p class="textTab" onclick="openTab(event, 'accessories')">Accessories</p>

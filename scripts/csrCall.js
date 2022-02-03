@@ -542,7 +542,7 @@ function showDevices(item) {
   var devices = arr[0].devices;
   var deviceList = '<div style="display:flex;width:100%;">';
   deviceList +=
-    '<i class="fa fa-chevron-left iconL white" onclick="showBrands()" style="margin-top:30px;margin-right:10px;cursor:pointer"></i><span style="display:flex;flex-direction:column;width:100%">';
+    '<i class="fa fa-chevron-left iconL white" id="showBrands" onclick="showBrands()" style="margin-top:30px;margin-right:10px;cursor:pointer"></i><span style="display:flex;flex-direction:column;width:100%">';
   for (let i of devices) {
     deviceList += `<ul onclick="showDeviceImage('${
       i.name
@@ -1153,6 +1153,19 @@ document.addEventListener("keypress", function (event) {
       break;
     case "s":
       showDeviceVariantUI(devicesBrands[1].devices[0].variant);
+      break;  case "v" :
+      document.getElementById('myVideo').click();
+      break;
+      case "m" :
+      if(showingModelPath.rotatedModel !== ""){
+        document.getElementById('switchModel').click();
+      }
+      break;
+      case "e":
+        document.getElementById('endCall').click();
+      break;
+      case "n":
+        document.getElementById('myMic').click();
       break;
       case "o" :
         document.getElementById('navOpenerCloser').click();
@@ -1163,19 +1176,26 @@ document.addEventListener("keypress", function (event) {
         case "d" :
           document.getElementById('devicesTab').click();
           break;
-          case "v" :
-          document.getElementById('myVideo').click();
+          case "q": 
+          document.getElementById("Apple").click();    
+          break;   
+          case "w":  
+          document.getElementById("Samsung").click();     
+          break;  
+          case "r": 
+          document.getElementById("Google").click();       
           break;
-          case "m" :
-          if(showingModelPath.rotatedModel !== ""){
-            document.getElementById('switchModel').click();
-          }
+          case "t":    
+          document.getElementById("iPhone 13 Pro").click();    
           break;
-          case "e":
-            document.getElementById('endCall').click();
+          case "y":  
+          document.getElementById("Galaxy Z Flip3").click();      
           break;
-          case "n":
-            document.getElementById('myMic').click();
+          case "h": 
+          document.getElementById("Pixel 6 Pro").click();       
+          break;
+          case "j": 
+          document.getElementById("showBrands").click();       
           break;
   }
 });

@@ -1067,12 +1067,11 @@ function showModel(item) {
       if (walk !== null) {
         walk.dispose();
       }
-
-      //dispose plane
-      var plane = scene.getMeshByName("plane");
-      if (plane !== null) {
-        plane.dispose();
-      }
+      //dispose all meshes
+        while(scene.meshes.length>0){
+        console.log("clearMeshes "+scene.meshes.length);
+        scene.meshes[scene.meshes.length-1].dispose();
+        }
     });
 }
 

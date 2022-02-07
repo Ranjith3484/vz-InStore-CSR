@@ -997,6 +997,9 @@ function showModel(item) {
     scene.clearColor = new BABYLON.Color4(0.211, 0.211, 0.211, 0.3);
     document.getElementById("render3DModel").focus();
     document.getElementById("render3DModel").click();
+    //scaling added to maintain aspect ratio for avoiding blur
+    document.getElementById("render3DModel").width = "2000";
+    document.getElementById("render3DModel").height = "1000";
     return scene;
   };
 

@@ -489,6 +489,7 @@ function openCloseNav() {
     document.getElementsByClassName("sideNavMenu")[0].style.display = "";
     sideNav = false
   }
+  document.getElementById("render3DModel").focus();
 }
 
 //caller devices accessories tab
@@ -810,7 +811,7 @@ function showModel(item) {
       document.getElementsByClassName(
         "modelControlContainer"
       )[0].style.display = "flex";
-
+      document.getElementById("render3DModel").focus();
       //keyboard events for moving the model
       scene.onKeyboardObservable.add((kbInfo) => {
         document.getElementById("render3DModel").focus();
@@ -844,35 +845,19 @@ function showModel(item) {
                 break;
               case "f":
               case "F":
-                walk.rotation.x = 0;
-                walk.rotation.y = 0;
-
-                walkRotation.x = 0;
-                walkRotation.y = 0;
+                document.getElementById("FrontCamera").click();
                 break;
               case "b":
               case "B":
-                walk.rotation.x = 0.006;
-                walk.rotation.y = -3.09;
-
-                walkRotation.x = parseFloat(0.006);
-                walkRotation.y = parseFloat(-3.09);
+                document.getElementById("BackCamera").click();
                 break;
               case "i":
               case "I":
-                walk.rotation.x = 0.083;
-                walk.rotation.y = 4.5;
-
-                walkRotation.x = parseFloat(0.083);
-                walkRotation.y = parseFloat(4.5);
+                document.getElementById("SimInsert").click();
                 break;
               case "p":
               case "P":
-                walk.rotation.x = -1.45;
-                walk.rotation.y = 2.66;
-
-                walkRotation.x = parseFloat(-1.45);
-                walkRotation.y = parseFloat(2.66);
+                document.getElementById("ChargingPort").click();
                 break;
             }
         }
@@ -1010,6 +995,8 @@ function showModel(item) {
     }
     //add white background
     scene.clearColor = new BABYLON.Color4(0.211, 0.211, 0.211, 0.3);
+    document.getElementById("render3DModel").focus();
+    document.getElementById("render3DModel").click();
     return scene;
   };
 
@@ -1025,6 +1012,8 @@ function showModel(item) {
   window.addEventListener("resize", function () {
     engine.resize();
   });
+
+  document.addEventListener
 
   document.getElementById("FrontCamera").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");

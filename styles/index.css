@@ -92,6 +92,17 @@ p{
       -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
       display: none;
   }
+
+  #missedCallContainer{
+    width: 50%;
+    height: fit-content;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+   visibility: hidden;
+  }
   
   .innerContainer{
       padding: 60px;
@@ -241,6 +252,25 @@ p{
             top: 50%;
             left: 50%;
         }
+
+        #missedCallContainer{
+            width: 100%;
+            background-color: black;
+             overflow: auto;
+            -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0);
+            border:0px;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            visibility: hidden;
+        }
+
+        .missedCall{
+            width: 100px;
+            height: 100px;
+            margin-left: 220px;
+        }
+
         .innerContainer{
             padding: 10px 40px;
         }

@@ -1,6 +1,6 @@
 var timeNow = moment().format("hh:mm A");
 document.getElementById("currentTime").innerHTML = timeNow;
-
+var callDeclined = false;
 //show call popup ,after 5 seconds
 setTimeout(function () {
   document.getElementById("incomingCallModal").style.display = "initial";
@@ -14,6 +14,10 @@ function startCallAcceptingTimer() {
   //hide call popup after some seconds
   setTimeout(function () {
     document.getElementById("incomingCallModal").style.display = "none";
+    if(!callDeclined){
+      document.getElementById("missedCallContainer").style.visibility = "visible";
+    document.getElementById("callStatus").innerHTML = "Call was missed a min ago.";
+    }
   },10000);
 }
 
@@ -25,6 +29,9 @@ function acceptCall() {
 //decline call
 function declineCall() {
   document.getElementById("incomingCallModal").style.display = "none";
+  document.getElementById("missedCallContainer").style.visibility = "visible";
+  document.getElementById("callStatus").innerHTML = "Call was rejected a min ago.";
+  callDeclined = true;
 }
 
 

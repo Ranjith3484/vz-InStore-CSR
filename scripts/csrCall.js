@@ -1013,8 +1013,6 @@ function showModel(item) {
     engine.resize();
   });
 
-  document.addEventListener
-
   document.getElementById("FrontCamera").addEventListener("click", function () {
     var walk = scene.getMeshByName("__root__");
     showingFeature = "FrontCamera";

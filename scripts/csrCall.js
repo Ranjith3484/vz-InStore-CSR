@@ -626,6 +626,8 @@ function showDeviceImage(item) {
 
   showingModelPath.staticModel = arr[0].variant[0].staticModel;
   showingModelPath.rotatedModel = arr[0].variant[0].rotatedModel;
+  //close the navbar
+  document.getElementById('navOpenerCloser').click();
 }
 
 //device variant ui on video chat container

@@ -212,7 +212,7 @@ p{
       /* stroke width */
       --sw: 4;
       /* timer  */
-      --atime: 28s; 
+      --atime: 54s; 
       --pi2: 6.28318;
       --r: 30;
       --perim: calc(var(--pi2) * var(--r));
@@ -266,9 +266,10 @@ p{
         }
 
         .missedCall{
-            width: 100px;
-            height: 100px;
-            margin-left: 220px;
+            width: 150px;
+            height: 150px;
+            margin-left: 180px;
+            object-fit: contain;
         }
 
         .innerContainer{

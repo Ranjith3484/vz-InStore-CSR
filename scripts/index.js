@@ -17,8 +17,9 @@ function startCallAcceptingTimer() {
     if(!callDeclined){
       document.getElementById("missedCallContainer").style.visibility = "visible";
     document.getElementById("callStatus").innerHTML = "Call was missed a min ago.";
+    document.getElementById("callStatusImage").src = "./assets/callMissed.png";
     }
-  },10000);
+  },20000);
 }
 
 //accept call
@@ -31,6 +32,8 @@ function declineCall() {
   document.getElementById("incomingCallModal").style.display = "none";
   document.getElementById("missedCallContainer").style.visibility = "visible";
   document.getElementById("callStatus").innerHTML = "Call was rejected a min ago.";
+  document.getElementById("callStatusImage").src = "./assets/callRejected.png";
+  document.getElementById("callStatusImage").style.marginBottom ="-30px"
   callDeclined = true;
 }
 

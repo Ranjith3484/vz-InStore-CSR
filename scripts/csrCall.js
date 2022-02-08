@@ -797,6 +797,7 @@ function showModel(item) {
       setTimeout(function () {
         document.getElementById("loadingScreen").style.display = "none";
       }, 1000);
+      document.getElementById('render3DModel').style.width = "60%"
     } else {
       if (document.getElementById("myVideo").classList.contains("active")) {
         //mute video ui
@@ -1001,6 +1002,9 @@ function showModel(item) {
     //scaling added to maintain aspect ratio for avoiding blur
     document.getElementById("render3DModel").width = "2000";
     document.getElementById("render3DModel").height = "1000";
+    if(!webCamFeed){
+      document.getElementById('render3DModel').style.width = "100%"
+    }
     return scene;
   };
 

@@ -6,7 +6,7 @@ let showingModelPath = {
   staticModel: "",
   rotatedModel: "",
 };
-let sideNav = false
+let sideNav = false;
 var walkRotation = {
   x: 0,
   y: 0,
@@ -165,13 +165,13 @@ drone.on("open", (error) => {
         document.getElementsByClassName(
           "remoteAudioUnMutedIcon"
         )[0].style.display = "block";
-      }else {
+      } else {
         //add the customer name
         document.getElementById("customerName").innerHTML = text.name;
         document.getElementById("customerContact").innerHTML = text.contact;
         document.getElementById("callReason").innerHTML = text.reason;
       }
-    } 
+    }
   });
 });
 
@@ -303,8 +303,11 @@ function startCallSession() {
     pc.onconnectionstatechange = function (event) {
       switch (pc.connectionState) {
         case "connected":
-          document.getElementsByClassName("loadingContainer")[0].style.display = "none";
-          document.getElementsByClassName("videoChatContainer")[0].style.visibility = "visible"
+          document.getElementsByClassName("loadingContainer")[0].style.display =
+            "none";
+          document.getElementsByClassName(
+            "videoChatContainer"
+          )[0].style.visibility = "visible";
           break;
         case "disconnected":
         case "failed":
@@ -375,7 +378,7 @@ function startCallSession() {
 startCallSession();
 
 function endCall() {
-  console.log("call ende")
+  console.log("call ende");
   window.location.replace("./index.html");
 }
 
@@ -443,16 +446,19 @@ function videoChange() {
     document.getElementById("refreshModel").click();
     if (showingModelPath.staticModel === "") {
       showModel({
-        initialLoad: true
-      })
+        initialLoad: true,
+      });
     } else {
       showModel({
-        modelPath: rotatedModel ? showingModelPath.rotatedModel : showingModelPath.staticModel,
+        modelPath: rotatedModel
+          ? showingModelPath.rotatedModel
+          : showingModelPath.staticModel,
       });
-          //show model controls
-    document.getElementsByClassName("modelControlContainer")[0].style.display =
-    "flex";
-  document.getElementsByClassName("switchModel")[0].style.display = "flex";
+      //show model controls
+      document.getElementsByClassName(
+        "modelControlContainer"
+      )[0].style.display = "flex";
+      document.getElementsByClassName("switchModel")[0].style.display = "flex";
     }
   } else {
     //unmute video ui
@@ -480,13 +486,13 @@ function openCloseNav() {
     document.getElementsByClassName("sideNavMenu")[0].style.display = "none";
     // show caller tab by default
     document.getElementById("defaultOpenTab").click();
-    sideNav = true
+    sideNav = true;
   } else {
     //hide nav bar
     document.getElementById("mySidenav").classList.add("hideElement");
     document.getElementsByClassName("container")[0].style.display = "";
     document.getElementsByClassName("sideNavMenu")[0].style.display = "";
-    sideNav = false
+    sideNav = false;
   }
   document.getElementById("render3DModel").focus();
 }
@@ -619,14 +625,16 @@ function showDeviceImage(item) {
 
   //show 3d model of first variant by default
   showModel({
-    modelPath: rotatedModel ? arr[0].variant[0].rotatedModel : arr[0].variant[0].staticModel,
+    modelPath: rotatedModel
+      ? arr[0].variant[0].rotatedModel
+      : arr[0].variant[0].staticModel,
     changeVariant: false,
   });
 
   showingModelPath.staticModel = arr[0].variant[0].staticModel;
   showingModelPath.rotatedModel = arr[0].variant[0].rotatedModel;
   //close the navbar
-  document.getElementById('navOpenerCloser').click();
+  document.getElementById("navOpenerCloser").click();
 }
 
 //device variant ui on video chat container
@@ -749,8 +757,6 @@ function showModel(item) {
 
   const engine = new BABYLON.Engine(modelCanvas, true); // Generate the BABYLON 3D engine
 
-  // Add your code here matching the playground format
-
   const createScene = () => {
     const scene = new BABYLON.Scene(engine);
     //change background color
@@ -797,13 +803,15 @@ function showModel(item) {
       setTimeout(function () {
         document.getElementById("loadingScreen").style.display = "none";
       }, 1000);
-      document.getElementById('render3DModel').style.width = "60%"
+      //reducing the canvas width only for camera feed
+      document.getElementById("render3DModel").style.width = "60%";
     } else {
+      //changing video icon ui
       if (document.getElementById("myVideo").classList.contains("active")) {
         //mute video ui
-      document.getElementById("myVideo").classList.add("inactive");
-      document.getElementById("myVideo").classList.add("crossLine");
-      document.getElementById("myVideo").classList.remove("active");
+        document.getElementById("myVideo").classList.add("inactive");
+        document.getElementById("myVideo").classList.add("crossLine");
+        document.getElementById("myVideo").classList.remove("active");
       }
       //enable animated icon and features tab
       document.getElementById("switchModel").style.display = "flex";
@@ -814,6 +822,7 @@ function showModel(item) {
         "modelControlContainer"
       )[0].style.display = "flex";
       document.getElementById("render3DModel").focus();
+
       //keyboard events for moving the model
       scene.onKeyboardObservable.add((kbInfo) => {
         document.getElementById("render3DModel").focus();
@@ -877,6 +886,7 @@ function showModel(item) {
 
       let clicked = false;
 
+      //mouse events for rottaing the model
       scene.onPointerObservable.add((pointerInfo) => {
         document.getElementById("render3DModel").focus();
         var walk = scene.getMeshByName("__root__");
@@ -1002,8 +1012,9 @@ function showModel(item) {
     //scaling added to maintain aspect ratio for avoiding blur
     document.getElementById("render3DModel").width = "2000";
     document.getElementById("render3DModel").height = "1000";
-    if(!webCamFeed){
-      document.getElementById('render3DModel').style.width = "100%"
+    // show canvas 100% width if it is not a camera feed
+    if (!webCamFeed) {
+      document.getElementById("render3DModel").style.width = "100%";
     }
     return scene;
   };
@@ -1073,10 +1084,10 @@ function showModel(item) {
         walk.dispose();
       }
       //dispose all meshes
-        while(scene.meshes.length>0){
-        console.log("clearMeshes "+scene.meshes.length);
-        scene.meshes[scene.meshes.length-1].dispose();
-        }
+      while (scene.meshes.length > 0) {
+        console.log("clearMeshes " + scene.meshes.length);
+        scene.meshes[scene.meshes.length - 1].dispose();
+      }
     });
 }
 
@@ -1147,49 +1158,50 @@ document.addEventListener("keypress", function (event) {
       break;
     case "s":
       showDeviceVariantUI(devicesBrands[1].devices[0].variant);
-      break;  case "v" :
-      document.getElementById('myVideo').click();
       break;
-      case "m" :
-      if(showingModelPath.rotatedModel !== ""){
-        document.getElementById('switchModel').click();
+    case "v":
+      document.getElementById("myVideo").click();
+      break;
+    case "m":
+      if (showingModelPath.rotatedModel !== "") {
+        document.getElementById("switchModel").click();
       }
       break;
-      case "e":
-        document.getElementById('endCall').click();
+    case "e":
+      document.getElementById("endCall").click();
       break;
-      case "n":
-        document.getElementById('myMic').click();
+    case "n":
+      document.getElementById("myMic").click();
       break;
-      case "o" :
-        document.getElementById('navOpenerCloser').click();
-        break;
-      case "c" :
-        document.getElementById('defaultOpenTab').click();
-        break;
-        case "d" :
-          document.getElementById('devicesTab').click();
-          break;
-          case "q": 
-          document.getElementById("Apple").click();    
-          break;   
-          case "w":  
-          document.getElementById("Samsung").click();     
-          break;  
-          case "r": 
-          document.getElementById("Google").click();       
-          break;
-          case "t":    
-          document.getElementById("iPhone 13 Pro").click();    
-          break;
-          case "y":  
-          document.getElementById("Galaxy Z Flip3").click();      
-          break;
-          case "h": 
-          document.getElementById("Pixel 6 Pro").click();       
-          break;
-          case "j": 
-          document.getElementById("showBrands").click();       
-          break;
+    case "o":
+      document.getElementById("navOpenerCloser").click();
+      break;
+    case "c":
+      document.getElementById("defaultOpenTab").click();
+      break;
+    case "d":
+      document.getElementById("devicesTab").click();
+      break;
+    case "q":
+      document.getElementById("Apple").click();
+      break;
+    case "w":
+      document.getElementById("Samsung").click();
+      break;
+    case "r":
+      document.getElementById("Google").click();
+      break;
+    case "t":
+      document.getElementById("iPhone 13 Pro").click();
+      break;
+    case "y":
+      document.getElementById("Galaxy Z Flip3").click();
+      break;
+    case "h":
+      document.getElementById("Pixel 6 Pro").click();
+      break;
+    case "j":
+      document.getElementById("showBrands").click();
+      break;
   }
 });

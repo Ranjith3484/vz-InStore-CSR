@@ -16,9 +16,24 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
 <body>
-  <div>
+  <!-- loading screen -->
+  <div class="loadingContainer">
+    <div>
+      <h2 class="loadingHeader">Creating secure connection</h2>
+      <p class="waitingHeader">Waiting for Customer to join</p>
+      <div class="loadingContain">
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+      </div>
+    </div>
+  </div>
+  <!-- chat container -->
+  <div class="videoChatContainer">
     <div class="top-left">
-      <i class="fa fa-microphone remoteAudioUnMutedIcon" style="display: none;"></i>
+      <i class="fa fa-microphone remoteAudioUnMutedIcon"></i>
       <i class="fa fa-microphone-slash remoteAudioMutedIcon" style="display: none;"></i>
     </div>
     <!-- side nav container -->
@@ -102,22 +117,6 @@
                 </tr>
                 <tr>
                   <th>
-                    <h5>Devices :</h5>
-                  </th>
-                  <th>
-                    <p>iPhone6, Apple Watch</p>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <h5>Last call :</h5>
-                  </th>
-                  <th>
-                    <p>14 January 2021</p>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
                     <h5>Reason :</h5>
                   </th>
                   <th>
@@ -130,20 +129,6 @@
                   </th>
                   <th>
                     <p >14 January 2021</p>
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <h5>Last Call Reason:</h5>
-                  </th>
-                  <th>
-                    <p>Internet not working.</p>
-                  </th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th>
-                    <p>Fixed by CSR James</p>
                   </th>
                 </tr>
               </tbody>

@@ -303,9 +303,8 @@ function startCallSession() {
     pc.onconnectionstatechange = function (event) {
       switch (pc.connectionState) {
         case "connected":
-          document.getElementsByClassName(
-            "remoteAudioUnMutedIcon"
-          )[0].style.display = "block";
+          document.getElementsByClassName("loadingContainer")[0].style.display = "none";
+          document.getElementsByClassName("videoChatContainer")[0].style.visibility = "visible"
           break;
         case "disconnected":
         case "failed":
@@ -521,7 +520,7 @@ function showBrands() {
 var brandList = "<div>";
 for (let i of devicesBrands) {
   brandList += `<ul onclick="showDevices('${i.brand}')" id="${i.brand}"
- style='border-bottom:${
+ style='margin-left:60px;border-bottom:${
    i.brand == localStorage.getItem("showingBrand")
      ? "2px solid red"
      : "2px solid white"
@@ -543,7 +542,7 @@ function showDevices(item) {
   var devices = arr[0].devices;
   var deviceList = '<div style="display:flex;width:100%;">';
   deviceList +=
-    '<i class="fa fa-chevron-left iconL white" id="showBrands" onclick="showBrands()" style="margin-top:30px;margin-right:10px;cursor:pointer"></i><span style="display:flex;flex-direction:column;width:100%">';
+    '<i class="fa fa-chevron-left iconL white" id="showBrands" onclick="showBrands()" style="margin-top:30px;margin-right:40px;margin-left:10px;cursor:pointer"></i><span style="display:flex;flex-direction:column;width:100%">';
   for (let i of devices) {
     deviceList += `<ul onclick="showDeviceImage('${
       i.name

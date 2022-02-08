@@ -103,6 +103,13 @@ p{
     -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
    visibility: hidden;
   }
+
+  .icon{
+     font-size: 30px !important;
+     color: white; 
+     float:right;
+     margin-top: 10px;
+  }
   
   .innerContainer{
       padding: 60px;

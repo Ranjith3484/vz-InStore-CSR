@@ -1088,6 +1088,8 @@ function showModel(item) {
         console.log("clearMeshes " + scene.meshes.length);
         scene.meshes[scene.meshes.length - 1].dispose();
       }
+      //dispose the scene
+      scene.dispose();
     });
 }
 

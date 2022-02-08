@@ -804,7 +804,7 @@ function showModel(item) {
         document.getElementById("loadingScreen").style.display = "none";
       }, 1000);
       //reducing the canvas width only for camera feed
-      document.getElementById("render3DModel").style.width = "60%";
+      document.getElementById("render3DModel").style.width = "70%";
     } else {
       //changing video icon ui
       if (document.getElementById("myVideo").classList.contains("active")) {

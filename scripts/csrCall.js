@@ -1096,7 +1096,7 @@ function showModel(item) {
 //switch between static and rotated model
 function switchModel() {
   document.getElementById("refreshModel").click();
-  if (rotatedModel) {
+  if (rotatedModel && showingModelPath.staticModel !== "") {
     //show static model
     showModel({
       modelPath: showingModelPath.staticModel,
@@ -1105,7 +1105,7 @@ function switchModel() {
     rotatedModel = false;
     document.getElementById("switchModel").style.backgroundColor = "#666";
     document.getElementById("featuresControl").style.display = "";
-  } else {
+  } else if( showingModelPath.rotatedModel !== "") {
     // show rotated model
     showModel({
       modelPath: showingModelPath.rotatedModel,
@@ -1115,6 +1115,8 @@ function switchModel() {
     document.getElementById("switchModel").style.backgroundColor =
       "rgba(51, 153, 255)";
     document.getElementById("featuresControl").style.display = "none";
+  }else{
+    console.log("No model selected")
   }
 }
 

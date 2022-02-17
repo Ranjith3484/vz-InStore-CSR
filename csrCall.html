@@ -13,50 +13,199 @@
   <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
   <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
   <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
 <body>
-  <div>
+  <!-- loading screen -->
+  <div class="loadingContainer">
+    <div>
+      <h2 class="loadingHeader">Creating secure connection</h2>
+      <p class="waitingHeader">Waiting for Customer to join</p>
+      <div class="loadingContain">
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+        <span class="loaderAnim"></span>
+      </div>
+    </div>
+  </div>
+  <!-- chat container -->
+  <div class="videoChatContainer">
+    <div class="top-left">
+      <i class="fa fa-microphone remoteAudioUnMutedIcon"></i>
+      <i class="fa fa-microphone-slash remoteAudioMutedIcon" style="display: none;"></i>
+    </div>
+    <!-- side nav container -->
+    <div>
+    <!-- side nave menu bar -->
+    <div class="sideNavMenu" onclick="openCloseNav()" id="navOpenerCloser">
+      <i class="fa fa-bars navOpenerIcon"></i>
+    </div>
+    <!-- side nav bar -->
+    <div class="sideNavContainer hideElement" id="mySidenav">
+      <i class="fa fa-arrow-left navCloserIcon" onclick="openCloseNav()"></i>
+      <!--tabs  -->
+      <div class="sideNavTabHeader">
+        <div class="textTabLinks">
+          <p class="textTab activeBold" onclick="openTab(event, 'caller')" id="defaultOpenTab">Caller
+          </p>
+        </div>
+        <div class="textTabLinks">
+          <p class="textTab" onclick="openTab(event, 'devices')" id="devicesTab">Devices</p>
+        </div>
+        <div class="textTabLinks">
+          <p class="textTab" onclick="openTab(event, 'accessories')">Accessories</p>
+        </div>
+      </div>
+      <!-- tab content -->
+      <div id="caller" class="textTabContent">
+        <div class="callerRow">
+          <div class="callerColumnOne">
+            <h4>Caller Devices</h4>
+            <div class="deviceRow">
+              <div class="deviceColumn">
+                <h6>iPhone6</h6>
+                <img src="./assets/iPhone6.png" class="deviceImage" />
+              </div>
+              <div class="deviceColumn">
+                <h6>Apple Watch</h6>
+                <img src="./assets/appleWatch.png" class="deviceImage" />
+              </div>
+            </div>
+          </div>
+          <div class="callerColumnTwo">
+            <table>
+              <tbody>
+                <tr>
+                  <th>
+                    <h5>Name :</h5>
+                  </th>
+                  <th>
+                    <p id="customerName"></p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Contact Number:</h5>
+                  </th>
+                  <th>
+                    <p id="customerContact"></p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Customer since :</h5>
+                  </th>
+                  <th>
+                    <p>December 2005</p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Cusotmer rating :</h5>
+                  </th>
+                  <th>
+                    <div class="ratingRow">
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star starColor"></span>
+                      <span class="fa fa-star-o starColor"></span>
+                      <span class="fa fa-star-o starColor"></span>
+                    </div>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Reason :</h5>
+                  </th>
+                  <th>
+                    <p id="callReason"></p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <h5>Last Call:</h5>
+                  </th>
+                  <th>
+                    <p >14 January 2021</p>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="devices" class="textTabContent">
+        <div id="brandList" class="brandList">
+        </div>
+        <div class="deviceAvailableRow">
+          <div class="smallColumn">
+            <div id="deviceList" class="deviceList">
+            </div>
+          </div>
+          <div class="largeColumn">
+            <div id="deviceShowCase" class="deviceShowCase">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accessories" class="textTabContent">
+        <h5 style="margin-left: 60px !important;">Coming Soon..</h5>
+      </div>
+    </div>
+    </div>
     <!-- video chat container -->
     <div class="container">
       <!-- self-view -->
       <div class="clientCover">
         <!-- model loader -->
         <div id="loadingScreen">
-          <img src="./assets/v-logo.png" class="loaderLogo"/>
+          <img src="./assets/v-logo.png" class="loaderLogo" />
         </div>
-        <canvas id="render3DModel" style="width: 95%;height: 100%;" ></canvas>
-      </div>  
+        <img src="assets/verizon-logo.png" class="initialCanvasLogo"/>
+        <canvas id="render3DModel" tabindex="1" height="1000" width="2000"></canvas>
+      </div>
+      <!-- model controls -->
+      <div class="modelControlContainer">
+        <!-- color controls -->
+        <div class="colorVariantControls" id='colorVaraintList'>
+        </div>
+        <!-- features control -->
+        <div class="featuresControl" id="featuresControl">
+          <div class="featuresText" id="FrontCamera" onclick="showDeviceFeature('FrontCamera')">Front Camera</div>
+          <div class="featuresText" id="BackCamera" onclick="showDeviceFeature('BackCamera')">Back Camera</div>
+          <div class="featuresText" id="SimInsert" onclick="showDeviceFeature('SimInsert')">Sim Insert</div>
+          <div class="featuresText" id="ChargingPort" onclick="showDeviceFeature('ChargingPort')">Charging Port</div>
+        </div>
+        <!-- purposely hide to manually triggger an event to dispose the model -->
+        <button id="refreshModel" style="display: none;">Refresh Model</button>
+      </div>
       <div class="customerContainer">
         <!-- remote view -->
         <div class="hideInMobile">
-          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg" style="visibility: hidden;"></video>
+          <video autoplay="true" id="customerVideoElement" poster="./assets/unknown-person.jpeg"
+            style="visibility: hidden;"></video>
         </div>
-        <div class="clientControls" >
+        <div class="clientControls">
           <div class="iconCircle active" id="myMic" onclick="audioChange()">
             <i class="fa fa-microphone iconLarge"></i>
           </div>
-          <div class="iconCircle active" id="goBackward">
-            <i class="fa fa-arrow-left iconLarge"></i>
-          </div>
-          <div class="iconCircle active" id="switchModel" onclick="switchModel()">
-            <i class="fa fa-asterisk iconLarge"></i>
-          </div>
-          <div class="iconCircle active" id="goForward">
-            <i class="fa fa-arrow-right iconLarge"></i>
+          <div class="iconCircle inactive crossLine" id="myVideo" onclick="videoChange()">
+            <i class="fa fa-video-camera iconVideoLarge"></i>
           </div>
           <div class="iconCircle inactive" id="endCall" onclick="endCall()">
             <i class="fa fa-phone iconLarge"></i>
           </div>
         </div>
-        <!-- color controls -->
-        <div class="colorVariantControls" id='colorVaraintList'>
+        <!-- switch models -->
+        <div class="switchModel" id="switchModel" onclick="switchModel()">
+          <i class="fa fa-repeat iconVideoLarge"></i>
         </div>
-         <!-- purposely hide to manually triggger an event to dispose the model -->
-         <button id="refreshModel" style="display: none;">Refresh Model</button>
-      </div> 
+      </div>
     </div>
   </div>
   <script src="./scripts/csrCall.js"></script>
 </body>
 
-</html> 
+</html>

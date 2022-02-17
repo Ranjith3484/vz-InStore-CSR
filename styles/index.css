@@ -16,96 +16,274 @@ body {
   height: 100%;
   padding: 0%;
   margin: 0%;
-  background-color: white;
+  background-color: black;
   font-family: verizonFont;
 }
 
 h1{
-    margin:10px !important;
-    font-size: 42px !important;
-    color: black;
-    font-weight: bold;
-    font-family: verizonBoldFont;
+    margin:2px !important;
+    font-size: 32px !important;
+    text-align: justify;
+    color: white;
+}
+
+h2{
+    margin:2px !important;
+    font-size: 28px !important;
+    text-align: justify;
+    color: white;
+}
+
+h3{
+    margin:2px !important;
+    font-size: 24px !important;
+    text-align: justify;
+    color: white;
 }
 
 h4{
-    margin:10px !important;
+    margin:2px !important;
     font-size: 22px !important;
-    font-weight: 700;
-    color: black;
+    font-weight: 500;
+    text-align: justify;
+    color: white;
+}
+
+h5{
+    margin: 2px !important;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: justify;
+    color: white;
+}
+
+h6{
+    margin:2px !important;
+    font-size: 15px !important;
+    color: grey;
+    text-align: justify;
+}
+
+p{
+    margin: 2px !important;
+    color: white;
+    text-align: justify;
+}
+
+
+.nameText{
+    font-weight: bolder;
     font-family: verizonBoldFont;
-}
-
-
-.callContainer{
-    width: 80% !important;
-    height: 80vh !important;
-    border: 2px solid black;
-    border-radius: 8px;
-    margin-left: 10%;
-    margin-top: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.callContent{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.shakeIcon{
-    font-size: 200px !important;
-    color: black;
-    animation: shake 0.8s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  
+  .alertText, .reasonText{
+      font-weight: bolder;
+      font-family: verizonBoldFont;
+      font-size: 20px !important;
+  }
+  
+  .incomingCallContainer{
+      width: 50%;
+      height: fit-content;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+      display: none;
   }
 
-.acceptCall{
-    width: 200px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: green;
-    border-radius: 20px;
-    height: 40px;
-    margin-right: 30px;
-    cursor: pointer;
-}
+  #missedCallContainer{
+    width: 50%;
+    height: fit-content;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+   visibility: hidden;
+  }
 
-.declineCall{
-    width: 200px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: red;
-    border-radius: 20px;
-    height: 40px;
-    cursor: pointer;
-}
-
-@media only screen and (max-width: 850px) {
-    .shakeIcon{
-        font-size: 100px !important;
+  .icon{
+     font-size: 30px !important;
+     color: white; 
+     float:right;
+     margin-top: 10px;
+  }
+  
+  .innerContainer{
+      padding: 60px;
+  }
+  
+  .textRow{
+      display: flex;
+      align-items: center;
+      align-content: center;
+  }
+  
+  .addSpace{
+      height: 20px !important;
+  }
+  
+  .addLargeSpace{
+      height: 50px !important;
+  }
+  
+  .outlinedGreenLargeButton{
+      background-color: white;
+      color:green;
+      border: 2px solid green;
+      width:80% !important;
+      border-radius: 7px;
+      font-size: 20px;
+      font-weight: bold;
+      height: 50px;
+      margin: 0px;
+      display: inline-block;
+       align-items: center;
+       align-content: center;
+       padding-top: 10px;
+       cursor: pointer;
+       transition: transform 0.2s;
+      font-family: verizonBoldFont;
+  }
+  
+  .outlinedGreenLargeButton:hover{
+      transform: scale(1.02);
+      background-color: white;
+      color:green;
+      border: 2px solid green;
+      width:80% !important;
+      border-radius: 7px;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: verizonBoldFont;
+      height: 50px;
+      margin: 0px;
+      display: inline-block;
+       align-items: center;
+       align-content: center;
+       padding-top: 10px;
+       cursor: pointer;
+  }
+  
+  .alignRight{
+      float: right;
+      margin: 0px;
+      padding: 0px;
+      margin-right: 20px;
+      margin-top: -6px;
+  }
+  
+  .hideItem{
+     visibility: hidden;
+  }
+  
+  .outlinedRedLargeButton{
+      background-color: white;
+      color:red;
+      border: 2px solid red;
+      width:80% !important;
+      border-radius: 7px;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: verizonBoldFont;
+      height: 50px;
+      margin: 0px;
+      padding-right: 75px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: transform .2s;
+  }
+  
+  .outlinedRedLargeButton:hover{
+      transform: scale(1.02);
+      background-color: white;
+      color:red;
+      border: 2px solid red;
+      width:80% !important;
+      border-radius: 7px;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: verizonBoldFont;
+      height: 50px;
+      margin: 0px;
+      padding-right: 75px;
+      cursor: pointer;
+      margin-top: 15px;
+  }
+  
+  /* button timer progress bar */
+  :root{
+      --perc: 100;
+      /* stroke width */
+      --sw: 4;
+      /* timer  */
+      --atime: 54s; 
+      --pi2: 6.28318;
+      --r: 30;
+      --perim: calc(var(--pi2) * var(--r));
+      --pend: calc(var(--r) * var(--pi2) * var(--perc) / 100);
+      --prest: calc(var(--r) * var(--pi2) * (100 - var(--perc)) / 100);
+    }
+    #progress{
+      stroke: green;
+      stroke-width: var(--sw);
+    }
+    #pbar{
+      stroke-width: var(--sw);
+      fill: none;
     }
     
-}
+    .showAnim{
+      stroke: #aaa;
+      stroke-dasharray: var(--pend) var(--prest);
+      animation: progress var(--atime) ease-out forwards;
+    }
+    
+    @keyframes progress {
+      0% {
+        stroke-dasharray: 0 1000;
+      }
+    }
+  
 
+    @media only screen and (max-width: 1000px) {
+        .incomingCallContainer{
+            width: 100%;
+            background-color: black;
+             overflow: auto;
+            -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0);
+            border:0px;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+        }
 
+        #missedCallContainer{
+            width: 100%;
+            background-color: black;
+             overflow: auto;
+            -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0);
+            border:0px;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            visibility: hidden;
+        }
+
+        .missedCall{
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            display: flex;
+        }
+
+        .innerContainer{
+            padding: 10px 40px;
+        }
+        .addSpace{
+            height: 10px !important;
+        }
+        
+    }
